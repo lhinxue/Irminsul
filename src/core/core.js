@@ -15,9 +15,7 @@ export default core = {
         }
 
         // PROLIFERATE - Create A Second Level Key
-        const PROLIFERATE = (strKey) => {
-            const strCatalyst = 'GreaterLordRukkhadevata'
-            const arrCatalyst = [11, 45, 14]
+        const PROLIFERATE = (strKey, strCatalyst = 'GreaterLordRukkhadevata', arrCatalyst = [11, 45, 14]) => {
             const strKeyReverse = strKey.split('').reverse().join('')
             return strKey.split('').map((v, i) => {
                 if (i % 2 === 0) return strKey.substring(Math.ceil(i / 2), i) + String.fromCharCode((v.charCodeAt(0) + arrCatalyst[i % 3] - 33) % 96 + 33) + strCatalyst[i % 23]
@@ -65,7 +63,7 @@ export default core = {
                 onSucceed(resp)
                 return resp
 
-            // Encrypt Data
+                // Encrypt Data
             } else {
                 var arrData = BINARY16(JSON.stringify(objData))
                 var strTemp = BINARY16(arrData.map((char, i) => XOR(char, arrKeyPro[i % intKeyProLength])))
@@ -75,8 +73,8 @@ export default core = {
                 onSucceed(resp)
                 return resp
             }
-        
-        // Process Fail
+
+            // Process Fail
         } catch (error) {
             const resp = RESPONSE(500, error)
             onFail(resp)
