@@ -80,5 +80,17 @@ export default core = {
             onFail(resp)
             return resp
         }
+    },
+    upload: (objFile, onLoad = e => console.log(e)) => {
+        var objReader = new FileReader()
+        objReader.onload = (event) => {
+            var strContent = event.target.result
+            onLoad(strContent)
+        }
+        objReader.readAsText(objFile)
+    },
+    download: (strContent, strFileName, strFileSuffix = 'irminsul') => {
+        var objFile = new File([strContent], strFileName + '.' + strFileSuffix, { type: "text/plain;charset=utf-8" })
+        FileSaver.saveAs(objFile)
     }
 }

@@ -56,7 +56,9 @@ export default function LeyLines({ children }) {
     }
 
     // User Configuration
-    const [config, setConfig] = useState({})
+    const [config, setConfig] = useState({
+        title: ''
+    })
     const updateConfig = (strKey, objValue) => {
         setConfig(pre => ({
             ...pre,
@@ -75,6 +77,9 @@ export default function LeyLines({ children }) {
             Config: config
         }
     }
+
+    // 
+    
 
     return (
         <Irminsul.Provider value={{
