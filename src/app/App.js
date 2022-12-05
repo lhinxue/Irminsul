@@ -6,6 +6,7 @@ import Tools from '../ui/component/Tools';
 import Trunks from '../ui/component/Trunks';
 import Page from '../ui/page/Page';
 import Test from '../ui/test/Test';
+import { P } from '../ui/ui';
 import './App.css'
 
 export default function App() {
@@ -16,9 +17,9 @@ export default function App() {
         <LeyLines>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/e" element={<Page.Entry />} />
-                    <Route path="/h" />
-                    <Route path="*" element={<Page.Redirect />} />
+                    <Route path="/e" element={<P.Entry />} />
+                    <Route path="/h" element={<P.Home />} />
+                    <Route path="*" element={<P.Redirect />} />
                 </Routes>
 
             </BrowserRouter>

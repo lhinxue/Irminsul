@@ -79,7 +79,17 @@ export default function LeyLines({ children }) {
     }
 
     // 
-    
+    // User Configuration
+    const [api, setApi] = useState({
+        file: undefined,
+        key: ''
+    })
+    const updateApi = (strKey, objValue) => {
+        setConfig(pre => ({
+            ...pre,
+            [strKey]: objValue
+        }))
+    }
 
     return (
         <Irminsul.Provider value={{
@@ -106,6 +116,12 @@ export default function LeyLines({ children }) {
                 },
                 import: import_data,
                 export: export_data
+            },
+            api: {
+                _: api,
+                set: setApi,
+                file: api.file,
+                key: api.key
             }
         }}>
             {children}

@@ -2,7 +2,7 @@ import { FileUploadOutlined, SourceOutlined, VisibilityOffOutlined, VisibilityOu
 import { CircularProgress, FormControl, IconButton, Input, InputAdornment, InputLabel, Paper } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import './p.css'
+
 
 const Page = {
 

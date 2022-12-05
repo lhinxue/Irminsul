@@ -27,6 +27,10 @@
 
 .page-entry-window input {
     padding-left: 10px;
+    font-family: monospace;
+    font-size: 13px;
+    padding-bottom: 2px;
+    color: gray;
 }
 
 .page-entry-window>div>div>div:first-child button {
@@ -44,7 +48,8 @@
 
 .page-entry-window>div>div>div {
     /* margin-top: 100px; */
-    margin: 0 30px;
+    margin-left: 30px;
+    margin-right: 30px;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -52,6 +57,10 @@
 
 .page-entry-window>div>div>div>div {
     flex-grow: 1;
+}
+
+.page-entry-window>div>div>div:nth-child(2)>div {
+    border-bottom: 1px solid;
 }
 
 
@@ -67,3 +76,17 @@
     opacity: 0;
 }
 
+.page-entry-window-help {
+    align-self: flex-end;
+    font-size: 12px;
+    opacity: .8;
+    margin-top: -33px;
+    text-decoration: underline;
+    text-decoration-color: white;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+
+.page-entry-window-help:hover {
+    text-decoration-color: gray;
+}

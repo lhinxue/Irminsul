@@ -1,0 +1,101 @@
+#page-home-header-title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: inherit;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    font-family: monospace;
+    letter-spacing: .2rem;
+    text-decoration: none;
+}
+
+.AppHeader {
+    z-index: 12;
+    height: 60px;
+}
+
+.AppHeader>div {
+    height: 60px;
+    min-height: 60px;
+}
+
+.AppSearch {
+    position: absolute;
+    z-index: 11;
+    height: calc(100% - 60px);
+    top: 60px;
+    background-color: white;
+    overflow: hidden;
+    transition: all .3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+}
+
+.AppSearch.hidden {
+    opacity: 0;
+}
+
+.AppSearch-SearchBox input {
+    padding: 5px 5px 2px;
+}
+
+.AppSearch-SearchResult {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+.AppSearch-SearchResult-Toolbar {
+    width: 40px;
+    border-right: 1px solid silver;
+}
+
+.AppSearch-SearchBox-Input {
+    height: 40px;
+}
+
+.AppSearch-SearchBox-Close,
+.AppSearch-SearchBox-Search,
+.AppSearch-Toolbar-ButtonGroup-Button {
+    width: 40px;
+    height: 40px;
+}
+
+
+.AppSearch-Toolbar-ButtonGroup {
+    width: 40px;
+}
+
+/* .AppSearch-Toolbar {
+    width: 40px;
+    border-right: 1px solid silver;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.AppSearch-Toolbar-Button-Back {
+    width: 40px;
+    height: 40px;
+    border-bottom: 1px solid silver;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.AppSearch-Toolbar-ButtonGroup button {
+    margin: 2px 0;
+}
+
+.AppSearch-SearchBox-Input {
+    height: 40px;
+}
+
+.AppSearch>div:last-child {
+    flex-grow: 1;
+} */
