@@ -57,6 +57,8 @@
 
 .AppSearch-SearchBox-Input {
     height: 40px;
+    border-right: 1px solid silver;
+    border-left: 1px solid silver;
 }
 
 .AppSearch-SearchBox-Close,
@@ -99,3 +101,7 @@
 .AppSearch>div:last-child {
     flex-grow: 1;
 } */
+
+.AppIndex{
+    border-right: 1px solid silver;
+}

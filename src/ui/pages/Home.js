@@ -1,14 +1,28 @@
-import { AccountCircleOutlined, CalendarMonthOutlined, CalendarMonthRounded, ClearOutlined, CreateNewFolderOutlined, ExitToAppOutlined, FilterAltOutlined, FilterOutlined, KeyboardBackspaceOutlined, LocalOfferOutlined, SearchOutlined, SettingsOutlined } from "@mui/icons-material";
-import { AppBar, Button, ButtonGroup, Collapse, FormControl, IconButton, Input, InputAdornment, OutlinedInput, SpeedDial, SpeedDialAction, SpeedDialIcon, Toolbar, Typography } from "@mui/material";
+import { AccountCircleOutlined, CalendarMonthOutlined, CalendarMonthRounded, ClearOutlined, CreateNewFolderOutlined, ExitToAppOutlined, FilterAltOutlined, FilterOutlined, KeyboardBackspaceOutlined, LocalOfferOutlined, SearchOutlined, SettingsOutlined, TextSnippetOutlined } from "@mui/icons-material";
+import { AppBar, Button, ButtonGroup, Collapse, FormControl, IconButton, Input, InputAdornment, OutlinedInput, SpeedDial, SpeedDialAction, SpeedDialIcon, Tab, Tabs, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
 import Header from "../component/Header";
 import Tools from "../component/Tools";
 import Trunks from "../component/Trunks";
+import { C } from "../ui";
 import './Home.css'
 
 export default function Home() {
 
     const [staSearch, setStaSearch] = useState(false)
+
+    const [value, setValue] = useState()
+
+    const handleChange = (event, newValue) => {
+        console.log(newValue)
+        setValue(newValue);
+    };
+
+    const [value1, setValue1] = useState()
+
+    const handleChange1 = (event, newValue) => {
+        setValue1(newValue);
+    };
 
     const onTriggerSearch = () => {
         if (staSearch) {
@@ -19,7 +33,49 @@ export default function Home() {
         setStaSearch(p => !p)
     }
 
-
+    const irminsul = {
+        _: {
+            '1101332': {
+                name: 'company',
+                _: {
+                    'oopwoas': {
+                        name: 'mihoyo',
+                        _: {}
+                    },
+                    'stddf': {
+                        name: 'stayinfront',
+                        _: {}
+                    },
+                    'speye': {
+                        name: 'sharpeye',
+                        _: {}
+                    }
+                }
+            },
+            '1101333': {
+                name: 'family',
+                _: {
+                    'oopwoas': {
+                        name: 'mother',
+                        _: {}
+                    }
+                }
+            },
+            '1101323': {
+                name: 'peronsal',
+                _: {
+                    'oopwoas': {
+                        name: 'study',
+                        _: {}
+                    },
+                    'stddf': {
+                        name: 'love',
+                        _: {}
+                    },
+                }
+            }
+        }
+    }
 
 
 
@@ -49,22 +105,31 @@ export default function Home() {
             <div className={`AppSearch ${staSearch ? '' : 'hidden'}`} style={{ width: 550, transform: staSearch ? 'translateX(0)' : 'translateX(-550px)' }}>
                 <FormControl className="AppSearch-SearchBox" variant="standard" sx={{ display: 'flex', flexDirection: 'row', borderBottom: '1px solid silver' }} >
 
-                    <IconButton className="AppSearch-SearchBox-Close">
+                    <Button className="AppSearch-SearchBox-Close" color="primary" sx={{
+                        borderRadius: '0',
+                        width: 40, minWidth: 40, height: 40, minHeight: 40,
+                    }} onClick={onTriggerSearch}>
                         <KeyboardBackspaceOutlined fontSize="small" />
-                    </IconButton>
+                    </Button>
                     <Input
                         disableUnderline
                         className="AppSearch-SearchBox-Input"
                         sx={{ flexGrow: 1 }}
                         endAdornment={
                             <InputAdornment position="end">
-                                <ClearOutlined fontSize="small" />
+                                <IconButton>
+                                    <ClearOutlined fontSize="small" />
+                                </IconButton>
+
                             </InputAdornment>
                         }
                     />
-                    <IconButton className="AppSearch-SearchBox-Search">
+                    <Button className="AppSearch-SearchBox-Search" color="primary" sx={{
+                        borderRadius: '0',
+                        width: 40, minWidth: 40, height: 40, minHeight: 40,
+                    }}>
                         <SearchOutlined fontSize="small" />
-                    </IconButton>
+                    </Button>
                 </FormControl>
                 <div className="AppSearch-SearchResult">
                     <div className="AppSearch-SearchResult-Toolbar">
@@ -76,7 +141,7 @@ export default function Home() {
                                 <CalendarMonthOutlined fontSize="small" />
                             </IconButton>
                             <IconButton className="AppSearch-Toolbar-ButtonGroup-Button">
-                                <LocalOfferOutlined fontSize="small" />
+                                <LocalOfferOutlined fontSize="small" color="" />
                             </IconButton>
                         </ButtonGroup>
                     </div>
@@ -87,25 +152,57 @@ export default function Home() {
             </div>
 
             <div id="content">
-                <Tools />
-                <Trunks />
-                <SpeedDial
-                    ariaLabel="SpeedDial basic example"
-                    sx={{ position: 'absolute', bottom: 16, right: 16 }}
-                    icon={<SpeedDialIcon />}
-                >
-                    <SpeedDialAction
-                        key={'Create'}
-                        icon={<CreateNewFolderOutlined />}
-                        tooltipTitle={'create'}
-                    />
-                    <SpeedDialAction
-                        key={'Create'}
-                        icon={<CreateNewFolderOutlined />}
-                        tooltipTitle={'create'}
-                    />
-                </SpeedDial>
+                <C.AppIndex
+                    className='AppIndexRoot'
+                    width={200}
+                    height={40}
+                    icon
+                    source={Object.keys(irminsul._)}
+                    id={value}
+                    onChange={handleChange}
+                    onSort={(a, b) => {
+                        a = irminsul._[a].name
+                        b = irminsul._[b].name
+                        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
+                    }}
+                    onGetName={(id) => irminsul._[id].name}
+                />
+                <C.AppIndex
+                    className='AppIndexLeaf'
+                    width={300}
+                    height={40}
+                    source={Object.keys(irminsul._[value]._)}
+                    id={value1}
+                    onChange={handleChange1}
+                    onSort={(a, b) => {
+                        a = irminsul._[value]._[a].name
+                        b = irminsul._[value]._[b].name
+                        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
+                    }}
+                    onGetName={(id) => irminsul._[value]._[id].name}
+                />
+
+
+
+
+
             </div>
+            <SpeedDial
+                ariaLabel="SpeedDial basic example"
+                sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                icon={<SpeedDialIcon />}
+            >
+                <SpeedDialAction
+                    key={'Create'}
+                    icon={<CreateNewFolderOutlined />}
+                    tooltipTitle={'create'}
+                />
+                <SpeedDialAction
+                    key={'Create1'}
+                    icon={<CreateNewFolderOutlined />}
+                    tooltipTitle={'create'}
+                />
+            </SpeedDial>
         </>
 
     )

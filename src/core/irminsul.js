@@ -82,7 +82,9 @@ export default function LeyLines({ children }) {
     // User Configuration
     const [api, setApi] = useState({
         file: undefined,
-        key: ''
+        key: '',
+        root: undefined,
+        leaf: undefined
     })
     const updateApi = (strKey, objValue) => {
         setConfig(pre => ({
@@ -121,7 +123,10 @@ export default function LeyLines({ children }) {
                 _: api,
                 set: setApi,
                 file: api.file,
-                key: api.key
+                key: api.key,
+                root: api.root,
+                leaf: api.leaf
+
             }
         }}>
             {children}
