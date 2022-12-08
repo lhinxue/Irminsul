@@ -1,21 +1,23 @@
-import { TextSnippetOutlined } from '@mui/icons-material'
-import { Tab, Tabs } from '@mui/material'
-
-export default function AppIndex({ className, width = 200, height = 40, source, id, icon = false, onChange, onSort, onGetName }) {
+import { SearchOutlined, TextSnippetOutlined } from '@mui/icons-material'
+import { IconButton, Paper, Tab, Tabs } from '@mui/material'
+import './AppIndex.css'
+export default function AppIndex({ className, title, width = 200, height = 40, source, id, icon = false, onChange, onSort, onGetName }) {
     return (
         <div
             className={`AppIndex ${className ? className : ''}`}
-            style={{ width: width }}
+            style={{ width: width, display: 'flex', flexDirection: 'column' }}
         >
+
             <Tabs
                 value={id}
                 onChange={onChange}
                 aria-label={className ? className : 'AppIndex'}
                 orientation='vertical'
                 variant='scrollable'
+                sx={{ flexGrow: 1 }}
             >
                 {
-                    source.sort(onSort).map(v =>
+                    source ? source.sort(onSort).map(v =>
                         <Tab
                             icon={icon ? <TextSnippetOutlined /> : undefined}
                             iconPosition='start'
@@ -33,8 +35,16 @@ export default function AppIndex({ className, width = 200, height = 40, source, 
                                 borderBottom: '1px solid silver'
                             }}
                         />)
+                        : ''
                 }
             </Tabs>
+            <div className='AppIndex-Header'>
+                <div className='AppIndex-Header-Title'>
+                    {title}
+                </div>
+
+
+            </div>
         </div>
     )
 

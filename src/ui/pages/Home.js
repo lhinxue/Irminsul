@@ -1,9 +1,13 @@
 import { AccountCircleOutlined, CalendarMonthOutlined, CalendarMonthRounded, ClearOutlined, CreateNewFolderOutlined, ExitToAppOutlined, FilterAltOutlined, FilterOutlined, KeyboardBackspaceOutlined, LocalOfferOutlined, SearchOutlined, SettingsOutlined, TextSnippetOutlined } from "@mui/icons-material";
 import { AppBar, Button, ButtonGroup, Collapse, FormControl, IconButton, Input, InputAdornment, OutlinedInput, SpeedDial, SpeedDialAction, SpeedDialIcon, Tab, Tabs, Toolbar, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { useContext } from "react";
 import { useState } from "react";
+import { Irminsul } from "../../core/irminsul";
 import Header from "../component/Header";
 import Tools from "../component/Tools";
 import Trunks from "../component/Trunks";
+import AppInd from "../components/AppInd";
 import { C } from "../ui";
 import './Home.css'
 
@@ -12,6 +16,17 @@ export default function Home() {
     const [staSearch, setStaSearch] = useState(false)
 
     const [value, setValue] = useState()
+
+    const { api } = useContext(Irminsul)
+
+
+    const onSelectRoot = (e, v) => {
+        api.update('root', v)
+        api.update('leaf', undefined)
+    }
+    const onSelectLeaf = (e, v) => {
+        api.update('leaf', v)
+    }
 
     const handleChange = (event, newValue) => {
         console.log(newValue)
@@ -36,7 +51,7 @@ export default function Home() {
     const irminsul = {
         _: {
             '1101332': {
-                name: 'company',
+                name: 'Company',
                 _: {
                     'oopwoas': {
                         name: 'mihoyo',
@@ -77,6 +92,28 @@ export default function Home() {
         }
     }
 
+    const onSortRoot = (a, b) => {
+        a = irminsul._[a].name
+        b = irminsul._[b].name
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
+    }
+    const onSortLeaf = (a, b) => {
+        a = irminsul._[api.root]._[a].name
+        b = irminsul._[api.root]._[b].name
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
+    }
+
+    const onSetFirstRoot = () => {
+        var strFirst = Object.keys(irminsul._).sort(onSortRoot).at(0)
+        api.update('root', strFirst)
+        return strFirst
+    }
+
+    useEffect(() => {
+        onSetFirstRoot()
+        // Object.keys(irminsul._).
+    }, [])
+
 
 
 
@@ -102,7 +139,7 @@ export default function Home() {
                     </IconButton>
                 </Toolbar>
             </AppBar>
-            <div className={`AppSearch ${staSearch ? '' : 'hidden'}`} style={{ width: 550, transform: staSearch ? 'translateX(0)' : 'translateX(-550px)' }}>
+            <div className={`AppSearch ${staSearch ? '' : 'hidden'}`} style={{ width: 500, transform: staSearch ? 'translateX(0)' : 'translateX(-550px)' }}>
                 <FormControl className="AppSearch-SearchBox" variant="standard" sx={{ display: 'flex', flexDirection: 'row', borderBottom: '1px solid silver' }} >
 
                     <Button className="AppSearch-SearchBox-Close" color="primary" sx={{
@@ -148,45 +185,56 @@ export default function Home() {
                     <div className="AppSearch-SearchResult-Content">
                     </div>
                 </div>
-
+                <div className="AppSearch-SearchTitle">
+                    Search
+                </div>
             </div>
 
             <div id="content">
                 <C.AppIndex
                     className='AppIndexRoot'
+                    title='Branches'
                     width={200}
                     height={40}
                     icon
                     source={Object.keys(irminsul._)}
-                    id={value}
-                    onChange={handleChange}
-                    onSort={(a, b) => {
-                        a = irminsul._[a].name
-                        b = irminsul._[b].name
-                        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
-                    }}
+                    id={api.root}
+                    onChange={onSelectRoot}
+                    onSort={onSortRoot}
                     onGetName={(id) => irminsul._[id].name}
                 />
-                <C.AppIndex
-                    className='AppIndexLeaf'
-                    width={300}
-                    height={40}
-                    source={Object.keys(irminsul._[value]._)}
-                    id={value1}
-                    onChange={handleChange1}
-                    onSort={(a, b) => {
-                        a = irminsul._[value]._[a].name
-                        b = irminsul._[value]._[b].name
-                        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
-                    }}
-                    onGetName={(id) => irminsul._[value]._[id].name}
-                />
+                {
+                    api.root ?
+                        <C.AppIndex
+                            className='AppIndexLeaf'
+                            title='Leaves'
+                            width={300}
+                            height={40}
+                            source={Object.keys(irminsul._[api.root]._)}
+                            id={api.leaf}
+                            onChange={onSelectLeaf}
+                            onSort={onSortLeaf}
+                            onGetName={(id) => irminsul._[api.root]._[id].name}
+                        />
+                        :
+                        <C.AppIndex
+                            className='AppIndexLeaf'
+                            title='Leaves'
+                            width={300}
+                            height={40}
+                        />
+                }
+
 
 
 
 
 
             </div>
+
+
+
+
             <SpeedDial
                 ariaLabel="SpeedDial basic example"
                 sx={{ position: 'absolute', bottom: 16, right: 16 }}

@@ -73,6 +73,16 @@
     width: 40px;
 }
 
+.AppSearch-SearchTitle {
+    letter-spacing: .1rem;
+    font-variant: small-caps;
+    padding: 0 0 0 15px;
+    border-top: 1px solid silver;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
 /* .AppSearch-Toolbar {
     width: 40px;
     border-right: 1px solid silver;
@@ -102,6 +112,7 @@
     flex-grow: 1;
 } */
 
-.AppIndex{
+.AppIndex {
     border-right: 1px solid silver;
+    height: 100%;
 }

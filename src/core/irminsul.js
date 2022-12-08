@@ -87,7 +87,8 @@ export default function LeyLines({ children }) {
         leaf: undefined
     })
     const updateApi = (strKey, objValue) => {
-        setConfig(pre => ({
+        console.log(objValue)
+        setApi(pre => ({
             ...pre,
             [strKey]: objValue
         }))
@@ -121,7 +122,7 @@ export default function LeyLines({ children }) {
             },
             api: {
                 _: api,
-                set: setApi,
+                update: updateApi,
                 file: api.file,
                 key: api.key,
                 root: api.root,
