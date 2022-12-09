@@ -42,8 +42,6 @@ export default function AppIndex({ className, title, width = 200, height = 40, s
                 <div className='AppIndex-Header-Title'>
                     {title}
                 </div>
-
-
             </div>
         </div>
     )

@@ -5,7 +5,27 @@ export const Irminsul = createContext()
 export default function LeyLines({ children }) {
 
     // IRMINSUL
-    const [irminsul, setIrminsul] = useState({}) // {id:{}}
+    const [irminsul, setIrminsul] = useState({
+        'a9754b2a-3918-4a5a-bd2d-a79ded6fcf0d': {
+            name: 'Example',
+            _: {
+                '16664bf0-bf02-4c4a-902c-4ab44485b601': {
+                    name: 'Email Addresses',
+                    type: 'tb',
+                    _: {}
+                },
+                '48f24b55-5542-4005-894f-5935842d408c': {
+                    name: 'Resume',
+                    type: 'md',
+                    _: {}
+                }
+            }
+        },
+        '6b185e41-d724-4844-a35b-e7e53d82339b': {
+            name: 'Empty',
+            _: {}
+        }
+    })
     const createTrunk = (strTrunkId) => {
         setIrminsul(pre => ({
             ...pre,

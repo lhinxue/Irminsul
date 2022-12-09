@@ -1,15 +1,21 @@
+import AppHeader from "./components/AppHeader"
 import AppIndex from "./components/AppIndex"
+import AppSearch from "./components/AppSearch"
+import Footer from "./components/Footer"
 import Entry from "./pages/Entry"
 import Home from "./pages/Home"
 import Redirect from "./pages/Redirect"
 
-const P = {
+const p = {
     Entry: Entry,
     Home: Home,
     Redirect: Redirect
 }
-const C = {
-    AppIndex: AppIndex
+const c = {
+    AppHeader: AppHeader,
+    AppSearch: AppSearch,
+    AppIndex: AppIndex,
+    Footer: Footer
 }
 
-export { P, C }
+export { p, c }

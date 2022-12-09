@@ -1,23 +1,18 @@
-import { AccountCircleOutlined, CalendarMonthOutlined, CalendarMonthRounded, ClearOutlined, CreateNewFolderOutlined, ExitToAppOutlined, FilterAltOutlined, FilterOutlined, KeyboardBackspaceOutlined, LocalOfferOutlined, SearchOutlined, SettingsOutlined, TextSnippetOutlined } from "@mui/icons-material";
-import { AppBar, Button, ButtonGroup, Collapse, FormControl, IconButton, Input, InputAdornment, OutlinedInput, SpeedDial, SpeedDialAction, SpeedDialIcon, Tab, Tabs, Toolbar, Typography } from "@mui/material";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { useState } from "react";
+import { AccountCircleOutlined, CreateNewFolderOutlined, SearchOutlined, SettingsOutlined } from "@mui/icons-material";
+import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
 import { Irminsul } from "../../core/irminsul";
-import Header from "../component/Header";
-import Tools from "../component/Tools";
-import Trunks from "../component/Trunks";
-import AppInd from "../components/AppInd";
-import { C } from "../ui";
-import './Home.css'
+import { c } from "../ui";
 
 export default function Home() {
+
+    const { api, irminsul } = useContext(Irminsul)
 
     const [staSearch, setStaSearch] = useState(false)
 
     const [value, setValue] = useState()
 
-    const { api } = useContext(Irminsul)
+
 
 
     const onSelectRoot = (e, v) => {
@@ -48,49 +43,49 @@ export default function Home() {
         setStaSearch(p => !p)
     }
 
-    const irminsul = {
-        _: {
-            '1101332': {
-                name: 'Company',
-                _: {
-                    'oopwoas': {
-                        name: 'mihoyo',
-                        _: {}
-                    },
-                    'stddf': {
-                        name: 'stayinfront',
-                        _: {}
-                    },
-                    'speye': {
-                        name: 'sharpeye',
-                        _: {}
-                    }
-                }
-            },
-            '1101333': {
-                name: 'family',
-                _: {
-                    'oopwoas': {
-                        name: 'mother',
-                        _: {}
-                    }
-                }
-            },
-            '1101323': {
-                name: 'peronsal',
-                _: {
-                    'oopwoas': {
-                        name: 'study',
-                        _: {}
-                    },
-                    'stddf': {
-                        name: 'love',
-                        _: {}
-                    },
-                }
-            }
-        }
-    }
+    // const irminsul = {
+    //     _: {
+    //         '1101332': {
+    //             name: 'Company',
+    //             _: {
+    //                 'oopwoas': {
+    //                     name: 'mihoyo',
+    //                     _: {}
+    //                 },
+    //                 'stddf': {
+    //                     name: 'stayinfront',
+    //                     _: {}
+    //                 },
+    //                 'speye': {
+    //                     name: 'sharpeye',
+    //                     _: {}
+    //                 }
+    //             }
+    //         },
+    //         '1101333': {
+    //             name: 'family',
+    //             _: {
+    //                 'oopwoas': {
+    //                     name: 'mother',
+    //                     _: {}
+    //                 }
+    //             }
+    //         },
+    //         '1101323': {
+    //             name: 'peronsal',
+    //             _: {
+    //                 'oopwoas': {
+    //                     name: 'study',
+    //                     _: {}
+    //                 },
+    //                 'stddf': {
+    //                     name: 'love',
+    //                     _: {}
+    //                 },
+    //             }
+    //         }
+    //     }
+    // }
 
     const onSortRoot = (a, b) => {
         a = irminsul._[a].name
@@ -102,6 +97,10 @@ export default function Home() {
         b = irminsul._[api.root]._[b].name
         return ((a < b) ? -1 : ((a > b) ? 1 : 0))
     }
+
+    const onGetRootName = id => irminsul._[id].name
+
+    const onGetLeafName = id => irminsul._[api.root]._[id].name
 
     const onSetFirstRoot = () => {
         var strFirst = Object.keys(irminsul._).sort(onSortRoot).at(0)
@@ -120,76 +119,40 @@ export default function Home() {
 
     return (
         <>
+            <c.AppHeader
+                title='IRMINSUL'
+                icons={[
+                    { icon: <SearchOutlined />, onClick: onTriggerSearch },
+                    { icon: <AccountCircleOutlined />, onClick: () => undefined },
+                    { icon: <SettingsOutlined />, onClick: () => undefined }
+                ]}
+            />
 
-            <AppBar className="AppHeader" position="static">
-                <Toolbar>
-                    <div id="page-home-header-title">IRMINSUL</div>
-                    <IconButton color="inherit" onClick={onTriggerSearch}>
-                        <SearchOutlined />
-                    </IconButton>
-                    <IconButton
-                        color="inherit"
-                    >
-                        <AccountCircleOutlined />
-                    </IconButton>
-                    <IconButton
-                        color="inherit"
-                    >
-                        <SettingsOutlined />
-                    </IconButton>
-                </Toolbar>
-            </AppBar>
-            <div className={`AppSearch ${staSearch ? '' : 'hidden'}`} style={{ width: 500, transform: staSearch ? 'translateX(0)' : 'translateX(-550px)' }}>
-                <FormControl className="AppSearch-SearchBox" variant="standard" sx={{ display: 'flex', flexDirection: 'row', borderBottom: '1px solid silver' }} >
+            <c.AppSearch
+                open={staSearch}
+                onCloseSearch={onTriggerSearch}
+            />
 
-                    <Button className="AppSearch-SearchBox-Close" color="primary" sx={{
-                        borderRadius: '0',
-                        width: 40, minWidth: 40, height: 40, minHeight: 40,
-                    }} onClick={onTriggerSearch}>
-                        <KeyboardBackspaceOutlined fontSize="small" />
-                    </Button>
-                    <Input
-                        disableUnderline
-                        className="AppSearch-SearchBox-Input"
-                        sx={{ flexGrow: 1 }}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton>
-                                    <ClearOutlined fontSize="small" />
-                                </IconButton>
 
-                            </InputAdornment>
-                        }
-                    />
-                    <Button className="AppSearch-SearchBox-Search" color="primary" sx={{
-                        borderRadius: '0',
-                        width: 40, minWidth: 40, height: 40, minHeight: 40,
-                    }}>
-                        <SearchOutlined fontSize="small" />
-                    </Button>
-                </FormControl>
-                <div className="AppSearch-SearchResult">
-                    <div className="AppSearch-SearchResult-Toolbar">
-                        <ButtonGroup orientation="vertical" className="AppSearch-Toolbar-ButtonGroup">
-                            <IconButton className="AppSearch-Toolbar-ButtonGroup-Button">
-                                <FilterAltOutlined fontSize="small" />
-                            </IconButton>
-                            <IconButton className="AppSearch-Toolbar-ButtonGroup-Button">
-                                <CalendarMonthOutlined fontSize="small" />
-                            </IconButton>
-                            <IconButton className="AppSearch-Toolbar-ButtonGroup-Button">
-                                <LocalOfferOutlined fontSize="small" color="" />
-                            </IconButton>
-                        </ButtonGroup>
+
+            <div className="AppContent">
+                <div className="AppIndex">
+                    <div className="AppIndexHeader">
+
                     </div>
-                    <div className="AppSearch-SearchResult-Content">
+                    <div className="AppIndexContainer">
+
                     </div>
                 </div>
-                <div className="AppSearch-SearchTitle">
-                    Search
+                <div className="AppEditor">
+
                 </div>
             </div>
 
+
+
+
+            {/* 
             <div id="content">
                 <C.AppIndex
                     className='AppIndexRoot'
@@ -224,13 +187,37 @@ export default function Home() {
                             height={40}
                         />
                 }
+                {
+                    api.leaf ? <div className="AppContent">
+                        <div className="AppContent-Toolbar">
+                            <Breadcrumbs className="AppContent-Toolbar-Breadcrumb" separator='·'>
+                                <Typography>
+                                    {onGetRootName(api.root)}
+                                </Typography>
+                                <Typography>
+                                    {onGetLeafName(api.leaf)}
+                                </Typography>
+                            </Breadcrumbs>
+                        </div>
+                        <div className="AppContent-Tag"></div>
+
+
+
+                        <div className="AppContent-Content"></div>
+
+                        <div className="AppContent-Statusbar"></div>
+
+                    </div>
+                        : ''
+                }
 
 
 
 
 
 
-            </div>
+
+            </div> */}
 
 
 

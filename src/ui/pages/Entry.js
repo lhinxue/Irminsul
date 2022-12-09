@@ -2,7 +2,7 @@ import { FileUploadOutlined, SourceOutlined, VisibilityOffOutlined, VisibilityOu
 import { CircularProgress, FormControl, IconButton, Input, InputAdornment, InputLabel, Paper } from "@mui/material"
 import { useContext } from "react"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useNavigation } from "react-router-dom"
 import { Irminsul } from "../../core/irminsul"
 import './Entry.css'
 export default function Entry() {
@@ -14,6 +14,8 @@ export default function Entry() {
 
     const [strPassword, setStrPassword] = useState('')
     const [strFilename, setStrFilename] = useState('')
+
+    const navigate = useNavigate()
 
     const onPasswordChange = (e) => {
         setStrPassword(e.target.value)
@@ -36,7 +38,7 @@ export default function Entry() {
                     <div>
 
                         <FormControl variant="standard">
-                            <InputLabel htmlFor="input-with-icon-adornment1"  sx={{ fontFamily: 'inherit' }}>
+                            <InputLabel htmlFor="input-with-icon-adornment1" sx={{ fontFamily: 'inherit' }}>
                                 API Key
                             </InputLabel>
                             <Input
@@ -85,7 +87,7 @@ export default function Entry() {
                                 }
                             />
                         </FormControl>
-                        <div className="page-entry-window-help">Create New IRMINSUL</div>
+                        <div className="page-entry-window-help" onClick={() => navigate('/h')}>Create New IRMINSUL</div>
                     </div>
                 </Paper>
             </div>
