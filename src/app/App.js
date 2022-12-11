@@ -5,6 +5,7 @@ import smoothscroll from 'smoothscroll-polyfill';
 import LeyLines from '../core/irminsul';
 import { p } from '../ui/ui';
 import './App.css';
+import Test from './pages/Test';
 
 export default function App() {
 
@@ -31,7 +32,7 @@ export default function App() {
                     <Routes>
                         <Route path="/e" element={<p.Entry />} />
                         <Route path="/h" element={<p.Home />} />
-                        <Route path="*" element={<p.Redirect />} />
+                        <Route path="*" element={<Test />} />
                     </Routes>
 
                 </BrowserRouter>
