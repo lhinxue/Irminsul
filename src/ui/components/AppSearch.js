@@ -2,7 +2,7 @@ import { CalendarMonthOutlined, ClearOutlined, ExitToAppRounded, FilterAltOutlin
 import { Box, Button, ButtonGroup, FormControl, IconButton, Input, Typography } from "@mui/material";
 import { c } from "../ui"
 
-export default function AppSearch(props) {
+export default function iAppSearch(props) {
 
     const intZIndex = props.z ?? 10
     const staSearch = props.open ?? false

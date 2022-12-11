@@ -212,7 +212,7 @@ export default function Home() {
 
     return (
         <Box className="AppHome" sx={theme.AppHome}>
-            <c.AppSearch
+            <c.iAppSearch
                 z={ZIndex.AppSearch}
                 open={staSearch}
                 onCloseSearch={onTriggerSearch}
