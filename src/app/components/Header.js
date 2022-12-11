@@ -10,8 +10,9 @@ export default function Header(props) {
     const title = props.title ?? ''
     const z = props.z ?? 10
 
-    const theme = {
+    const style = {
         alignItems: 'center',
+        backgroundColor: 'white',
         borderBottom: '1px solid silver',
         boxShadow: 'rgba(149, 157, 165, 0.2) 0px 3px 6px',
         display: 'flex',
@@ -28,7 +29,7 @@ export default function Header(props) {
     }
 
     return (
-        <Box className="Header" sx={theme}>
+        <Box className="Header" sx={style}>
             <Typography component='h1' color='primary'>
                 {title}
             </Typography>
