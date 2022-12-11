@@ -1,6 +1,7 @@
-import { AccountCircleOutlined, CreateNewFolderOutlined, SearchOutlined, SettingsOutlined } from "@mui/icons-material";
-import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
+import { AccountCircleOutlined, CachedRounded, CreateNewFolderOutlined, FaceRetouchingNaturalRounded, FaceRounded, SearchOffRounded, SearchOutlined, SearchRounded, SettingsOutlined } from "@mui/icons-material";
+import { Box, Breadcrumbs, IconButton, SpeedDial, SpeedDialAction, SpeedDialIcon, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
+import theme from "../../config/theme";
 import { Irminsul } from "../../core/irminsul";
 import { c } from "../ui";
 
@@ -113,40 +114,195 @@ export default function Home() {
         // Object.keys(irminsul._).
     }, [])
 
+    const ZIndex = {
+        AppNavigator: 11,
+        AppHeader: 13,
+        AppRoot: 10,
+        AppIndexes: 10,
+        AppEditor: 11,
+        AppSearch: 12,
+        AppSetting: 11,
+        AppSwitch: 11,
+    }
+    const BoxShadow = 'rgba(149, 157, 165, 0.2) 0px 3px 6px'
 
+    const style = {
+        AppHome: {
+            width: "100%",
+            height: "100%",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "row",
+            "& .AppNavigator": {
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                overflow: "hidden",
 
+                '& .AppHeader': {
+                    height: 70,
+                    borderBottom: '1px solid silver',
+                    borderRight: '1px solid silver',
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingLeft: '20px',
+                    paddingRight: '5px',
+                    zIndex: ZIndex.AppHeader,
+                    boxShadow: BoxShadow,
+                    '& .Title': {
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexGrow: '1',
+                        margin: 0,
+                        lineHeight: 1.6,
+                        fontSize: '1.4rem',
+                        fontFamily: 'monospace',
+                        letterSpacing: '.2rem',
+                        textDecoration: 'none',
+                        fontVariant: 'small-caps',
+                    }
+                },
+                '& .AppRoot': {
+                    height: 40,
+                    borderBottom: '1px solid silver',
+                    borderRight: '1px solid silver',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0 5px 0 20px',
+                    zIndex: ZIndex.AppRoot,
+                    '& .Title': {
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexGrow: '1',
+                        margin: 0,
+                        fontSize: '1.1rem',
+                        letterSpacing: '.1rem',
+                        textDecoration: 'none',
+                        fontVariant: 'small-caps',
+                    }
+                },
+                "& .AppIndexes": {
+                    height: 'calc(100% - 130px)',
+                    flexGrow: 1,
+                    display: "flex",
+                    flexDirection: "row",
+                    overflow: "hidden",
+
+                    '& .AppIndex': {
+
+                        borderRight: '1px solid silver',
+                    }
+
+                }
+            },
+            "& .AppEditor": {
+                flexGrow: 1,
+                '& .Toolbar': {
+                    height: 50,
+                    borderBottom: '1px solid silver',
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingLeft: '15px'
+                }
+            }
+
+        }
+    }
 
 
     return (
-        <>
-            <c.AppHeader
-                title='IRMINSUL'
-                icons={[
-                    { icon: <SearchOutlined />, onClick: onTriggerSearch },
-                    { icon: <AccountCircleOutlined />, onClick: () => undefined },
-                    { icon: <SettingsOutlined />, onClick: () => undefined }
-                ]}
-            />
-
+        <Box className="AppHome" sx={theme.AppHome}>
             <c.AppSearch
+                z={ZIndex.AppSearch}
                 open={staSearch}
                 onCloseSearch={onTriggerSearch}
             />
 
+            <div className="AppNavigator">
+                <div className="AppHeader">
+                    <Typography className="Title" color='primary'>
+                        IRMINSUL
+                    </Typography>
 
-
-            <div className="AppContent">
-                <div className="AppIndex">
-                    <div className="AppIndexHeader">
-
-                    </div>
-                    <div className="AppIndexContainer">
-
-                    </div>
+                    <IconButton color={staSearch ? 'secondary' : 'primary'} size="small" onClick={onTriggerSearch}>
+                        <SearchRounded fontSize="small" />
+                    </IconButton>
+                    <IconButton color="primary" size="small">
+                        <SettingsOutlined fontSize="small" />
+                    </IconButton>
                 </div>
-                <div className="AppEditor">
-
+                <div className="AppRoot">
+                    <Typography className="Title" color='primary' >
+                        Mobius III: 龙
+                    </Typography>
+                    <IconButton color="primary" size="small">
+                        <CachedRounded fontSize="small" />
+                    </IconButton>
                 </div>
+                <div className="AppIndexes">
+                    <c.AppIndex
+                        z={ZIndex.AppIndexes}
+                        className='Branch'
+                        title='Branches'
+                        width={200}
+                        rowHeight={40}
+                        source={Object.keys(irminsul._)}
+                        current={api.root}
+                        onChange={onSelectRoot}
+                        icon
+                        onSort={onSortRoot}
+                        onGetName={(id) => irminsul._[id].name}
+                    />
+                    {
+                        api.root ?
+                            <c.AppIndex
+                                z={ZIndex.AppIndexes}
+                                className='Leaf'
+                                title='Leaves'
+                                width={300}
+                                height={40}
+                                source={Object.keys(irminsul._[api.root]._)}
+                                current={api.leaf}
+                                onChange={onSelectLeaf}
+                                onSort={onSortLeaf}
+                                onGetName={(id) => irminsul._[api.root]._[id].name}
+                            />
+                            :
+                            <c.AppIndex
+                                z={ZIndex.AppIndexes}
+                                className='Leaf'
+                                title='Leaves'
+                                width={300}
+                                height={40}
+                            />
+                    }
+                </div>
+            </div>
+            <div className="AppEditor">
+                {
+                    api.leaf ?
+                        <>
+                            <div className="Toolbar">
+                                <Breadcrumbs className="Breadcrumb" separator='·'>
+                                    <Typography>
+                                        {onGetRootName(api.root)}
+                                    </Typography>
+                                    <Typography>
+                                        {onGetLeafName(api.leaf)}
+                                    </Typography>
+                                </Breadcrumbs>
+                            </div>
+                            {/* <div className="AppContent-Tag"></div> */}
+
+
+
+                            <div className="AppContent-Content"></div>
+
+                            <div className="AppContent-Statusbar"></div>
+
+                        </>
+                        : ''
+                }
             </div>
 
 
@@ -226,6 +382,7 @@ export default function Home() {
                 ariaLabel="SpeedDial basic example"
                 sx={{ position: 'absolute', bottom: 16, right: 16 }}
                 icon={<SpeedDialIcon />}
+                color='info'
             >
                 <SpeedDialAction
                     key={'Create'}
@@ -238,7 +395,7 @@ export default function Home() {
                     tooltipTitle={'create'}
                 />
             </SpeedDial>
-        </>
+        </Box>
 
     )
 }

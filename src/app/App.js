@@ -11,6 +11,15 @@ export default function App() {
     smoothscroll.polyfill()
 
     const theme = createTheme({
+        palette: {
+            type: 'light',
+            primary: {
+                main: '#7b1fa2',
+            },
+            secondary: {
+                main: '#ba68c8',
+            },
+        },
         typography: {
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
         },

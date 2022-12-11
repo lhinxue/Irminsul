@@ -2,12 +2,14 @@ import { SettingsOutlined } from '@mui/icons-material'
 import { AppBar, IconButton, Toolbar } from '@mui/material'
 
 export default function AppHeader(props) {
+
+    const intZIndex = props.z ?? 10
     const strTitle = props.title ?? ''
     const arrIcons = props.icons ?? [{ icon: <SettingsOutlined />, onClick: () => undefined }]
 
     const style = {
         AppHeader: {
-            zIndex: 12,
+            zIndex: intZIndex,
             height: 60,
             '& div': {
                 height: 60,
@@ -19,7 +21,6 @@ export default function AppHeader(props) {
                 flexGrow: '1',
                 margin: 0,
                 lineHeight: 1.6,
-                fontWeight: 500,
                 fontSize: '1.25rem',
                 fontFamily: 'monospace',
                 letterSpacing: '.2rem',
@@ -30,7 +31,7 @@ export default function AppHeader(props) {
     }
 
     return (
-        <AppBar className='AppHeader' position='static' sx={style.AppHeader}>
+        <AppBar className='AppHeader' position='relative' sx={style.AppHeader}>
             <Toolbar>
                 <div className='AppHeader_Title'>{strTitle}</div>
                 {arrIcons.map(btn =>

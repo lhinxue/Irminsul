@@ -1,10 +1,13 @@
 import { Box } from "@mui/system"
 
 export default function Footer(props) {
+
+    const intZIndex = props.z ?? 10
     const strTitle = props.title ?? ''
 
     const style = {
         Footer: {
+            zIndex: intZIndex,
             display: 'flex',
             alignItems: 'center',
             padding: '0 0 0 15px',

@@ -1,8 +1,8 @@
-import { CalendarMonthOutlined, ClearOutlined, ExitToAppRounded, FilterAltOutlined, KeyboardBackspaceOutlined, LocalOfferOutlined, SearchOutlined } from "@mui/icons-material";
-import { Box, Button, ButtonGroup, FormControl, IconButton, Input, Typography } from "@mui/material";
+import { CalendarMonthOutlined, ClearOutlined, FilterAltOutlined, KeyboardBackspaceOutlined, LocalOfferOutlined, SearchOutlined } from "@mui/icons-material";
+import { Box, Button, ButtonGroup, FormControl, IconButton, Input } from "@mui/material";
 import { c } from "../ui"
 
-export default function AppSearch(props) {
+export default function AppSetting(props) {
 
     const intZIndex = props.z ?? 10
     const staSearch = props.open ?? false
@@ -22,23 +22,6 @@ export default function AppSearch(props) {
             width: 501,
             opacity: staSearch ? 1 : 0,
             transform: staSearch ? 'translateX(0)' : 'translateX(-550px)',
-            '& .Header': {
-                height: 40,
-                borderBottom: '1px solid silver',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '0 5px 0 20px',
-                '& .Title': {
-                    display: 'flex',
-                    alignItems: 'center',
-                    flexGrow: '1',
-                    margin: 0,
-                    fontSize: '1.1rem',
-                    letterSpacing: '.1rem',
-                    textDecoration: 'none',
-                    fontVariant: 'small-caps',
-                }
-            },
             '& .AppSearch_Input': {
                 display: 'flex',
                 flexDirection: 'row',
@@ -83,16 +66,6 @@ export default function AppSearch(props) {
 
     return (
         <Box className='AppSearch' sx={style.AppSearch}>
-            <div className="Header">
-                <Typography className="Title" color={'primary'}>
-                    Search
-                </Typography>
-                <IconButton color="primary" size="small" onClick={onCloseSearch}>
-                    <ExitToAppRounded fontSize="small" sx={{ transform: 'rotate(180deg)' }} />
-                </IconButton>
-            </div>
-
-
             <div className='AppSearch_Input'>
                 <Button className="CubeButton" onClick={onCloseSearch}>
                     <KeyboardBackspaceOutlined fontSize="small" />
