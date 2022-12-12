@@ -1,6 +1,9 @@
+import { CachedRounded, MenuOpenRounded, SearchRounded } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext, useEffect, useState } from "react";
 import { Irminsul } from "../../core/irminsul";
+import os from "../../core/os";
 import Collapse from "./Collapse";
 import List from "./List";
 import SubTitle from "./SubTitle";
@@ -41,7 +44,68 @@ export default function Explorer(props) {
         'id2': {
             name: 'Empty',
             _: {}
-        }
+        },
+        'id3': {
+            name: 'Empty',
+            _: {}
+        },
+        'id4': {
+            name: 'Empty',
+            _: {}
+        },
+        'id5': {
+            name: 'Empty',
+            _: {}
+        },
+        'id6': {
+            name: 'Empty',
+            _: {}
+        },
+        'id7': {
+            name: 'Empty',
+            _: {}
+        },
+        'id8': {
+            name: 'Empty',
+            _: {}
+        },
+        'id9': {
+            name: 'Empty',
+            _: {}
+        },
+        'ida': {
+            name: 'Empty',
+            _: {}
+        },
+        'idb': {
+            name: 'Empty',
+            _: {}
+        },
+        'idc': {
+            name: 'Empty',
+            _: {}
+        },
+        'idd': {
+            name: 'Empty',
+            _: {}
+        },
+        'ide': {
+            name: 'Empty',
+            _: {}
+        },
+        'idf': {
+            name: 'Empty',
+            _: {}
+        },
+        'idg': {
+            name: 'Empty',
+            _: {}
+        },
+        'idh': {
+            name: 'Empty',
+            _: {}
+        },
+
     }
     const { api } = useContext(Irminsul)
 
@@ -79,34 +143,51 @@ export default function Explorer(props) {
         return ((a < b) ? -1 : ((a > b) ? 1 : 0))
     }
 
-    const onGetRootName = id => irminsul[id].name
-    const onGetBranchName = id => irminsul[api.root]._[id].name
-    const onGetLeafName = id => irminsul[api.root]._[api.branch]._[id].name
+    const onGetRootName = id => os.try(() => irminsul[id].name, '')
+    const onGetBranchName = id => os.try(() => irminsul[api.root]._[id].name, '')
+    const onGetLeafName = id => os.try(() => irminsul[api.root]._[api.branch]._[id].name, '')
 
+    const [rootOn, setRootOn] = useState(false)
+
+    const onSwitchRoot = () => setRootOn(pre => !pre)
 
     useEffect(() => {
         onSetFirstRoot()
     }, [])
     return (
-        <Box>
+        <Box sx={{ position: 'relative', height: '100%' }}>
             <SubTitle
-                title={api.root}
+                z={15}
+                title={os.try(() => onGetRootName(api.root), '')}
+                icons={[{ icon: <MenuOpenRounded fontSize="small" color={rootOn ? 'secondary' : 'primary'} />, onClick: onSwitchRoot }]}
             />
             <Collapse
+                z={13}
                 toTop
+                width={'100%'}
+                on={rootOn}
+                top={41}
             >
-
+                <List
+                    width={'100%'}
+                    // height={'calc(100% - 40px)'}
+                    current={api.root}
+                    source={os.try(() => Object.keys(irminsul), [])}
+                    onGetName={onGetRootName}
+                    onKeyChange={onRootChange}
+                />
+                {/* <Button sx={{ zIndex: 13, borderTop: '1px solid silver', borderRadius: 0, height: 41, boxShadow: 'rgba(149, 157, 165, 0.2) 0px 3px 6px' }}>Create New</Button> */}
             </Collapse>
             <Box>
                 <List
                     current={api.branch}
-                    source={Try(() => Object.keys(irminsul[api.root]._))}
+                    source={os.try(() => Object.keys(irminsul[api.root]._), [])}
                     onGetName={onGetBranchName}
                     onKeyChange={onBranchChange}
                 />
                 <List
                     current={api.leaf}
-                    source={Try(() => Object.keys(irminsul[api.root]._[api.branch]._))}
+                    source={os.try(() => Object.keys(irminsul[api.root]._[api.branch]._), [])}
                     onGetName={onGetLeafName}
                     onKeyChange={onLeafChange}
                 />

@@ -1,5 +1,6 @@
-import { ExpandMoreRounded } from '@mui/icons-material'
-import { Box, Button, Tab, Tabs } from '@mui/material'
+import { DeleteOutline, DeleteOutlined, DriveFileRenameOutline, DriveFileRenameOutlineRounded, ExpandMoreRounded, ModeOutlined } from '@mui/icons-material'
+import { Box, Button, Divider, ListItemIcon, ListItemText, Menu, MenuItem, Tab, Tabs, Typography } from '@mui/material'
+import { useState } from 'react'
 
 export default function List(props) {
 
@@ -13,7 +14,9 @@ export default function List(props) {
     const rowHeight = props.rowHeight ?? 40
     const source = props.source ?? []
     const width = props.width ?? 200
+    const height = props.height ?? '100%'
     const z = props.z ?? 10
+    const menus = props.menus ?? [{}]
 
     const ScrollButton = ({ direction, disabled, onClick }) => {
 
@@ -50,20 +53,22 @@ export default function List(props) {
     const style = {
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
+        height: height,
         width: width,
         zIndex: z,
         '& .TabGroup': {
             height: '100%',
+            width: '100%',
             position: 'relative',
             '& .Tab': {
+                width: '100%',
+                maxWidth: '100%',
                 borderBottom: '1px solid silver',
                 height: rowHeight,
                 justifyContent: 'flex-start',
                 margin: 0,
                 minHeight: rowHeight,
                 padding: '2px 5px 2px 20px',
-                padding: 0,
                 '& .Label': {
                     fontWeight: 'normal',
                     textTransform: 'none'
@@ -72,6 +77,21 @@ export default function List(props) {
         }
     }
 
+    const onRightClick = (e) => {
+        onKeyChange(e, e.target.id)
+        e.preventDefault()
+        setContextMenu(
+            contextMenu === null ? {
+                mouseX: e.clientX + 2,
+                mouseY: e.clientY - 6,
+            } : null
+        )
+    }
+    const onRightClickContext = (e) => {
+        e.preventDefault()
+        setContextMenu(null)
+    }
+    const [contextMenu, setContextMenu] = useState(null)
     return (
         <Box className={className} sx={style}>
             <Tabs
@@ -85,14 +105,74 @@ export default function List(props) {
             >
                 {source.sort(onSort).map(id =>
                     <Tab
+                        onContextMenu={onRightClick}
                         className='Tab'
                         iconPosition='start'
+                        id={id}
                         key={id}
                         label={<div className='Label'>{onGetName(id)}</div>}
                         value={id}
                     />
                 )}
             </Tabs>
+            <Menu
+                onContextMenu={onRightClickContext}
+                elevation={0}
+                color='primary'
+                sx={{
+
+                    '& .MuiMenu-paper': {
+                        borderRadius: 0,
+                        boxShadow: 'rgba(149, 157, 165, 0.2) 0px 3px 6px',
+                        width: 166,
+                        border: '1px solid silver'
+                    },
+                    '& ul': {
+                        paddingTop: 0,
+                        paddingBottom: 0
+                    },
+                    '& ul>li': {
+                        borderBottom: '1px solid silver'
+                    },
+                    '& ul>li:last-child': {
+                        borderBottom: 0
+                    },
+
+                }}
+                open={contextMenu !== null}
+                onClose={onRightClickContext}
+                anchorReference='anchorPosition'
+                anchorPosition={
+                    contextMenu !== null ? { top: contextMenu.mouseY, left: contextMenu.mouseX } : undefined
+                }
+
+            >
+                <MenuItem className='MenuItem' color='primary'>
+                    <ListItemIcon color='primary'>
+                        <DriveFileRenameOutline fontSize='small' color='primary' />
+                    </ListItemIcon>
+                    <Typography color='primary' sx={{
+                        fontSize: 13,
+                        fontVariant: 'small-caps',
+                        letterSpacing: '.1em',
+                    }}>
+                        Rename
+                    </Typography>
+                </MenuItem>
+                <MenuItem>
+                    <ListItemIcon>
+                        <DeleteOutlined fontSize='small' />
+                    </ListItemIcon>
+                    <div style={{
+                        fontSize: 13,
+                        fontVariant: 'small-caps',
+                        letterSpacing: '.1em',
+                    }}>
+                        Delete
+                    </div>
+
+                </MenuItem>
+            </Menu>
         </Box>
     )
 }

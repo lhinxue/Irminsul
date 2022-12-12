@@ -27,7 +27,7 @@ export default function Collapse(props) {
         position: 'absolute',
         top: top,
         transform: on ? '' : toLeft ? 'translateX(-100%)' : toTop ? 'translateY(-100%)' : '',
-        transition: `opacity ${duration}s ease, transform ${duration}s ease`,
+        transition: `all .3s ease`,
         width: width,
         zIndex: z,
     }

@@ -19,6 +19,7 @@ export default function Header(props) {
         height: height,
         padding: '0 5px 0 20px',
         zIndex: z,
+        position: 'relative',
         '& h1': {
             alignItems: 'center',
             display: 'flex',

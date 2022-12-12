@@ -17,7 +17,7 @@ export default function Test() {
 
     return (
         <>
-            <Title />
+            {/* <Title />
             <SubTitle />
             <div style={{ zIndex: 99 }} onClick={() => setv1(p => !p)}>touch</div>
             <Collapse
@@ -31,7 +31,7 @@ export default function Test() {
                 current={v2}
                 onKeyChange={(e, k) => setv2(k)}
                 source={dic}
-            />
+            /> */}
             <Explorer />
         </>
 
