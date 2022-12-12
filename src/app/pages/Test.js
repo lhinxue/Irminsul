@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Collapse from "../components/Collapse";
+import Explorer from "../components/Explorer";
 import Header from "../components/Header";
 import List from "../components/List";
 import SubTitle from "../components/SubTitle";
@@ -11,7 +12,7 @@ export default function Test() {
     const [v2, setv2] = useState(0)
 
     const dic = [
-        0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
     ]
 
     return (
@@ -31,6 +32,7 @@ export default function Test() {
                 onKeyChange={(e, k) => setv2(k)}
                 source={dic}
             />
+            <Explorer />
         </>
 
     )
