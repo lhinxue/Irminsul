@@ -25,54 +25,56 @@ export default function Search(props) {
                     title={'Search'}
                     icons={[{ icon: <CloseRounded fontSize="small" color={'primary'} />, onClick: onClose }]}
                 />
-                <Box sx={{ height: 40, borderBottom: '1px solid silver', backgroundColor: 'white', width: '100%', display: 'flex', flexDirection: 'row' }}>
-                    <Input sx={{ flexGrow: 1, paddingLeft: '20px' }} className="Input" disableUnderline endAdornment={
-                        <InputAdornment>
-                            <IconButton size="small">
-                                <ClearOutlined fontSize="small" />
-                            </IconButton>
-                        </InputAdornment>
-                    } />
-                    <Button>
-                        <SearchOutlined fontSize="small" />
-                    </Button>
-                </Box>
-                <Box sx={{
-                    backgroundColor: 'white',
-                    
-                    width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end',
-                    '&>div:first-child': {
-                        fontSize: '12px',
-                        marginRight: '5px'
-                    },
-                    '&>div:nth-child(2)': {
-                        fontSize: '13px',
-                        fontVariant: 'small-caps',
-                    },
-                    '&>button': {
-                        width: '13px',
-                        height: '13px',
-                        marginLeft: '3px',
-                        marginRight: '10px',
-                        alignSelf:'center'
-                    },
-                    '& svg': {
-                        fontSize: '12px'
-                    },
-                }}>
-                    <Typography component={'div'} color='secondary'>
-                        Search in
-                    </Typography>
-                    <Typography component={'div'} color='primary'>
-                        Entire Irminsul
-                    </Typography>
-                    <IconButton color="primary">
-                        <SwapHorizRounded fontSize="small" />
-                    </IconButton>
+                <Box sx={{ flexGrow: 1, backgroundColor: 'white', height: '100%', display: 'flex', flexDirection: 'column' }}>
 
+                    <Box sx={{ height: 40, borderBottom: '1px solid silver', backgroundColor: 'white', width: '100%', display: 'flex', flexDirection: 'column' }}>
+                        <Input sx={{ flexGrow: 1, paddingLeft: '20px' }} className="Input" disableUnderline endAdornment={
+                            <InputAdornment>
+                                <IconButton size="small">
+                                    <ClearOutlined fontSize="small" />
+                                </IconButton>
+                            </InputAdornment>
+                        } />
+                    </Box>
+                    <Box sx={{
+                        backgroundColor: 'white',
+
+                        width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end',
+                        '&>div:first-child': {
+                            fontSize: '12px',
+                            marginRight: '5px'
+                        },
+                        '&>div:nth-child(2)': {
+                            fontSize: '13px',
+                            fontVariant: 'small-caps',
+                        },
+                        '&>button': {
+                            width: '13px',
+                            height: '13px',
+                            marginLeft: '3px',
+                            marginRight: '10px',
+                            alignSelf: 'center'
+                        },
+                        '& svg': {
+                            fontSize: '12px'
+                        },
+                    }}>
+                        <Typography component={'div'} color='secondary'>
+                            Search in
+                        </Typography>
+                        <Typography component={'div'} color='primary'>
+                            Entire Irminsul
+                        </Typography>
+                        <IconButton color="primary">
+                            <SwapHorizRounded fontSize="small" />
+                        </IconButton>
+
+                    </Box>
+
+                    <List width={'100%'} />
                 </Box>
 
-                <List width={'100%'} />
+
 
             </Box>
         </Collapse>

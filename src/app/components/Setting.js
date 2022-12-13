@@ -10,6 +10,12 @@ export default function Setting(props) {
     const on = props.on ?? false
     const onClose = props.onClose ?? (() => undefined)
 
+    const menus = {
+        'General': {},
+        'Theme': {},
+        'Account': {}
+    }
+
     return (
         <Collapse
             toLeft
@@ -24,8 +30,15 @@ export default function Setting(props) {
                     title={'Setting'}
                     icons={[{ icon: <CloseRounded fontSize="small" color={'primary'} />, onClick: onClose }]}
                 />
+                <Box sx={{ flexGrow: 1, backgroundColor: 'white', height: '100%', display: 'flex', flexDirection: 'row' }}>
+                    <List source={Object.keys(menus)}
+                        onSort={() => 0} width={160}
+                    />
+                    <Box sx={{ borderLeft: '1px solid silver', flexGrow: 1, backgroundColor: 'white', height: '100%', display: 'flex', flexDirection: 'column' }}>
 
-                <List />
+                    </Box>
+                </Box>
+
 
             </Box>
         </Collapse>
