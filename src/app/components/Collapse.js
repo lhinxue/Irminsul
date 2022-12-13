@@ -16,9 +16,10 @@ export default function Collapse(props) {
     const top = props.top ?? 0
     const width = props.width ?? 300
     const z = props.z ?? 10
+    const sx = props.sx ?? {}
 
     const style = {
-        backgroundColor: backgroundColor,
+        // backgroundColor: backgroundColor,
         display: 'flex',
         flexDirection: 'column',
         height: height ?? `calc(100% - ${top}px - ${bottom}px)`,
@@ -30,6 +31,7 @@ export default function Collapse(props) {
         transition: `all .3s ease`,
         width: width,
         zIndex: z,
+        ...sx
     }
 
     return (

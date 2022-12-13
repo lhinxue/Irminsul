@@ -18,7 +18,7 @@ export default function Title(props) {
                 lineHeight: 1.6,
                 textDecoration: 'none'
             }}
-            height={70}
+            height={'70px'}
             icons={icons}
             title={title.toUpperCase()}
             z={z}

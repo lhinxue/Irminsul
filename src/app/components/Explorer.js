@@ -46,66 +46,17 @@ export default function Explorer(props) {
             _: {}
         },
         'id3': {
-            name: 'Empty',
+            name: 'Mobius I Dragon Slayer',
             _: {}
         },
         'id4': {
-            name: 'Empty',
+            name: 'Mobius II Slay Dragon',
             _: {}
         },
         'id5': {
-            name: 'Empty',
+            name: 'Mobius III Dragon',
             _: {}
-        },
-        'id6': {
-            name: 'Empty',
-            _: {}
-        },
-        'id7': {
-            name: 'Empty',
-            _: {}
-        },
-        'id8': {
-            name: 'Empty',
-            _: {}
-        },
-        'id9': {
-            name: 'Empty',
-            _: {}
-        },
-        'ida': {
-            name: 'Empty',
-            _: {}
-        },
-        'idb': {
-            name: 'Empty',
-            _: {}
-        },
-        'idc': {
-            name: 'Empty',
-            _: {}
-        },
-        'idd': {
-            name: 'Empty',
-            _: {}
-        },
-        'ide': {
-            name: 'Empty',
-            _: {}
-        },
-        'idf': {
-            name: 'Empty',
-            _: {}
-        },
-        'idg': {
-            name: 'Empty',
-            _: {}
-        },
-        'idh': {
-            name: 'Empty',
-            _: {}
-        },
-
+        }
     }
     const { api } = useContext(Irminsul)
 
@@ -155,7 +106,7 @@ export default function Explorer(props) {
         onSetFirstRoot()
     }, [])
     return (
-        <Box sx={{ position: 'relative', height: '100%' }}>
+        <Box sx={{ position: 'relative', flexGrow: 1, display: 'flex', flexDirection: 'column', }}>
             <SubTitle
                 z={15}
                 title={os.try(() => onGetRootName(api.root), '')}
@@ -166,26 +117,37 @@ export default function Explorer(props) {
                 toTop
                 width={'100%'}
                 on={rootOn}
-                top={41}
+                top={47}
+                height={'fit-content'}
+                sx={{ borderBottom: '1px solid silver', boxShadow: '2px 2px 6px 0px rgba(70, 70, 70, 0.1)', '& .List Button:last-child': { borderBottom: 0 } }}
             >
                 <List
                     width={'100%'}
-                    // height={'calc(100% - 40px)'}
+                    height={'fit-content'}
+                    maxHeight={'360px'}
                     current={api.root}
                     source={os.try(() => Object.keys(irminsul), [])}
                     onGetName={onGetRootName}
                     onKeyChange={onRootChange}
                 />
-                {/* <Button sx={{ zIndex: 13, borderTop: '1px solid silver', borderRadius: 0, height: 41, boxShadow: 'rgba(149, 157, 165, 0.2) 0px 3px 6px' }}>Create New</Button> */}
             </Collapse>
-            <Box>
+            <Box sx={{
+                position: 'relative', display: 'flex', height: '100%',
+                '& .List:last-child': {
+                    borderLeft: '1px solid silver'
+                }
+
+
+            }}>
                 <List
+                    width={200}
                     current={api.branch}
                     source={os.try(() => Object.keys(irminsul[api.root]._), [])}
                     onGetName={onGetBranchName}
                     onKeyChange={onBranchChange}
                 />
                 <List
+                    width={300}
                     current={api.leaf}
                     source={os.try(() => Object.keys(irminsul[api.root]._[api.branch]._), [])}
                     onGetName={onGetLeafName}

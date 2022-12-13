@@ -17,7 +17,7 @@ export default function SubTitle(props) {
                 letterSpacing: '.1rem',
                 textDecoration: 'none'
             }}
-            height={40}
+            height={'50px'}
             icons={icons}
             title={title}
             z={z}

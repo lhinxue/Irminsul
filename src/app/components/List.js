@@ -15,6 +15,7 @@ export default function List(props) {
     const source = props.source ?? []
     const width = props.width ?? 200
     const height = props.height ?? '100%'
+    const maxHeight = props.maxHeight ?? '100%'
     const z = props.z ?? 10
     const menus = props.menus ?? [{}]
 
@@ -54,8 +55,10 @@ export default function List(props) {
         display: 'flex',
         flexDirection: 'column',
         height: height,
+        maxHeight: maxHeight,
         width: width,
         zIndex: z,
+        backgroundColor: backgroundColor,
         '& .TabGroup': {
             height: '100%',
             width: '100%',
@@ -123,7 +126,7 @@ export default function List(props) {
 
                     '& .MuiMenu-paper': {
                         borderRadius: 0,
-                        boxShadow: 'rgba(149, 157, 165, 0.2) 0px 3px 6px',
+                        boxShadow: '2px 2px 6px 0px rgba(0, 0, 0, 0.1)',
                         width: 166,
                         border: '1px solid silver'
                     },

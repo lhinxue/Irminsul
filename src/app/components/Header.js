@@ -13,8 +13,7 @@ export default function Header(props) {
     const style = {
         alignItems: 'center',
         backgroundColor: 'white',
-        borderBottom: '1px solid silver',
-        boxShadow: 'rgba(149, 157, 165, 0.2) 0px 3px 6px',
+        borderBottom: '1px solid silver', boxShadow: '2px 2px 6px 0px rgba(70, 70, 70, 0.1)',
         display: 'flex',
         height: height,
         padding: '0 5px 0 20px',
@@ -35,7 +34,7 @@ export default function Header(props) {
                 {title}
             </Typography>
             {icons.map(btn =>
-                <IconButton color='primary' onClick={btn.onClick} size='small'>
+                <IconButton color={btn.on === true ? 'secondary' : btn.on === false ? 'primary' : ''} onClick={btn.onClick} size='small'>
                     {btn.icon}
                 </IconButton>
             )}
