@@ -3,6 +3,7 @@ import { Button, IconButton, Input, InputAdornment, MenuItem, Select, Typography
 import { Box } from "@mui/system";
 import Collapse from "./Collapse";
 import List from "./List";
+import Remix from "./Remix";
 import SubTitle from "./SubTitle";
 
 export default function Search(props) {
@@ -23,15 +24,15 @@ export default function Search(props) {
                 <SubTitle
                     z={15}
                     title={'Search'}
-                    icons={[{ icon: <CloseRounded fontSize="small" color={'primary'} />, onClick: onClose }]}
+                    icons={[{ icon: <Remix.arrowBack fontSize="small" color={'primary'} />, onClick: onClose }]}
                 />
                 <Box sx={{ flexGrow: 1, backgroundColor: 'white', height: '100%', display: 'flex', flexDirection: 'column' }}>
 
                     <Box sx={{ height: 40, borderBottom: '1px solid silver', backgroundColor: 'white', width: '100%', display: 'flex', flexDirection: 'column' }}>
-                        <Input sx={{ flexGrow: 1, paddingLeft: '20px' }} className="Input" disableUnderline endAdornment={
+                        <Input sx={{ flexGrow: 1, paddingLeft: '20px', paddingRight: '5px',fontFamily:'monospace',fontSize:'13px' }} className="Input" disableUnderline endAdornment={
                             <InputAdornment>
                                 <IconButton size="small">
-                                    <ClearOutlined fontSize="small" />
+                                    <Remix.deleteBack fontSize="small" />
                                 </IconButton>
                             </InputAdornment>
                         } />
@@ -53,7 +54,6 @@ export default function Search(props) {
                             height: '13px',
                             marginLeft: '3px',
                             marginRight: '10px',
-                            alignSelf: 'center'
                         },
                         '& svg': {
                             fontSize: '12px'

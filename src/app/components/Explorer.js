@@ -6,6 +6,7 @@ import { Irminsul } from "../../core/irminsul";
 import os from "../../core/os";
 import Collapse from "./Collapse";
 import List from "./List";
+import Remix from "./Remix";
 import SubTitle from "./SubTitle";
 
 export default function Explorer(props) {
@@ -110,7 +111,7 @@ export default function Explorer(props) {
             <SubTitle
                 z={15}
                 title={os.try(() => onGetRootName(api.root), '')}
-                icons={[{ icon: <MenuOpenRounded fontSize="small" color={rootOn ? 'secondary' : 'primary'} />, onClick: onSwitchRoot }]}
+                icons={[{ icon: <Remix.exchange fontSize="small" color={rootOn ? 'secondary' : 'primary'} />, onClick: onSwitchRoot }]}
             />
             <Collapse
                 z={13}
