@@ -7,7 +7,6 @@ import { p } from '../ui/ui';
 import './App.css';
 import Home from './pages/Home';
 import Test from './pages/Test';
-
 export default function App() {
 
     smoothscroll.polyfill()
