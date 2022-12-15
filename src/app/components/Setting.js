@@ -1,4 +1,3 @@
-import { CloseRounded } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import Collapse from "./Collapse";
@@ -12,45 +11,51 @@ export default function Setting(props) {
     const on = props.on ?? false
     const onClose = props.onClose ?? (() => undefined)
 
-    const menus = {
-        'General': {},
-        'Theme': {},
-        'Account': {}
-    }
-
     const [current, setCurrent] = useState('General')
 
+    const menus = ['General', 'Theme', 'Account']
+    const style = {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        position: 'relative',
+        '& .Setting_Container': {
+            backgroundColor: 'white',
+            display: 'flex',
+            flexDirection: 'row',
+            flexGrow: 1,
+            height: '100%',
+        },
+        '& .Setting_Content': {
+            backgroundColor: 'white',
+            borderLeft: '1px solid silver',
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            height: '100%',
+        }
+    }
+
     return (
-        <Collapse
-            toLeft
-            z={16}
-            width={500}
-            top={70}
-            on={on}
-        >
-            <Box sx={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', }}>
+        <Collapse on={on} toLeft top={70} width={500} z={z} >
+            <Box sx={style}>
                 <SubTitle
-                    z={15}
                     title={'Setting'}
                     icons={[{ icon: <Remix.arrowBack fontSize="small" color={'primary'} />, onClick: onClose }]}
                 />
-                <Box sx={{ flexGrow: 1, backgroundColor: 'white', height: '100%', display: 'flex', flexDirection: 'row' }}>
-                    <List source={Object.keys(menus)}
-                        onSort={() => 0} width={160}
+                <Box className='Setting_Container'>
+                    <List
                         current={current}
                         onKeyChange={(e, v) => setCurrent(v)}
+                        onSort={() => 0} width={160}
+                        source={menus}
                     />
-                    <Box sx={{ borderLeft: '1px solid silver', flexGrow: 1, backgroundColor: 'white', height: '100%', display: 'flex', flexDirection: 'column' }}>
-
+                    <Box className='Setting_Content'>
                         {current}
                         { }
                         { }
-
-
                     </Box>
                 </Box>
-
-
             </Box>
         </Collapse>
 

@@ -1,4 +1,4 @@
-import { InfoRounded, PropaneSharp } from "@mui/icons-material"
+import { InfoRounded } from "@mui/icons-material"
 import { Box, IconButton, Typography } from "@mui/material"
 
 

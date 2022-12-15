@@ -1,5 +1,3 @@
-import { CachedRounded, MenuOpenRounded, SearchRounded } from "@mui/icons-material";
-import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext, useEffect, useState } from "react";
 import { Irminsul } from "../../core/irminsul";

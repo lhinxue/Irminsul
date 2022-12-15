@@ -1,5 +1,5 @@
-import { DeleteOutline, DeleteOutlined, DriveFileRenameOutline, DriveFileRenameOutlineRounded, ExpandMoreRounded, ModeOutlined } from '@mui/icons-material'
-import { Box, Button, Divider, ListItemIcon, ListItemText, Menu, MenuItem, Tab, Tabs, Typography } from '@mui/material'
+import { DeleteOutlined, DriveFileRenameOutline, ExpandMoreRounded } from '@mui/icons-material'
+import { Box, Button, ListItemIcon, Menu, MenuItem, Tab, Tabs, Typography } from '@mui/material'
 import { useState } from 'react'
 
 export default function List(props) {

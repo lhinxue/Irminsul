@@ -27,8 +27,8 @@ export default function Home() {
                     { icon: <Remix.setting fontSize="small" />, onClick: onSwitchSetting, on: settingOn }
                 ]} />
                 <Explorer />
-                <Search on={searchOn} onClose={onSwitchSearch} />
-                <Setting on={settingOn} onClose={onSwitchSetting} />
+                <Search on={searchOn} onClose={onSwitchSearch} z={16} />
+                <Setting on={settingOn} onClose={onSwitchSetting} z={16} />
 
             </Box>
             <Editor />

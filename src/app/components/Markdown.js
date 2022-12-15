@@ -1,20 +1,20 @@
 import { Mermaid } from "mdx-mermaid/lib/Mermaid";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import Toc from "./Toc";
 
 export default function Markdown({ content }) {
 
-    // mermaid.initialize({startOnLoad: false})
-
     return (
         <ReactMarkdown
             children={content}
+            rehypePlugins={[rehypeRaw]}
             remarkPlugins={[remarkGfm]}
             components={{
                 code(props) {
                     if (props.className === 'language-mermaid')
-                        return <Mermaid chart={props.children }/>
+                        return <Mermaid chart={props.children} />
                     return <code>{props.children}</code>
                 },
                 p(props) {

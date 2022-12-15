@@ -3,10 +3,10 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import smoothscroll from 'smoothscroll-polyfill';
 import LeyLines from '../core/irminsul';
-import { p } from '../ui/ui';
 import './App.css';
+import Entry from './pages/Entry';
 import Home from './pages/Home';
-import Test from './pages/Test';
+import Redirect from './pages/Redirect';
 export default function App() {
 
     smoothscroll.polyfill()
@@ -30,20 +30,12 @@ export default function App() {
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/e" element={<p.Entry />} />
-                        <Route path="/h" element={<p.Home />} />
-                        <Route path="*" element={<Home />} />
+                        <Route path="/e" element={<Entry />} />
+                        <Route path="/h" element={<Home />} />
+                        <Route path="*" element={<Redirect />} />
                     </Routes>
-
                 </BrowserRouter>
             </ThemeProvider>
-
-            {/* <Header />
-            <div id="content">
-                <Tools />
-                <Trunks />
-            </div> */}
-
         </LeyLines>
     )
 }

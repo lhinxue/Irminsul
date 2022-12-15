@@ -1,9 +1,10 @@
-import { ArrowBack, ArrowBackIosNewRounded, ArrowForward, EditAttributesRounded, EditSharp, MenuOutlined } from "@mui/icons-material";
-import { Box, IconButton, Typography } from "@mui/material";
-import { useState } from "react";
+import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
+import { languages } from '@codemirror/language-data';
+import { Box, Button, IconButton, Typography } from "@mui/material";
+import CodeMirror, { getStatistics } from '@uiw/react-codemirror';
+import { useRef, useState } from "react";
 import Markdown from "./Markdown";
 import Remix from "./Remix";
-
 export default function Editor() {
 
 
@@ -213,24 +214,32 @@ flowchart TD
     
     `)
 
+
+    const [previewOn, setPreviewOn] = useState(false)
+    const onSwitchPreviewOn = () => setPreviewOn(on => !on)
+
+    const [mdStats, setMdStats] = useState({
+        from: 0,
+        to: 0
+    })
+    const md = useRef(0)
+
+    const surroundWith = (prefix, suffix) => {
+        if (previewOn) return
+        suffix = suffix ?? prefix
+        setct(ctContent => {
+            return ctContent.substring(0, mdStats.from) +
+                prefix +
+                ct.substring(mdStats.from, mdStats.to) +
+                suffix +
+                ctContent.substring(mdStats.to)
+        })
+    }
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', width: 'calc(100% - 501px)' }}>
             <Box
-                onClick={() => setct(`## Application Init
 
-~~~mermaid
-flowchart TD
-    1([User Login])
-    2([Fetch Practice & Tag from Database])
-    3([Create Non-Exist Practices until Today])
-    4([Send Updated Practices to Database])
-    5([Display Practices])
-    1 --> 2 --> 3 --> 4 --> 5
-~~~
-            
-            
-            
-            `)}
                 display={'flex'} width={'100%'} sx={{
                     height: '70px', borderBottom: '1px solid silver', alignItems: 'center',
                     '& div': {
@@ -252,8 +261,8 @@ flowchart TD
                     title
                 </Typography>
                 <Box>
-                    <IconButton size="small" color="primary">
-                        <Remix.edit fontSize="small" />
+                    <IconButton size="small" color="secondary" onClick={onSwitchPreviewOn}>
+                        {previewOn ? <Remix.markdown fontSize="small" /> : <Remix.code fontSize="small" />}
                     </IconButton>
                     <IconButton size="small" color="primary">
                         <Remix.more fontSize="small" />
@@ -262,8 +271,52 @@ flowchart TD
 
                 </Box>
             </Box>
-            <Box flexGrow={1} sx={{ height: 'calc(100% - 70px)', overflow: 'scroll', }}>
-                <Markdown content={ct} />
+            <Box
+
+                display={'flex'} width={'100%'} sx={{
+                    height: '30px', borderBottom: '1px solid silver', alignItems: 'center',
+                    '& div': {
+                        margin: '5px'
+                    }
+                }}>
+                <Button onClick={() => surroundWith('**')}>
+                    <Remix.bold />
+                </Button>
+                <Button onClick={() => surroundWith('*')}>
+                    <Remix.italic />
+                </Button>
+                <Button onClick={() => surroundWith('<mark>', '</mark>')}>
+                    <Remix.highlight />
+                </Button>
+                <Button onClick={() => surroundWith('<u>', '</u>')}>
+                    <Remix.underline />
+                </Button>
+                <Button onClick={() => surroundWith('~~')}>
+                    <Remix.strikethrough />
+                </Button>
+
+
+            </Box>
+            <Box sx={{ height: 'calc(100% - 102px)', overflow: 'scroll', }}>
+                {
+                    previewOn ? <Markdown content={ct} />
+                        : <CodeMirror
+                            ref={md}
+                            extensions={[markdown({ base: markdownLanguage, codeLanguages: languages })]}
+                            value={ct}
+                            onChange={(value, viewUpdate) => {
+                                setct(value)
+                                console.log(getStatistics(viewUpdate))
+                            }}
+                            onUpdate={viewUpdate => {
+                                const stats = getStatistics(viewUpdate)
+                                setMdStats({
+                                    from: stats.selectionAsSingle.from,
+                                    to: stats.selectionAsSingle.to
+                                })
+                            }}
+                        />
+                }
             </Box>
         </Box>
     )

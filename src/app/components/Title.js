@@ -1,11 +1,9 @@
-import { InfoRounded, PropaneSharp } from "@mui/icons-material"
-import { Box, IconButton, Typography } from "@mui/material"
 import Header from "./Header"
 
 
 export default function Title(props) {
 
-    const icons = props.icons ?? [{ icon: <InfoRounded fontSize="small" />, onClick: () => console.warn('Title') }]
+    const icons = props.icons ?? []
     const title = props.title ?? 'Title'
     const z = props.z ?? 10
 

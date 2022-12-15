@@ -1,5 +1,4 @@
 import { Box } from "@mui/system"
-import { useState } from "react"
 
 export default function Collapse(props) {
 
