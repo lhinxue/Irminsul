@@ -1,6 +1,7 @@
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
 import { Box, Breadcrumbs, Button, Divider, IconButton, Input, TextField, Typography } from "@mui/material";
+import { borderBottom } from '@mui/system';
 import CodeMirror, { getStatistics } from '@uiw/react-codemirror';
 import { ContentBlock, ContentState, Editor as DraftJs, EditorState, genKey, Modifier, SelectionState } from 'draft-js';
 import Immutable from 'immutable';
@@ -332,7 +333,7 @@ export default function Editor() {
         underline: () => surroundWith('<u>', '</u>'),
         strikethrough: () => surroundWith('~~'),
         code: () => surroundWith('`'),
-        link: () => startWith(' (DiplayName)[Link] '),
+        link: () => startWith(' [DisplayName](Link) '),
         h1: () => lineStartWith('# '),
         h2: () => lineStartWith('## '),
         h3: () => lineStartWith('### '),
@@ -390,6 +391,37 @@ export default function Editor() {
             '& svg': {
                 width: '16px',
                 height: '16px'
+            }
+        },
+        '& .Editor_Editor': {
+            backgroundColor: '#f6f6f6',
+            '& .DraftEditor-root, & .DraftEditor-root>div, & .DraftEditor-root>div>div,': {
+                height: '100%',
+                
+            },
+            '& .DraftEditor-root>div':{
+                backgroundColor: 'white',
+            },
+            '& .DraftEditor-editorContainer>div>div': {
+                counterReset: 'draftJsLine',
+                '& >div': {
+                    paddingLeft: '50px',
+                    borderBottom: '1px solid #f1f1f1',
+                    fontFamily: 'monospace',
+                    position: 'relative'
+                },
+                '& >div:before': {
+                    content: 'counter(draftJsLine)',
+                    counterIncrement: 'draftJsLine',
+                    position: 'absolute',
+                    marginLeft: '-50px',
+                    width: '40px',
+                    textAlign: 'center',
+                    color: '#ccc',
+                    backgroundColor: '#f9f9f9',
+                    borderRight: '1px solid #f1f1f1',
+                    borderBottom: '1px solid #f1f1f1'
+                }
             }
         }
 
@@ -459,7 +491,7 @@ export default function Editor() {
                 <IconButton size='small' color='primary'>
                     <Remix.table fontSize='small' onClick={onButtonClick.table} />
                 </IconButton>
-                <IconButton size='small' color='primary'>
+                {/* <IconButton size='small' color='primary'>
                     <Remix.tableAddColumnLeft fontSize='small' onClick={addColumnLeft} />
                 </IconButton>
                 <IconButton size='small' color='primary'>
@@ -477,7 +509,7 @@ export default function Editor() {
                 </IconButton>
                 <IconButton size='small' color='primary'>
                     <Remix.tableDeleteRow fontSize='small' />
-                </IconButton>
+                </IconButton> */}
 
 
 
@@ -554,12 +586,13 @@ export default function Editor() {
 
 
             </Box>
-            <Box sx={{ height: 'calc(100% - 102px)', overflow: 'scroll', }}>
+            <Box className='Editor_Editor' sx={{ height: 'calc(100% - 102px)', overflowY: 'scroll', }}>
 
                 {
                     previewOn ? <Markdown content={md} />
                         :
                         <DraftJs
+                            className='sissi'
                             editorState={editorState} onChange={setEditorState}
                         />
 
