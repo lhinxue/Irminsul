@@ -4,7 +4,7 @@ import { Box, Breadcrumbs, Button, Divider, IconButton, Input, TextField, Typogr
 import { borderBottom } from '@mui/system';
 import CodeMirror, { getStatistics } from '@uiw/react-codemirror';
 import { ContentBlock, ContentState, Editor as DraftJs, EditorState, genKey, Modifier, SelectionState } from 'draft-js';
-import Immutable from 'immutable';
+import Immutable from 'immutable'
 import { useContext, useRef, useState } from "react";
 import { Irminsul } from '../../core/irminsul';
 import Markdown from "./Markdown";
@@ -351,7 +351,8 @@ export default function Editor() {
     const style = {
         display: 'flex',
         flexDirection: 'column',
-        width: 'calc(100% - 501px)',
+        flexGrow: 1,
+        // width: 'calc(100% - 501px)',
         '& .Editor_Header': {
             display: 'flex',
             width: '100%',
@@ -390,12 +391,20 @@ export default function Editor() {
         },
         '& .Editor_Editor': {
             backgroundColor: '#f6f6f6',
-            '& .DraftEditor-root, & .DraftEditor-root>div, & .DraftEditor-root>div>div,': {
+            height: 'calc(100% - 102px)',
+            '& .DraftEditor-root': {
+                height: '100%',
+
+            },
+            '& .DraftEditor-root>div>div': {
                 height: '100%',
 
             },
             '& .DraftEditor-root>div': {
                 backgroundColor: 'white',
+                maxWidth: '800px',
+                margin: 'auto',
+                height: '100%',
             },
             '& .DraftEditor-editorContainer>div>div': {
                 counterReset: 'draftJsLine',

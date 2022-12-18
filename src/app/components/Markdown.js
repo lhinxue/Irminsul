@@ -9,8 +9,8 @@ export default function Markdown({ content }) {
 
     return (
         <Box sx={{
-            maxWidth: '100%',
-            width: '700px',
+            width: '100%',
+            maxWidth: '700px',
             margin: 'auto',
             padding: '20px 50px',
             // border: '1px solid silver',

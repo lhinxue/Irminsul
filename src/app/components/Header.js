@@ -34,7 +34,7 @@ export default function Header(props) {
                 {title}
             </Typography>
             {icons.map(btn =>
-                <IconButton color={btn.on === true ? 'secondary' : btn.on === false ? 'primary' : ''} onClick={btn.onClick} size='small'>
+                <IconButton color={btn.on === true ? 'secondary' : btn.on === false ? 'primary' : 'primary'} onClick={btn.onClick} size='small'>
                     {btn.icon}
                 </IconButton>
             )}
