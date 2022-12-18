@@ -27,12 +27,7 @@ export default function Editor() {
     }
 
 
-    const onSwitchPreviewOn = () => setPreviewOn(on => !on)
 
-    const [mdStats, setMdStats] = useState({
-        from: 0,
-        to: 0
-    })
     // const md = useRef(0)
 
     /*
@@ -397,9 +392,9 @@ export default function Editor() {
             backgroundColor: '#f6f6f6',
             '& .DraftEditor-root, & .DraftEditor-root>div, & .DraftEditor-root>div>div,': {
                 height: '100%',
-                
+
             },
-            '& .DraftEditor-root>div':{
+            '& .DraftEditor-root>div': {
                 backgroundColor: 'white',
             },
             '& .DraftEditor-editorContainer>div>div': {
@@ -592,7 +587,6 @@ export default function Editor() {
                     previewOn ? <Markdown content={md} />
                         :
                         <DraftJs
-                            className='sissi'
                             editorState={editorState} onChange={setEditorState}
                         />
 
