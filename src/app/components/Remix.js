@@ -24,5 +24,144 @@ const Remix = {
             </SvgIcon>
         )
     },
+    code: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" /><path d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12z" />
+            </SvgIcon>
+        )
+    },
+    codeBlock: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" /><path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h16V5H4zm8 10h6v2h-6v-2zm-3.333-3L5.838 9.172l1.415-1.415L11.495 12l-4.242 4.243-1.415-1.415L8.667 12z" />
+            </SvgIcon>
+        )
+    },
+    doubleQuotes: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" /><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />            </SvgIcon>
+        )
+    },
+    link: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" /><path d="M18.364 15.536L16.95 14.12l1.414-1.414a5 5 0 1 0-7.071-7.071L9.879 7.05 8.464 5.636 9.88 4.222a7 7 0 0 1 9.9 9.9l-1.415 1.414zm-2.828 2.828l-1.415 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 1 0 7.071 7.071l1.414-1.414 1.415 1.414zm-.708-10.607l1.415 1.415-7.071 7.07-1.415-1.414 7.071-7.07z" />            </SvgIcon>
+        )
+    },
+    callout: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" /><path d="M3 4h18v2H3V4zm0 15h18v2H3v-2zm8-5h10v2H11v-2zm0-5h10v2H11V9zm-4 3.5L3 16V9l4 3.5z" />
+            </SvgIcon>
+        )
+    },
+    h1: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0H24V24H0z" /><path d="M13 20h-2v-7H4v7H2V4h2v7h7V4h2v16zm8-12v12h-2v-9.796l-2 .536V8.67L19.5 8H21z" />            </SvgIcon>
+        )
+    },
+    h2: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0H24V24H0z" /><path d="M4 4v7h7V4h2v16h-2v-7H4v7H2V4h2zm14.5 4c2.071 0 3.75 1.679 3.75 3.75 0 .857-.288 1.648-.772 2.28l-.148.18L18.034 18H22v2h-7v-1.556l4.82-5.546c.268-.307.43-.709.43-1.148 0-.966-.784-1.75-1.75-1.75-.918 0-1.671.707-1.744 1.606l-.006.144h-2C14.75 9.679 16.429 8 18.5 8z" />
+            </SvgIcon>
+        )
+    },
+    h3: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0H24V24H0z" /><path d="M22 8l-.002 2-2.505 2.883c1.59.435 2.757 1.89 2.757 3.617 0 2.071-1.679 3.75-3.75 3.75-1.826 0-3.347-1.305-3.682-3.033l1.964-.382c.156.806.866 1.415 1.718 1.415.966 0 1.75-.784 1.75-1.75s-.784-1.75-1.75-1.75c-.286 0-.556.069-.794.19l-1.307-1.547L19.35 10H15V8h7zM4 4v7h7V4h2v16h-2v-7H4v7H2V4h2z" />
+            </SvgIcon>
+        )
+    },
+    h4: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0H24V24H0z" /><path d="M13 20h-2v-7H4v7H2V4h2v7h7V4h2v16zm9-12v8h1.5v2H22v2h-2v-2h-5.5v-1.34l5-8.66H22zm-2 3.133L17.19 16H20v-4.867z" />
+            </SvgIcon>
+        )
+    },
+    h5: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0H24V24H0z" /><path d="M22 8v2h-4.323l-.464 2.636c.33-.089.678-.136 1.037-.136 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.827 0-3.367-1.224-3.846-2.897l1.923-.551c.24.836 1.01 1.448 1.923 1.448 1.105 0 2-.895 2-2s-.895-2-2-2c-.63 0-1.193.292-1.56.748l-1.81-.904L16 8h6zM4 4v7h7V4h2v16h-2v-7H4v7H2V4h2z" />
+            </SvgIcon>
+        )
+    },
+    h6: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0H24V24H0z" /><path d="M21.097 8l-2.598 4.5c2.21 0 4.001 1.79 4.001 4s-1.79 4-4 4-4-1.79-4-4c0-.736.199-1.426.546-2.019L18.788 8h2.309zM4 4v7h7V4h2v16h-2v-7H4v7H2V4h2zm14.5 10.5c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2z" />
+            </SvgIcon>
+        )
+    },
+    mermaid: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0L24 0 24 24 0 24z" /><path d="M16 16c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zM6 12c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm10 6c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1zM6 14c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm8.5-12C17.538 2 20 4.462 20 7.5S17.538 13 14.5 13 9 10.538 9 7.5 11.462 2 14.5 2zm0 2C12.567 4 11 5.567 11 7.5s1.567 3.5 3.5 3.5S18 9.433 18 7.5 16.433 4 14.5 4z" />
+            </SvgIcon>
+        )
+    },
+    table: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path
+                    d="M4 8h16V5H4v3zm10 11v-9h-4v9h4zm2 0h4v-9h-4v9zm-8 0v-9H4v9h4zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"
+                /></SvgIcon>
+        )
+    },
+    tableDeleteRow: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M19 11V5H5v6h14zm0 2H5v6h14v-6zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"
+                /></SvgIcon>
+        )
+    },
+    tableDeleteColumn: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M11 5H5v14h6V5zm2 0v14h6V5h-6zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"
+                /></SvgIcon>
+        )
+    },
+    tableAddColumnLeft: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M21 3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h18zM7 5H4v14h3V5zm13 0H9v14h11V5z"
+                /></SvgIcon>
+        )
+    },
+    tableAddColumnRight: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M21 3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h18zm-6 2H4v14h11V5zm5 0h-3v14h3V5z"
+                /></SvgIcon>
+        )
+    },
+    tableAddRowTop: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M21 3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h18zM4 10v9h16v-9H4zm0-2h16V5H4v3z"
+                /></SvgIcon>
+        )
+    },
+    tableAddRowBottom: (props) => {
+        return (
+            <SvgIcon {...props}>
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M21 3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h18zM4 16v3h16v-3H4zm0-2h16V5H4v9z"
+                /></SvgIcon>
+        )
+    }
+
 }
 export default Remix

@@ -1,251 +1,403 @@
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, Divider, IconButton, Input, TextField, Typography } from "@mui/material";
 import CodeMirror, { getStatistics } from '@uiw/react-codemirror';
-import { useRef, useState } from "react";
+import { ContentBlock, ContentState, Editor as DraftJs, EditorState, genKey, Modifier, SelectionState } from 'draft-js';
+import Immutable from 'immutable';
+import { useContext, useRef, useState } from "react";
+import { Irminsul } from '../../core/irminsul';
 import Markdown from "./Markdown";
 import Remix from "./Remix";
 export default function Editor() {
 
-
-    const [ct, setct] = useState(`
-    
-    ddddddd# Index
-
-[toc]
-
-# Architecture
-
-| Layer       | Technology | Responsability                                               |
-| ----------- | ---------- | ------------------------------------------------------------ |
-| Application | React      | Accept and process data from Server; Analyze and display data to user; Send modified data to server. |
-| Server      | NodeJs     | Accept data and write it to Database; Read data from database and send it to Application; Maintain user session. |
-| Database    | MongoDB    | Store all data.                                              |
-# Implementation
-
-## Class
-
-### Practice
-
-~~~mermaid
-classDiagram
-class PracticeDTO{
-	String id
-	String name
-	String note
-	String userId
-	String tag
-	String startDate
-	String repeat
-	String record
-}
-class Practice {
-	String id
-	String name
-	String note
-	String userId
-	String tag
-	DateTime startDate
-	Object repeat
-	Object record
-}
-class Tag {
-	String id
-	String name
-	String note
-	String userId
-}
-class UserDTO {
-	String id
-	String password
-	String settings
-}
-class User {
-	String id
-	String password
-	Object settings
-}
-class DatabaseDTO
-DatabaseDTO <--> PracticeDTO
-DatabaseDTO <--> UserDTO
-DatabaseDTO <--> Tag
-Practice --> PracticeDTO : dtoFromPractice()
-PracticeDTO --> Practice : dtoToPractice()
-User --> UserDTO : dtoFromUser()
-UserDTO --> User : dtoToUser()
-Tag --* Practice : Practice.tag = Tag.id
-User --* Practice : Practice.userId = User.id
-~~~
-
-# Logic
-
-# Functions
-
-## DTO
-
-- dtoFromPractice
-- dtoToPractice
-- dtoFromUser
-- dtoToUser
-
-# Narrative Device
-
-## Background
-
-英雄拯救了世界，却被遗忘在了月球。你，是唯一一个记得她的人。
-为了拯救她，你决定前往月球。作为普通人，你并不拥有制造飞船的能力。但是作为她的「铭记者」，你可以使用「修行」之力，横渡宇宙。
-
-三十八万四千四百公里，是你和她的距离，也是你和「你」的距离。
-
-## The Thirteen Flame-Chasers Archives 逐火十三英桀档案
-
-| 位次 | 「刻印」 | 名字       | Signet      | Name       | 爱莉祝福               |
-| ---- | -------- | ---------- | ----------- | ---------- | ---------------------- |
-| I    | 「救世」 | 凯文       | Deliverance | Kevin      | 殉身「救世」，唯余笑靥 |
-| II   | 「真我」 | 爱莉希雅   | Ego         | Elysia     |                        |
-| III  | 「戒律」 | 阿波尼亚   | Discipline  | Aponia     | 命定「戒律」，自此无束 |
-| IV   | 「黄金」 | 伊甸       | Gold        | Eden       | 昨日「黄金」，璀耀如歌 |
-| V    | 「螺旋」 | 维尔薇     | Helix       | Vill-V     | 愚世「螺旋」，遍寻真我 |
-| VI   | 「鏖灭」 | 千劫       | Decimation  | Kalpas     | 千般「鏖灭」，心未成灰 |
-| VII  | 「天慧」 | 苏         | Bodhi       | Su         | 纵承「天慧」，真意难解 |
-| VIII | 「刹那」 | 樱         | Setsuna     | Sakura     | 飞花「刹那」，亦是恒久 |
-| IX   | 「旭光」 | 科斯魔     | Daybreak    | Kosma      | 吐绽「旭光」，别后长续 |
-| X    | 「无限」 | 梅比乌斯   | Infinity    | Mobius     | 行经「无限」，因你而在 |
-| XI   | 「繁星」 | 格蕾修     | Stars       | Griseo     | 列布「繁星」，入眸永铭 |
-| XII  | 「浮生」 | 华         | Vicissitude | Hua        | 爱佑「浮生」，从一而终 |
-| XIII | 「空梦」 | 帕朵菲莉丝 | Reverie     | Pardofelis | 只此「空梦」，虽醒仍驻 |
-
-## Achievement
-
-| Name                         | Requirement                                                  |
-| ---------------------------- | ------------------------------------------------------------ |
-|                              |                                                              |
-|                              |                                                              |
-| FlyMe2theMoon                | Reach the Moon                                               |
-| The Fourteenth Flame-Chasers | Consecutively Hold Thirteen Flame-Chaser Signets for One Year |
-| TruE                         | Consecutively Hold Thirteen Flame-Chaser Signets for Three Years |
-| Marry to the World           | Consecutively Hold Thirteen Flame-Chaser Signets for Ten Years |
+    const { api } = useContext(Irminsul)
 
 
+    const [md, setMd] = useState('')
+
+    const [previewOn, setPreviewOn] = useState(true)
+
+    const onSwitchPreview = () => {
+        if (!previewOn) {
+            // setEditorState(EditorState.createWithContent(ContentState.createFromText(md)))
+            setMd(editorState.getCurrentContent().getPlainText())
+        }
+        setPreviewOn(on => !on)
+    }
 
 
-
-### Class Function
-
-~~~js
-function toPracticeDTO(p_practice) {
-    const { startDate, repeat, record } = p_practice
-    var v_repeat = {
-        Monday: repeat[0],
-        Tuesday: repeat[1],
-        Wednesday: repeat[2],
-        Thursday: repeat[3],
-        Friday: repeat[4],
-        Saturday: repeat[5],
-        Sunday: repeat[6]
-    }
-}
-
-function toPractice(p_practiceDTO) {
-}
-~~~
-
-# Process
-
-## Application Init
-
-~~~mermaid
-flowchart TD
-	1([User Login])
-	2([Fetch Practice & Tag from Database])
-	3([Create Non-Exist Practices until Today])
-	4([Send Updated Practices to Database])
-	5([Display Practices])
-	1 --> 2 --> 3 --> 4 --> 5
-~~~
-
-## Create/Modify Practice
-
-~~~mermaid
-flowchart TD
-	1([Open & Modify Practice])
-	2([Create Practice])
-	3([Open Practice Pop-up])
-	4([Enter/Modify Practice Data])
-	4.1([Create/Modify Tag])
-	4.2([Open Tag Pop-up])
-	4.3([Validate Tag Data])
-	5([Validate Practice Data])
-	6([Add/Update Practice])
-	6.1([Add/Update Tag])
-	7([Insert/Update Practice to Database])
-	7.1([Insert/Update Tag to Database])
-	8([Dispaly Practices])
-	2 --> 3
-	1 --> 3 --> 4 --> 5 --> 6 --> 7 --> 8
-	4 --> 4.1 --> 4.2 --> 4.3 --> 5 --> 6.1 --> 7.1 --> 8
-~~~
-
-## Delete Practice
-
-~~~mermaid
-flowchart TD
-	1([Delete Practice])
-	2([Delete Practice to Database])
-	3([Display Practices])
-	1 --> 2 --> 3
-~~~
-
-## Delete Tag
-
-~~~mermaid
-flowchart TD
-	1([Delete Tag])
-	2([Check If Tag is in Use])
-	2.1([Reset Practices That Use The Tag])
-	2.2([Update Practices to Database])
-	3([Delete Tag to Database])
-	4([Display Practices])
-	1 --> 2 --> 3 --> 4
-	2 --> 2.1 --> 2.2 --> 3
-~~~
-
-## Achieve Practice
-    
-    `)
-
-
-    const [previewOn, setPreviewOn] = useState(false)
     const onSwitchPreviewOn = () => setPreviewOn(on => !on)
 
     const [mdStats, setMdStats] = useState({
         from: 0,
         to: 0
     })
-    const md = useRef(0)
+    // const md = useRef(0)
+
+    /*
+    inline: bold,italic,highlight,underline,strikethrough, code
+    line:h1-h6, callout
+    block: code,memaid
+    */
+
+
+
+
+    const createSelection = (key, offset) => {
+        let selection = SelectionState.createEmpty(key)
+        selection = selection.update('anchorOffset', () => offset)
+        selection = selection.update('focusOffset', () => offset)
+        return selection
+    }
+
+    const createRangeSelection = (startKey, startOffset, endKey, endOffset) => {
+        let selection = SelectionState.createEmpty(startKey)
+        selection = selection.update('anchorOffset', () => startOffset)
+        selection = selection.update('focusKey', () => endKey)
+        selection = selection.update('focusOffset', () => endOffset)
+        return selection
+    }
+
+    const startWith = (prefix) => {
+        if (previewOn) return
+        let startKey = editorState.getSelection().getStartKey()
+        let startOffset = editorState.getSelection().getStartOffset()
+        let editor = EditorState.push(editorState, Modifier.insertText(editorState.getCurrentContent(), createSelection(startKey, startOffset), prefix), 'insert-characters')
+        editor = EditorState.forceSelection(editor, createSelection(startKey, startOffset + prefix.length))
+        setEditorState(editor)
+    }
+
+    const endWith = (suffix) => {
+        if (previewOn) return
+        let endKey = editorState.getSelection().getEndKey()
+        let endOffset = editorState.getSelection().getEndOffset()
+        let emptySelection = createSelection(endKey, endOffset)
+        let editor = EditorState.push(editorState, Modifier.insertText(editorState.getCurrentContent(), emptySelection, suffix), 'insert-characters')
+        editor = EditorState.forceSelection(editor, emptySelection)
+        setEditorState(editor)
+    }
 
     const surroundWith = (prefix, suffix) => {
         if (previewOn) return
         suffix = suffix ?? prefix
-        setct(ctContent => {
-            return ctContent.substring(0, mdStats.from) +
-                prefix +
-                ct.substring(mdStats.from, mdStats.to) +
-                suffix +
-                ctContent.substring(mdStats.to)
+        let startKey = editorState.getSelection().getStartKey()
+        let startOffset = editorState.getSelection().getStartOffset()
+        let endKey = editorState.getSelection().getEndKey()
+        let endOffset = editorState.getSelection().getEndOffset()
+        let content = editorState.getCurrentContent()
+        content = Modifier.insertText(content, createSelection(endKey, endOffset), suffix)
+        content = Modifier.insertText(content, createSelection(startKey, startOffset), prefix)
+        let editor = EditorState.push(editorState, content, 'insert-characters')
+        editor = EditorState.forceSelection(editor, createRangeSelection(startKey, startOffset + prefix.length, endKey, startKey === endKey ? endOffset + prefix.length : endOffset))
+        setEditorState(editor)
+    }
+
+    const lineStartWith = (prefix) => {
+        if (previewOn) return
+        let startKey = editorState.getSelection().getStartKey()
+        let startOffset = editorState.getSelection().getStartOffset()
+        let editor = EditorState.push(editorState, Modifier.insertText(editorState.getCurrentContent(), SelectionState.createEmpty(startKey), prefix), 'insert-characters')
+        editor = EditorState.forceSelection(editor, createSelection(startKey, startOffset + prefix.length))
+        setEditorState(editor)
+    }
+
+    const blockSurroundWidth = (prefix, suffix) => {
+
+    }
+
+    const lineEndWith = (suffix) => {
+        if (previewOn) return
+        let endKey = editorState.getSelection().getEndKey()
+        let endOffset = editorState.getSelection().getEndOffset()
+        let content = editorState.getCurrentContent()
+        let emptySelection = createSelection(endKey, endOffset)
+        let editor = EditorState.push(editorState, Modifier.insertText(content, createSelection(endKey, content.getBlockForKey(endKey).getLength()), suffix), 'insert-characters')
+        editor = EditorState.forceSelection(editor, emptySelection)
+        setEditorState(editor)
+    }
+
+    const lineSurroundWith = (prefix, suffix) => {
+        if (previewOn) return
+        suffix = suffix ?? prefix
+        let startKey = editorState.getSelection().getStartKey()
+        let endKey = editorState.getSelection().getEndKey()
+        let content = editorState.getCurrentContent()
+        let selection = editorState.getSelection()
+
+        let prefixBlock = new ContentBlock({
+            key: genKey(),
+            type: 'unstyled',
+            text: prefix,
         })
+        let suffixBlock = new ContentBlock({
+            key: genKey(),
+            type: 'unstyled',
+            text: suffix,
+        })
+
+        let oldBlockMap = content.getBlockMap()
+        let newBlockMap = Immutable.OrderedMap().withMutations(map => {
+            for (let [k, v] of oldBlockMap.entries()) {
+                if (startKey === k) {
+                    map.set(prefixBlock.key, prefixBlock);
+                    map.set(k, v);
+                }
+
+                if (endKey === k) {
+                    map.set(k, v);
+                    map.set(suffixBlock.key, suffixBlock);
+                }
+
+                if (startKey !== k && endKey !== k) {
+                    map.set(k, v);
+                }
+
+            }
+        })
+
+
+
+        content.merge({ blockMap: content.getBlockMap().toSeq().concat([[prefixBlock.getKey(), prefixBlock]]).toOrderedMap() })
+
+
+        // content = Modifier.insertText(content, SelectionState.createEmpty(startKey), prefix)
+        // content = Modifier.insertText(content, createSelection(endKey, content.getBlockForKey(endKey).getLength()), suffix)
+        let editor = EditorState.push(
+            editorState,
+            ContentState.createFromBlockArray(Array.from(newBlockMap.values()))
+        )
+        editor = EditorState.forceSelection(editor, selection)
+        setEditorState(editor)
+    }
+    const insertTable = () => {
+        if (previewOn) return
+
+        let endKey = editorState.getSelection().getEndKey()
+        let content = editorState.getCurrentContent()
+        let selection = editorState.getSelection()
+
+        let block1 = new ContentBlock({
+            key: genKey(),
+            type: 'unstyled',
+            text: '| Column0 | Column1 | ',
+        })
+        let block2 = new ContentBlock({
+            key: genKey(),
+            type: 'unstyled',
+            text: '| --- | --- | ',
+        })
+        let block3 = new ContentBlock({
+            key: genKey(),
+            type: 'unstyled',
+            text: '| Cell 1-0 | Cell 1-1 |',
+        })
+
+        let oldBlockMap = content.getBlockMap()
+        let newBlockMap = Immutable.OrderedMap().withMutations(map => {
+            for (let [k, v] of oldBlockMap.entries()) {
+                map.set(k, v);
+                if (endKey === k) {
+                    map.set(block1.key, block1);
+                    map.set(block2.key, block2);
+                    map.set(block3.key, block3);
+                }
+
+
+            }
+        })
+
+
+
+        content.merge({
+            blockMap: content.getBlockMap().toSeq().concat([
+                [block1.getKey(), block1], [block2.getKey(), block2], [block3.getKey(), block3]
+            ]).toOrderedMap()
+        })
+
+
+        // content = Modifier.insertText(content, SelectionState.createEmpty(startKey), prefix)
+        // content = Modifier.insertText(content, createSelection(endKey, content.getBlockForKey(endKey).getLength()), suffix)
+        let editor = EditorState.push(
+            editorState,
+            ContentState.createFromBlockArray(Array.from(newBlockMap.values()))
+        )
+        editor = EditorState.forceSelection(editor, selection)
+        setEditorState(editor)
+    }
+
+    const addColumnLeft = () => {
+        if (previewOn) return
+
+        let endKey = editorState.getSelection().getEndKey()
+        let content = editorState.getCurrentContent()
+        let selection = editorState.getSelection()
+
+
+        let blockKey = editorState.getSelection().getEndKey()
+        let currentBlock = content.getBlockForKey(blockKey)
+        while (true) {
+            let currentBlockText = currentBlock.getText().trim()
+            if (currentBlockText.startsWith('|')) {
+                console.log(currentBlockText)
+
+                currentBlock = content.getBlockBefore(currentBlock.getKey())
+            } else {
+                break
+            }
+
+        }
+        currentBlock = content.getBlockAfter(blockKey)
+        while (true) {
+            let currentBlockText = currentBlock.getText().trim()
+            if (currentBlockText.startsWith('|')) {
+                console.log(currentBlockText)
+
+                currentBlock = content.getBlockAfter(currentBlock.getKey())
+            } else {
+                break
+            }
+
+        }
+
+
+        // let block1 = new ContentBlock({
+        //     key: genKey(),
+        //     type: 'unstyled',
+        //     text: '| Column0 | Column1 | ',
+        // })
+        // let block2 = new ContentBlock({
+        //     key: genKey(),
+        //     type: 'unstyled',
+        //     text: '| --- | --- | ',
+        // })
+        // let block3 = new ContentBlock({
+        //     key: genKey(),
+        //     type: 'unstyled',
+        //     text: '| Cell 1-0 | Cell 1-1 |',
+        // })
+
+        // let oldBlockMap = content.getBlockMap()
+        // let newBlockMap = Immutable.OrderedMap().withMutations(map => {
+        //     for (let [k, v] of oldBlockMap.entries()) {
+        //         map.set(k, v);
+        //         if (endKey === k) {
+        //             map.set(block1.key, block1);
+        //             map.set(block2.key, block2);
+        //             map.set(block3.key, block3);
+        //         }
+
+
+        //     }
+        // })
+
+
+
+        // content.merge({
+        //     blockMap: content.getBlockMap().toSeq().concat([
+        //         [block1.getKey(), block1], [block2.getKey(), block2], [block3.getKey(), block3]
+        //     ]).toOrderedMap()
+        // })
+
+
+        // // content = Modifier.insertText(content, SelectionState.createEmpty(startKey), prefix)
+        // // content = Modifier.insertText(content, createSelection(endKey, content.getBlockForKey(endKey).getLength()), suffix)
+        // let editor = EditorState.push(
+        //     editorState,
+        //     ContentState.createFromBlockArray(Array.from(newBlockMap.values()))
+        // )
+        // editor = EditorState.forceSelection(editor, selection)
+        // setEditorState(editor)
+    }
+    const addColumnRight = () => {
+
+    }
+    const addRowTop = () => {
+
+    }
+    const addRowBottom = () => {
+
+    }
+
+    const undo = () => {
+        setEditorState(EditorState.undo(editorState))
+    }
+    const redo = () => {
+        setEditorState(EditorState.redo(editorState))
+    }
+
+    const onButtonClick = {
+        bold: () => surroundWith('**'),
+        italic: () => surroundWith('*'),
+        highlight: () => surroundWith('<mark>', '</mark>'),
+        underline: () => surroundWith('<u>', '</u>'),
+        strikethrough: () => surroundWith('~~'),
+        code: () => surroundWith('`'),
+        link: () => startWith(' (DiplayName)[Link] '),
+        h1: () => lineStartWith('# '),
+        h2: () => lineStartWith('## '),
+        h3: () => lineStartWith('### '),
+        h4: () => lineStartWith('#### '),
+        h5: () => lineStartWith('##### '),
+        callout: () => lineStartWith('> '),
+        codeBlock: () => lineSurroundWith('~~~'),
+        mermaid: () => lineSurroundWith('~~~mermaid', '~~~'),
+        table: () => insertTable()
+
+    }
+
+    const [editorState, setEditorState] = useState(
+        () => EditorState.createEmpty(),
+    );
+
+
+
+
+    const style = {
+        display: 'flex',
+        flexDirection: 'column',
+        width: 'calc(100% - 501px)',
+        '& .Editor_Header': {
+            display: 'flex',
+            width: '100%',
+            height: '70px',
+            borderBottom: '1px solid silver',
+            alignItems: 'center',
+            '& div': {
+                margin: '5px'
+            },
+            '& .Editor_Breadcrumbs': {
+                flexGrow: 1,
+                display: 'flex',
+                justifyContent: 'center',
+                fontStyle: 'italic'
+            }
+        },
+        '& .Editor_Toolbar': {
+            display: 'flex',
+            width: '100%',
+            height: '30px',
+            borderBottom: '1px solid silver',
+            alignItems: 'center',
+            justifyContent: 'center',
+            '& div': {
+                margin: '5px'
+            },
+            '& button': {
+                width: '22px',
+                height: '22px',
+                margin: '0 3px'
+            },
+            '& svg': {
+                width: '16px',
+                height: '16px'
+            }
+        }
+
     }
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', width: 'calc(100% - 501px)' }}>
-            <Box
-
-                display={'flex'} width={'100%'} sx={{
-                    height: '70px', borderBottom: '1px solid silver', alignItems: 'center',
-                    '& div': {
-                        margin: '5px'
-                    }
-                }}>
+        <Box className='Editor' sx={style}>
+            <Box className='Editor_Header'>
                 <Box>
                     <IconButton size="small" color="primary">
                         <Remix.arrowLeft fontSize="small" />
@@ -253,36 +405,95 @@ flowchart TD
                     <IconButton size="small" color="primary">
                         <Remix.arrowRight fontSize="small" />
                     </IconButton>
-
-
                 </Box>
-
-                <Typography flexGrow={1}>
-                    title
-                </Typography>
+                <Breadcrumbs className='Editor_Breadcrumbs' separator='·'>
+                    <Typography color='inherit'>
+                        root
+                    </Typography>
+                    <Typography color='inherit'>
+                        branch
+                    </Typography>
+                    <Typography color='text.primary'>
+                        leaf
+                    </Typography>
+                </Breadcrumbs>
                 <Box>
-                    <IconButton size="small" color="secondary" onClick={onSwitchPreviewOn}>
+                    <IconButton size="small" color="secondary" onClick={onSwitchPreview}>
                         {previewOn ? <Remix.markdown fontSize="small" /> : <Remix.code fontSize="small" />}
                     </IconButton>
                     <IconButton size="small" color="primary">
                         <Remix.more fontSize="small" />
                     </IconButton>
-
-
                 </Box>
             </Box>
-            <Box
+            <Box className='Editor_Toolbar'>
 
-                display={'flex'} width={'100%'} sx={{
-                    height: '30px', borderBottom: '1px solid silver', alignItems: 'center',
-                    '& div': {
-                        margin: '5px'
-                    }
+                <IconButton size='small' color='primary' onClick={onButtonClick.bold}> <Remix.bold fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.italic}> <Remix.italic fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.highlight}> <Remix.highlight fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.underline}> <Remix.underline fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.strikethrough}> <Remix.strikethrough fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.code}> <Remix.code fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.link}> <Remix.link fontSize='small' /> </IconButton>
+
+                <Divider orientation='vertical' />
+
+                <IconButton size='small' color='primary' onClick={onButtonClick.h1}> <Remix.h1 fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.h2}> <Remix.h2 fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.h3}> <Remix.h3 fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.h4}> <Remix.h4 fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.h5}> <Remix.h5 fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.h6}> <Remix.h6 fontSize='small' /> </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.callout}> <Remix.callout fontSize='small' /> </IconButton>
+
+                <Divider orientation='vertical' />
+
+                <IconButton size='small' color='primary' onClick={onButtonClick.codeBlock}>
+                    <Remix.codeBlock fontSize='small' />
+                </IconButton>
+                <IconButton size='small' color='primary' onClick={onButtonClick.mermaid}>
+                    <Remix.mermaid fontSize='small' />
+                </IconButton>
+
+                <Divider orientation='vertical' />
+                <IconButton size='small' color='primary'>
+                    <Remix.table fontSize='small' onClick={onButtonClick.table} />
+                </IconButton>
+                <IconButton size='small' color='primary'>
+                    <Remix.tableAddColumnLeft fontSize='small' onClick={addColumnLeft} />
+                </IconButton>
+                <IconButton size='small' color='primary'>
+                    <Remix.tableAddColumnRight fontSize='small' />
+                </IconButton>
+                <IconButton size='small' color='primary'>
+                    <Remix.tableAddRowTop fontSize='small' />
+                </IconButton>
+                <IconButton size='small' color='primary'>
+                    <Remix.tableAddRowBottom fontSize='small' />
+                </IconButton>
+
+                <IconButton size='small' color='primary'>
+                    <Remix.tableDeleteColumn fontSize='small' />
+                </IconButton>
+                <IconButton size='small' color='primary'>
+                    <Remix.tableDeleteRow fontSize='small' />
+                </IconButton>
+
+
+
+
+
+
+                {/* 
+
+                <Button onClick={() => {
+                    lineSurroundWith('#####\n', '\nccccc')
                 }}>
-                <Button onClick={() => surroundWith('**')}>
                     <Remix.bold />
                 </Button>
-                <Button onClick={() => surroundWith('*')}>
+                <Button onClick={() => {
+                    undo()
+                }}>
                     <Remix.italic />
                 </Button>
                 <Button onClick={() => surroundWith('<mark>', '</mark>')}>
@@ -291,33 +502,84 @@ flowchart TD
                 <Button onClick={() => surroundWith('<u>', '</u>')}>
                     <Remix.underline />
                 </Button>
-                <Button onClick={() => surroundWith('~~')}>
+                <Button onClick={() => {
+                    console.log({
+                        startKey: editorState.getSelection().getStartKey(),
+                        endKey: editorState.getSelection().getEndKey(),
+                        startOffset: editorState.getSelection().getStartOffset(),
+                        endOffset: editorState.getSelection().getEndOffset(),
+                    })
+                    let currentContent = editorState.getCurrentContent()
+                    let startBlock = currentContent.getBlockForKey(editorState.getSelection().getStartKey())
+
+
+                    let startBlockText = startBlock.getText()
+                    startBlockText = startBlockText.substring(0, editorState.getSelection().getStartOffset()) + '~' + startBlockText.substring(editorState.getSelection().getStartOffset())
+                    startBlock = startBlock.update('text', () => startBlockText)
+                    // console.log(startBlock.getText())
+                    // let newContentState = Modifier.setBlockData(currentContent, SelectionState.createEmpty(editorState.getSelection().getStartKey()), startBlock)
+                    // console.log(newContentState.getPlainText())
+                    // EditorState.push(editorState, Modifier.setBlockData(currentContent, editorState.getSelection(), startBlock), 'change-block-data')
+
+                    var content = editorState.getCurrentContent();
+                    let slc = SelectionState.createEmpty(editorState.getSelection().getStartKey())
+
+                    slc = slc.update('anchorOffset', () => editorState.getSelection().getStartOffset())
+                    slc = slc.update('focusOffset', () => editorState.getSelection().getStartOffset())
+
+                    // var newContent = Modifier.removeRange(content, editorState.getSelection(), "backward")
+                    // newContent = Modifier.setBlockData(newContent, newContent.getSelectionAfter(), new Map({ 'data': startBlockText }))
+                    var newContent = Modifier.insertText(content, slc, '666')
+                    // newContent = Modifier.setBlockType(newContent, newContent.getSelectionAfter(), "unstyled") //Can skip if not needed
+
+                    var newEditor = EditorState.push(editorState, newContent, "remove-range");
+                    setEditorState(newEditor)
+                    // console.log(EditorState.push(editorState, Modifier.setBlockData(currentContent, editorState.getSelection(), startBlock), 'change-block-data').getPlainText())
+
+                }}>
                     <Remix.strikethrough />
                 </Button>
+                <Button onClick={() => {
+                    setEditorState(EditorState.createWithContent(ContentState.createFromText(ct)))
+                }}>
+                    <Remix.code />
+                </Button>
+                <Button onClick={() => {
+                    // startWith('~~~\n')
+                    // endWith('\n~~~')
+                    console.log(editorState.getCurrentContent().getPlainText())
+                }}>
+                    <Remix.codeBlock />
+                </Button> */}
 
 
             </Box>
             <Box sx={{ height: 'calc(100% - 102px)', overflow: 'scroll', }}>
+
                 {
-                    previewOn ? <Markdown content={ct} />
-                        : <CodeMirror
-                            ref={md}
-                            extensions={[markdown({ base: markdownLanguage, codeLanguages: languages })]}
-                            value={ct}
-                            onChange={(value, viewUpdate) => {
-                                setct(value)
-                                console.log(getStatistics(viewUpdate))
-                            }}
-                            onUpdate={viewUpdate => {
-                                const stats = getStatistics(viewUpdate)
-                                setMdStats({
-                                    from: stats.selectionAsSingle.from,
-                                    to: stats.selectionAsSingle.to
-                                })
-                            }}
+                    previewOn ? <Markdown content={md} />
+                        :
+                        <DraftJs
+                            editorState={editorState} onChange={setEditorState}
                         />
+
+
+                    // <CodeMirror
+                    //     ref={md}
+                    //     value={ct}
+                    //     onChange={(value) => {
+                    //         setct(value)
+                    //     }}
+                    //     onUpdate={viewUpdate => {
+                    //         const stats = getStatistics(viewUpdate)
+                    //         setMdStats({
+                    //             from: stats.selectionAsSingle.from,
+                    //             to: stats.selectionAsSingle.to
+                    //         })
+                    //     }}
+                    // />
                 }
             </Box>
-        </Box>
+        </Box >
     )
 }
