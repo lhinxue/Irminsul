@@ -2,6 +2,7 @@ import { Box } from "@mui/system"
 
 export default function Collapse(props) {
 
+    const className = props.className ?? 'Collapse'
     const backgroundColor = props.backgroundColor ?? 'white'
     const bottom = props.bottom ?? 0
     const children = props.children
@@ -34,7 +35,7 @@ export default function Collapse(props) {
     }
 
     return (
-        <Box sx={style}>
+        <Box className={className} sx={style}>
             {children}
         </Box>
     )

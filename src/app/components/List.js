@@ -8,39 +8,27 @@ export default function List(props) {
     const backgroundColor = props.backgroundColor ?? 'white'
     const className = props.className ? `List List_${props.className}` : 'List'
     const current = props.current
+    const height = props.height ?? '100%'
     const label = props.className ?? 'List'
+    const maxHeight = props.maxHeight ?? '100%'
+    const menus = props.menus ?? []
     const onGetName = props.onGetName ?? (id => id)
     const onKeyChange = props.onKeyChange
     const onSort = props.onSort
     const rowHeight = props.rowHeight ?? 40
     const source = props.source ?? []
     const width = props.width ?? 200
-    const height = props.height ?? '100%'
-    const maxHeight = props.maxHeight ?? '100%'
     const z = props.z ?? 10
-    const listMenus = props.listMenus
-    const itemMenus = props.itemMenus
 
-    const [listMenuOn, setListMenuOn] = useState(false)
-    const [listMenuProps, setListMenuProps] = useState(undefined)
-    const [itemMenuOn, setItemMenuOn] = useState(false)
-    const [itemMenuProps, setItemMenuProps] = useState(undefined)
+    const [menuOn, setMenuOn] = useState(false)
+    const [menuProps, setMenuProps] = useState({})
 
-    const rightClickList = (e) => {
+    const onContextMenu = (e) => {
         e.preventDefault()
-        e.stopPropagation()
-        // setItemMenuOn(false)
-        setListMenuOn(true)
-        setListMenuProps({ top: e.clientY, left: e.clientX, id: e.target.id })
-    }
-    const rightClickItem = (e) => {
-        e.preventDefault()
+        setMenuProps({ top: e.clientY, left: e.clientX, id: e.target.id })
+        setMenuOn(true)
 
-        // setListMenuOn(false)
-        setItemMenuOn(true)
-        setItemMenuProps({ top: e.clientY, left: e.clientX, id: e.target.id })
     }
-
 
     const ScrollButton = ({ direction, disabled, onClick }) => {
 
@@ -103,33 +91,9 @@ export default function List(props) {
         }
     }
 
-    const onRightClick = (e) => {
-        onKeyChange(e, e.target.id)
-        e.preventDefault()
-        setContextMenu(
-            contextMenu === null ? {
-                mouseX: e.clientX + 2,
-                mouseY: e.clientY - 6,
-            } : null
-        )
-    }
-    const onRightClickContext = (e) => {
-        e.preventDefault()
-        setContextMenu(null)
-    }
-    const [contextMenu, setContextMenu] = useState(null)
-    const [t, sett] = useState(false)
-    const [cmp, setcmp] = useState(undefined)
-
-    const onc = (e) => {
-        e.preventDefault()
-        sett(true)
-        setcmp({ top: e.clientY, left: e.clientX, id: e.target.id })
-    }
     return (
         <Box className={className} sx={style}>
             <Tabs
-                onContextMenu={rightClickList}
                 ScrollButtonComponent={ScrollButton}
                 aria-label={label}
                 className='TabGroup'
@@ -140,7 +104,7 @@ export default function List(props) {
             >
                 {source.sort(onSort).map(id =>
                     <Tab
-                        onContextMenu={rightClickItem}
+                        onContextMenu={onContextMenu}
                         className='Tab'
                         iconPosition='start'
                         id={id}
@@ -150,24 +114,12 @@ export default function List(props) {
                     />
                 )}
             </Tabs>
-            {
-                listMenus ?
-                    <ContextMenu
-                        on={listMenuOn}
-                        onClose={() => setListMenuProps(false)}
-                        current={listMenuProps}
-                        menus={listMenus}
-                    /> : <></>
-            }
-            {
-                itemMenus ?
-                    <ContextMenu
-                        on={itemMenuOn}
-                        onClose={() => setItemMenuOn(false)}
-                        current={itemMenuProps}
-                        menus={itemMenus}
-                    /> : <></>
-            }
+            <ContextMenu
+                on={menuOn}
+                onClose={() => setMenuOn(false)}
+                current={menuProps}
+                menus={menus}
+            />
         </Box>
     )
 }
