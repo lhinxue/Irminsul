@@ -71,8 +71,9 @@ export default function Explorer() {
                 <List
                     current={api.branch}
                     menus={[
-                        { name: 'Create Branch' },
+                        { name: 'New Branch' },
                         { name: 'Rename' },
+                        { name: 'Move to...' },
                         { name: 'Delete' }
                     ]}
                     onGetName={service.getApiBranchName}
@@ -83,7 +84,11 @@ export default function Explorer() {
                 <List
                     current={api.leaf}
                     menus={[
-                        { name: 'Create Branch' }
+                        { name: 'New Leaf' },
+                        { name: 'Rename' },
+                        { name: 'Move to...' },
+                        { name: 'Delete' },
+                        { name: 'Export as PDF' }
                     ]}
                     onGetName={service.getApiLeafName}
                     onKeyChange={service.updateApiLeaf}

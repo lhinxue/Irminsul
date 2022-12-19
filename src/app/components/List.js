@@ -27,7 +27,9 @@ export default function List(props) {
         e.preventDefault()
         setMenuProps({ top: e.clientY, left: e.clientX, id: e.target.id })
         setMenuOn(true)
-
+    }
+    const preventContextMenu = (e) => {
+        e.preventDefault()
     }
 
     const ScrollButton = ({ direction, disabled, onClick }) => {
@@ -70,10 +72,19 @@ export default function List(props) {
         width: width,
         zIndex: z,
         backgroundColor: backgroundColor,
+        position: 'relative',
+        '& .List_Background': {
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            backgroundColor: backgroundColor,
+            zIndex: 15,
+        },
         '& .TabGroup': {
             height: '100%',
             width: '100%',
             position: 'relative',
+            zIndex: 16,
             '& .Tab': {
                 width: '100%',
                 maxWidth: '100%',
@@ -94,6 +105,7 @@ export default function List(props) {
     return (
         <Box className={className} sx={style}>
             <Tabs
+                onContextMenu={preventContextMenu}
                 ScrollButtonComponent={ScrollButton}
                 aria-label={label}
                 className='TabGroup'

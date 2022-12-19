@@ -36,6 +36,7 @@ export default function ContextMenu(props) {
                     fontSize: 13,
                     fontVariant: 'small-caps',
                     letterSpacing: '.1em',
+                    padding: '1px 5px 3px 10px',
                 },
                 '& ul>li:last-child': {
                     borderBottom: 0
