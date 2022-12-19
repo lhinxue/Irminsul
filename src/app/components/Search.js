@@ -91,7 +91,7 @@ export default function Search(props) {
                         <Typography component={'div'} color='primary'>
                             Entire Irminsul
                         </Typography>
-                        <IconButton color="primary">
+                        <IconButton color="primary" >
                             <SwapHorizRounded fontSize="small" />
                         </IconButton>
                     </Box>

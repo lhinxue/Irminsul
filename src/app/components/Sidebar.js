@@ -13,10 +13,16 @@ import Title from "../components/Title";
 export default function Sidebar() {
 
     const [searchOn, setSearchOn] = useState(false)
-    const onSwitchSearch = () => setSearchOn(pre => !pre)
+    const onSwitchSearch = () => {
+        setSettingOn(false)
+        setSearchOn(pre => !pre)
+    }
 
     const [settingOn, setSettingOn] = useState(false)
-    const onSwitchSetting = () => setSettingOn(pre => !pre)
+    const onSwitchSetting = () => {
+        setSearchOn(false)
+        setSettingOn(pre => !pre)
+    }
 
     const [selfOn, setSelfOn] = useState(true)
     const onSwitchSelf = () => setSelfOn(pre => !pre)

@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import os from "./os";
 
 export const Irminsul = createContext()
 
@@ -7,458 +8,33 @@ export default function LeyLines({ children }) {
     // IRMINSUL
     const [irminsul, setIrminsul] = useState({
         'a4522850-ac16-4ccc-a0bf-bb48a471f622': {
-            name: 'Default',
+            name: 'Example',
             _: {
-                'a9754b2a-3918-4a5asda-bd2d-a79ded6fcf0d': {
-                    name: 'Example',
+                'id11': {
+                    name: 'Emaisl',
                     _: {
-                        '16664bf0-bf02-4c4a-902c-4ab44485b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
+                        'id111': {
+                            name: 'Gmail',
                             _: {}
                         },
-                        '48f24b55-5542-4005-894f-593582242d408c': {
-                            name: 'Resume',
-                            type: 'md',
+                        'id112': {
+                            name: 'Outlook',
                             _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab44222485b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-59358422222d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab4334485b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-5935842333d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab444833335b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-593544842d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab4445585b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-5935866642d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab47774485b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-593588842d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab4448587b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-5935878742d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab44478733885b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-593584256565d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
+                        }
                     }
                 },
-                '6b185e41-d724-4844-asdsd35b-e7e53d82339b': {
-                    name: 'Empty',
+                'id12': {
+                    name: 'Books',
                     _: {}
-                },
-                '16664bf0-bf02-4c4a-9asdfd02c-4ab44485b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-8asdfsdfsdf94f-593582242d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902aqewec-4ab44222485b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '6b185e41-d724-4844-a35b-e7e53d82339b': {
-                    name: 'Empty',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab44485b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-593582242d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab44222485b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-59358422222d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab4334485b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-5935842333d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab444833335b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-593544842d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab4445585b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-5935866642d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab47774485b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-593588842d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab4448587b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-5935878742d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab44478733885b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-593584256565d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-            }
-        },
-        'a4522850-ac16-4ccc-a0bf-bbee48a471f622': {
-            name: 'Default',
-            _: {
-                'a9754b2a-3918-4a5a-bd2d-a79ded6fcf0d': {
-                    name: 'Example',
-                    _: {
-                        '16664bf0-bf02-4c4a-902c-4ab44485b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-593582242d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab44222485b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-59358422222d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab4334485b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-5935842333d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab444833335b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-593544842d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab4445585b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-5935866642d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab47774485b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-593588842d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab4448587b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-5935878742d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                        '16664bf0-bf02-4c4a-902c-4ab44478733885b601': {
-                            name: 'Email Addresses',
-                            type: 'tb',
-                            _: {}
-                        },
-                        '48f24b55-5542-4005-894f-593584256565d408c': {
-                            name: 'Resume',
-                            type: 'md',
-                            _: {}
-                        },
-                    }
-                },
-                '6b185e41-d724-4844-a35b-e7e53d82339b': {
-                    name: 'Empty',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab44485b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-593582242d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab44222485b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-59358422222d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab4334485b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-5935842333d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab444833335b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-593544842d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab4445585b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-5935866642d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab47774485b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-593588842d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab4448587b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-5935878742d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
-                '16664bf0-bf02-4c4a-902c-4ab44478733885b601': {
-                    name: 'Email Addresses',
-                    type: 'tb',
-                    _: {}
-                },
-                '48f24b55-5542-4005-894f-593584256565d408c': {
-                    name: 'Resume',
-                    type: 'md',
-                    _: {}
-                },
+                }
             }
         },
         '6b185e41-d724-4844-a35b-e7e53d82339b': {
             name: 'Empty',
             _: {}
-        },
-        '16664bf0-bf02-4c4a-902c-4ab44485b601': {
-            name: 'Email Addresses',
-            type: 'tb',
-            _: {}
-        },
-        '48f24b55-5542-4005-894f-593582242d408c': {
-            name: 'Resume',
-            type: 'md',
-            _: {}
-        },
-        '16664bf0-bf02-4c4a-902c-4ab44222485b601': {
-            name: 'Email Addresses',
-            type: 'tb',
-            _: {}
-        },
-        '48f24b55-5542-4005-894f-59358422222d408c': {
-            name: 'Resume',
-            type: 'md',
-            _: {}
-        },
-        '16664bf0-bf02-4c4a-902c-4ab4334485b601': {
-            name: 'Email Addresses',
-            type: 'tb',
-            _: {}
-        },
-        '48f24b55-5542-4005-894f-5935842333d408c': {
-            name: 'Resume',
-            type: 'md',
-            _: {}
-        },
-        '16664bf0-bf02-4c4a-902c-4ab444833335b601': {
-            name: 'Email Addresses',
-            type: 'tb',
-            _: {}
-        },
-        '48f24b55-5542-4005-894f-593544842d408c': {
-            name: 'Resume',
-            type: 'md',
-            _: {}
-        },
-        '16664bf0-bf02-4c4a-902c-4ab4445585b601': {
-            name: 'Email Addresses',
-            type: 'tb',
-            _: {}
-        },
-        '48f24b55-5542-4005-894f-5935866642d408c': {
-            name: 'Resume',
-            type: 'md',
-            _: {}
-        },
-        '16664bf0-bf02-4c4a-902c-4ab47774485b601': {
-            name: 'Email Addresses',
-            type: 'tb',
-            _: {}
-        },
-        '48f24b55-5542-4005-894f-593588842d408c': {
-            name: 'Resume',
-            type: 'md',
-            _: {}
-        },
-        '16664bf0-bf02-4c4a-902c-4ab4448587b601': {
-            name: 'Email Addresses',
-            type: 'tb',
-            _: {}
-        },
-        '48f24b55-5542-4005-894f-5935878742d408c': {
-            name: 'Resume',
-            type: 'md',
-            _: {}
-        },
-        '16664bf0-bf02-4c4a-902c-4ab44478733885b601': {
-            name: 'Email Addresses',
-            type: 'tb',
-            _: {}
-        },
-        '48f24b55-5542-4005-894f-593584256565d408c': {
-            name: 'Resume',
-            type: 'md',
-            _: {}
-        },
-
+        }
     })
+
     const createTrunk = (strTrunkId) => {
         setIrminsul(pre => ({
             ...pre,
@@ -534,6 +110,8 @@ export default function LeyLines({ children }) {
     // 
     // User Configuration
     const [api, setApi] = useState({
+        file: undefined,
+        key: undefined,
         root: undefined,
         branch: undefined,
         leaf: undefined
@@ -545,41 +123,60 @@ export default function LeyLines({ children }) {
             [strKey]: objValue
         }))
     }
+    const updateApiRoot = (e, v) => {
+        updateApi('root', v)
+        updateApi('branch', undefined)
+        updateApi('leaf', undefined)
+    }
+    const updateApiBranch = (e, v) => {
+        updateApi('branch', v)
+        updateApi('leaf', undefined)
+    }
+    const updateApiLeaf = (e, v) => {
+        updateApi('leaf', v)
+    }
+    const initApiRoot = () => {
+        updateApi('root', Object.keys(irminsul)[0])
+    }
+    const sortApiRoot = (a, b) => {
+        a = irminsul._[a].name
+        b = irminsul._[b].name
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
+    }
+    const sortApiBranch = (a, b) => {
+        a = irminsul._[api.root]._[a].name
+        b = irminsul._[api.root]._[b].name
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
+    }
+    const sortApiLeaf = (a, b) => {
+        a = irminsul._[api.root]._[api.branch]._[a].name
+        b = irminsul._[api.root]._[api.branch]._[b].name
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
+    }
+    const getApiRootName = i => os.try(() => irminsul[i].name, '')
+    const getApiBranchName = i => os.try(() => irminsul[api.root]._[i].name, '')
+    const getApiLeafName = i => os.try(() => irminsul[api.root]._[api.branch]._[i].name, '')
+
 
     return (
         <Irminsul.Provider value={{
-            irminsul: {
-                _: irminsul,
-                set: setIrminsul,
-                create: {
-                    trunk: createTrunk,
-                    branch: createBranch,
-                    leaf: createLeaf
-                },
-                delete: {
-                    trunk: deleteTrunk,
-                    branch: deleteBranch,
-                    leaf: deleteLeaf
-                },
-                update: {
-                    leaf: updateLeaf
-                },
-                config: {
-                    _: config,
-                    set: setConfig,
-                    update: updateConfig
-                },
-                import: import_data,
-                export: export_data
-            },
+            irminsul: irminsul,
             api: {
-                _: api,
-                update: updateApi,
-                root: api.root,
                 branch: api.branch,
                 leaf: api.leaf,
-
-
+                root: api.root,
+            },
+            service: {
+                getApiBranchName: getApiBranchName,
+                getApiLeafName: getApiLeafName,
+                getApiRootName: getApiRootName,
+                initApiRoot: initApiRoot,
+                sortApiBranch: sortApiBranch,
+                sortApiLeaf: sortApiLeaf,
+                sortApiRoot: sortApiRoot,
+                updateApiBranch: updateApiBranch,
+                updateApiLeaf: updateApiLeaf,
+                updateApiRoot: updateApiRoot,
             }
         }}>
             {children}

@@ -1,6 +1,7 @@
 import { DeleteOutlined, DriveFileRenameOutline, ExpandMoreRounded } from '@mui/icons-material'
 import { Box, Button, ListItemIcon, Menu, MenuItem, Tab, Tabs, Typography } from '@mui/material'
 import { useState } from 'react'
+import ContextMenu from './ContextMenu'
 
 export default function List(props) {
 
@@ -17,7 +18,29 @@ export default function List(props) {
     const height = props.height ?? '100%'
     const maxHeight = props.maxHeight ?? '100%'
     const z = props.z ?? 10
-    const menus = props.menus ?? [{}]
+    const listMenus = props.listMenus
+    const itemMenus = props.itemMenus
+
+    const [listMenuOn, setListMenuOn] = useState(false)
+    const [listMenuProps, setListMenuProps] = useState(undefined)
+    const [itemMenuOn, setItemMenuOn] = useState(false)
+    const [itemMenuProps, setItemMenuProps] = useState(undefined)
+
+    const rightClickList = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        // setItemMenuOn(false)
+        setListMenuOn(true)
+        setListMenuProps({ top: e.clientY, left: e.clientX, id: e.target.id })
+    }
+    const rightClickItem = (e) => {
+        e.preventDefault()
+
+        // setListMenuOn(false)
+        setItemMenuOn(true)
+        setItemMenuProps({ top: e.clientY, left: e.clientX, id: e.target.id })
+    }
+
 
     const ScrollButton = ({ direction, disabled, onClick }) => {
 
@@ -95,9 +118,18 @@ export default function List(props) {
         setContextMenu(null)
     }
     const [contextMenu, setContextMenu] = useState(null)
+    const [t, sett] = useState(false)
+    const [cmp, setcmp] = useState(undefined)
+
+    const onc = (e) => {
+        e.preventDefault()
+        sett(true)
+        setcmp({ top: e.clientY, left: e.clientX, id: e.target.id })
+    }
     return (
         <Box className={className} sx={style}>
             <Tabs
+                onContextMenu={rightClickList}
                 ScrollButtonComponent={ScrollButton}
                 aria-label={label}
                 className='TabGroup'
@@ -108,7 +140,7 @@ export default function List(props) {
             >
                 {source.sort(onSort).map(id =>
                     <Tab
-                        onContextMenu={onRightClick}
+                        onContextMenu={rightClickItem}
                         className='Tab'
                         iconPosition='start'
                         id={id}
@@ -118,64 +150,24 @@ export default function List(props) {
                     />
                 )}
             </Tabs>
-            <Menu
-                onContextMenu={onRightClickContext}
-                elevation={0}
-                color='primary'
-                sx={{
-
-                    '& .MuiMenu-paper': {
-                        borderRadius: 0,
-                        boxShadow: '2px 2px 6px 0px rgba(0, 0, 0, 0.1)',
-                        width: 166,
-                        border: '1px solid silver'
-                    },
-                    '& ul': {
-                        paddingTop: 0,
-                        paddingBottom: 0
-                    },
-                    '& ul>li': {
-                        borderBottom: '1px solid silver'
-                    },
-                    '& ul>li:last-child': {
-                        borderBottom: 0
-                    },
-
-                }}
-                open={contextMenu !== null}
-                onClose={onRightClickContext}
-                anchorReference='anchorPosition'
-                anchorPosition={
-                    contextMenu !== null ? { top: contextMenu.mouseY, left: contextMenu.mouseX } : undefined
-                }
-
-            >
-                <MenuItem className='MenuItem' color='primary'>
-                    <ListItemIcon color='primary'>
-                        <DriveFileRenameOutline fontSize='small' color='primary' />
-                    </ListItemIcon>
-                    <Typography color='primary' sx={{
-                        fontSize: 13,
-                        fontVariant: 'small-caps',
-                        letterSpacing: '.1em',
-                    }}>
-                        Rename
-                    </Typography>
-                </MenuItem>
-                <MenuItem>
-                    <ListItemIcon>
-                        <DeleteOutlined fontSize='small' />
-                    </ListItemIcon>
-                    <div style={{
-                        fontSize: 13,
-                        fontVariant: 'small-caps',
-                        letterSpacing: '.1em',
-                    }}>
-                        Delete
-                    </div>
-
-                </MenuItem>
-            </Menu>
+            {
+                listMenus ?
+                    <ContextMenu
+                        on={listMenuOn}
+                        onClose={() => setListMenuProps(false)}
+                        current={listMenuProps}
+                        menus={listMenus}
+                    /> : <></>
+            }
+            {
+                itemMenus ?
+                    <ContextMenu
+                        on={itemMenuOn}
+                        onClose={() => setItemMenuOn(false)}
+                        current={itemMenuProps}
+                        menus={itemMenus}
+                    /> : <></>
+            }
         </Box>
     )
 }

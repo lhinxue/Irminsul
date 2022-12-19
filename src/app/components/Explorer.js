@@ -9,106 +9,21 @@ import SubTitle from "./SubTitle";
 
 export default function Explorer(props) {
 
-    function Try(func, v) {
-        try {
-            return func()
-        } catch (error) {
-            return v
-        }
-    }
-
-    const irminsul = {
-        'id1': {
-            name: 'Example',
-            _: {
-                'id11': {
-                    name: 'Company',
-                    _: {
-                        'id111': {
-                            name: 'Shapie',
-                            _: {}
-                        },
-                        'id112': {
-                            name: 'ShapieNorth',
-                            _: {}
-                        }
-                    }
-                },
-                'id12': {
-                    name: 'Girl Friends',
-                    _: {}
-                }
-            }
-        },
-        'id2': {
-            name: 'Empty',
-            _: {}
-        },
-        'id3': {
-            name: 'Mobius I Dragon Slayer',
-            _: {}
-        },
-        'id4': {
-            name: 'Mobius II Slay Dragon',
-            _: {}
-        },
-        'id5': {
-            name: 'Mobius III Dragon',
-            _: {}
-        }
-    }
-    const { api } = useContext(Irminsul)
-
-    const onRootChange = (e, v) => {
-        api.update('root', v)
-        api.update('branch', undefined)
-        api.update('leaf', undefined)
-    }
-    const onBranchChange = (e, v) => {
-        api.update('branch', v)
-        api.update('leaf', undefined)
-    }
-    const onLeafChange = (e, v) => {
-        api.update('leaf', v)
-    }
-    const onSetFirstRoot = () => {
-        // var strFirst = Object.keys(irminsul).at(0)
-        console.log(Object.keys(irminsul))
-        api.update('root', Object.keys(irminsul)[0])
-        // return strFirst
-    }
-    const onSortRoot = (a, b) => {
-        a = irminsul._[a].name
-        b = irminsul._[b].name
-        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
-    }
-    const onSortBranch = (a, b) => {
-        a = irminsul._[api.root]._[a].name
-        b = irminsul._[api.root]._[b].name
-        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
-    }
-    const onSortLeaf = (a, b) => {
-        a = irminsul._[api.root]._[api.branch]._[a].name
-        b = irminsul._[api.root]._[api.branch]._[b].name
-        return ((a < b) ? -1 : ((a > b) ? 1 : 0))
-    }
-
-    const onGetRootName = id => os.try(() => irminsul[id].name, '')
-    const onGetBranchName = id => os.try(() => irminsul[api.root]._[id].name, '')
-    const onGetLeafName = id => os.try(() => irminsul[api.root]._[api.branch]._[id].name, '')
+    const { api, service, irminsul } = useContext(Irminsul)
 
     const [rootOn, setRootOn] = useState(false)
 
     const onSwitchRoot = () => setRootOn(pre => !pre)
 
     useEffect(() => {
-        onSetFirstRoot()
+        service.initApiRoot()
     }, [])
+
     return (
         <Box sx={{ position: 'relative', flexGrow: 1, display: 'flex', flexDirection: 'column', }}>
             <SubTitle
                 z={15}
-                title={os.try(() => onGetRootName(api.root), '')}
+                title={os.try(() => service.getApiRootName(api.root), '')}
                 icons={[{ icon: <Remix.exchange fontSize="small" color={rootOn ? 'secondary' : 'primary'} />, onClick: onSwitchRoot }]}
             />
             <Collapse
@@ -126,8 +41,9 @@ export default function Explorer(props) {
                     maxHeight={'360px'}
                     current={api.root}
                     source={os.try(() => Object.keys(irminsul), [])}
-                    onGetName={onGetRootName}
-                    onKeyChange={onRootChange}
+                    onGetName={service.getApiRootName}
+                    onKeyChange={service.updateApiRoot}
+
                 />
             </Collapse>
             <Box sx={{
@@ -142,15 +58,23 @@ export default function Explorer(props) {
                     width={200}
                     current={api.branch}
                     source={os.try(() => Object.keys(irminsul[api.root]._), [])}
-                    onGetName={onGetBranchName}
-                    onKeyChange={onBranchChange}
+                    onGetName={service.getApiBranchName}
+                    onKeyChange={service.updateApiBranch}
+                    itemMenus={[
+                        { name: 'Create Branch' },
+                        { name: 'Rename' },
+                        { name: 'Delete' }
+                    ]}
                 />
                 <List
                     width={300}
                     current={api.leaf}
                     source={os.try(() => Object.keys(irminsul[api.root]._[api.branch]._), [])}
-                    onGetName={onGetLeafName}
-                    onKeyChange={onLeafChange}
+                    onGetName={service.getApiLeafName}
+                    onKeyChange={service.updateApiLeaf}
+                    itemMenus={[
+                        { name: 'Create Branch' }
+                    ]}
                 />
             </Box>
         </Box>
