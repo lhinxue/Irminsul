@@ -24,9 +24,9 @@ export default function Markdown({ content }) {
 
     return (
         <Box sx={{
-            width: 'auto',
+            width: 'calc(90% - 100px)',
             maxWidth: '700px',
-            margin: 'auto',
+            margin: '30px auto',
             padding: '20px 50px',
             // border: '1px solid silver',
             minHeight: '100%',

@@ -7,6 +7,7 @@ import { ContentBlock, ContentState, Editor as DraftJs, EditorState, genKey, Mod
 import Immutable from 'immutable'
 import { useContext, useRef, useState } from "react";
 import { Irminsul } from '../../core/irminsul';
+import IconControl from './IconControl';
 import Markdown from "./Markdown";
 import Remix from "./Remix";
 export default function Editor() {
@@ -328,7 +329,7 @@ export default function Editor() {
         underline: () => surroundWith('<u>', '</u>'),
         strikethrough: () => surroundWith('~~'),
         code: () => surroundWith('`'),
-        link: () => startWith(' [DisplayName](Link) '),
+        link: () => startWith('[DisplayName](Link)'),
         h1: () => lineStartWith('# '),
         h2: () => lineStartWith('## '),
         h3: () => lineStartWith('### '),
@@ -359,8 +360,8 @@ export default function Editor() {
             height: '70px',
             borderBottom: '1px solid silver',
             alignItems: 'center',
-            '& div': {
-                margin: '5px'
+            '&>div': {
+                margin: '0 5px'
             },
             '& .Editor_Breadcrumbs': {
                 flexGrow: 1,
@@ -380,32 +381,38 @@ export default function Editor() {
                 margin: '5px'
             },
             '& button': {
-                width: '22px',
-                height: '22px',
+                // width: '22px',
+                // height: '22px',
                 margin: '0 3px'
             },
             '& svg': {
-                width: '16px',
-                height: '16px'
+                width: '15px',
+                height: '15px'
             }
         },
         '& .Editor_Editor': {
-            backgroundColor: '#fafafa',
+            backgroundColor: '#f3f3f3',
             height: 'calc(100% - 102px)',
             '& .DraftEditor-root': {
-                minheight: '100%',
+                minHeight: '100%',
                 height: 'auto',
+                display: 'flex',
+                flexDirection: 'column'
                 // backgroundColor: 'white',
             },
             '& .DraftEditor-root>div>div': {
-                height: '100%',
+                flexGrow: 1,
 
             },
             '& .DraftEditor-root>div': {
                 backgroundColor: 'white',
                 maxWidth: '800px',
-                margin: 'auto',
+                margin: '30px auto',
+                width: '90%',
+                flexGrow: 1,
                 height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
                 boxShadow: '0px 0px 11px 0px rgb(70 70 70 / 10%)',
             },
             '& .DraftEditor-editorContainer>div>div': {
@@ -441,12 +448,8 @@ export default function Editor() {
         <Box className='Editor' sx={style}>
             <Box className='Editor_Header'>
                 <Box>
-                    <IconButton size="small" color="primary">
-                        <Remix.arrowLeft fontSize="small" />
-                    </IconButton>
-                    <IconButton size="small" color="primary">
-                        <Remix.arrowRight fontSize="small" />
-                    </IconButton>
+                    <IconControl icon={<Remix.arrowLeft />} />
+                    <IconControl icon={<Remix.arrowRight />} />
                 </Box>
                 <Breadcrumbs className='Editor_Breadcrumbs' separator='·'>
                     <Typography color='inherit'>
@@ -460,47 +463,37 @@ export default function Editor() {
                     </Typography>
                 </Breadcrumbs>
                 <Box>
-                    <IconButton size="small" color="secondary" onClick={onSwitchPreview}>
-                        {previewOn ? <Remix.markdown fontSize="small" /> : <Remix.code fontSize="small" />}
-                    </IconButton>
-                    <IconButton size="small" color="primary">
-                        <Remix.attachment fontSize="small" />
-                    </IconButton>
+                    <IconControl icon={previewOn ? <Remix.article /> : <Remix.code />} onClick={onSwitchPreview} on />
+                    <IconControl icon={<Remix.attachment />} />
                 </Box>
             </Box>
             <Box className='Editor_Toolbar'>
-
-                <IconButton size='small' color='primary' onClick={onButtonClick.bold}> <Remix.bold fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.italic}> <Remix.italic fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.highlight}> <Remix.highlight fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.underline}> <Remix.underline fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.strikethrough}> <Remix.strikethrough fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.code}> <Remix.code fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.link}> <Remix.link fontSize='small' /> </IconButton>
-
-                <Divider orientation='vertical' />
-
-                <IconButton size='small' color='primary' onClick={onButtonClick.h1}> <Remix.h1 fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.h2}> <Remix.h2 fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.h3}> <Remix.h3 fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.h4}> <Remix.h4 fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.h5}> <Remix.h5 fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.h6}> <Remix.h6 fontSize='small' /> </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.callout}> <Remix.callout fontSize='small' /> </IconButton>
+                <IconControl icon={<Remix.bold />} size={20} onClick={onButtonClick.bold} />
+                <IconControl icon={<Remix.italic />} size={20} onClick={onButtonClick.italic} />
+                <IconControl icon={<Remix.highlight />} size={20} onClick={onButtonClick.highlight} />
+                <IconControl icon={<Remix.underline />} size={20} onClick={onButtonClick.underline} />
+                <IconControl icon={<Remix.strikethrough />} size={20} onClick={onButtonClick.strikethrough} />
+                <IconControl icon={<Remix.code />} size={20} onClick={onButtonClick.code} />
+                <IconControl icon={<Remix.link />} size={20} onClick={onButtonClick.link} />
 
                 <Divider orientation='vertical' />
 
-                <IconButton size='small' color='primary' onClick={onButtonClick.codeBlock}>
-                    <Remix.codeBlock fontSize='small' />
-                </IconButton>
-                <IconButton size='small' color='primary' onClick={onButtonClick.mermaid}>
-                    <Remix.mermaid fontSize='small' />
-                </IconButton>
+                <IconControl icon={<Remix.h1 />} size={20} onClick={onButtonClick.h1} />
+                <IconControl icon={<Remix.h2 />} size={20} onClick={onButtonClick.h2} />
+                <IconControl icon={<Remix.h3 />} size={20} onClick={onButtonClick.h3} />
+                <IconControl icon={<Remix.h4 />} size={20} onClick={onButtonClick.h4} />
+                <IconControl icon={<Remix.h5 />} size={20} onClick={onButtonClick.h5} />
+                <IconControl icon={<Remix.h6 />} size={20} onClick={onButtonClick.h6} />
+                <IconControl icon={<Remix.callout />} size={20} onClick={onButtonClick.callout} />
 
                 <Divider orientation='vertical' />
-                <IconButton size='small' color='primary'>
-                    <Remix.table fontSize='small' onClick={onButtonClick.table} />
-                </IconButton>
+
+                <IconControl icon={<Remix.codeBlock />} size={20} onClick={onButtonClick.codeBlock} />
+                <IconControl icon={<Remix.mermaid />} size={20} onClick={onButtonClick.mermaid} />
+
+                <Divider orientation='vertical' />
+
+                <IconControl icon={<Remix.table />} size={20} onClick={onButtonClick.table} />
                 {/* <IconButton size='small' color='primary'>
                     <Remix.tableAddColumnLeft fontSize='small' onClick={addColumnLeft} />
                 </IconButton>

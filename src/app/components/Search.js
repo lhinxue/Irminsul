@@ -2,6 +2,7 @@ import { SwapHorizRounded } from "@mui/icons-material";
 import { IconButton, Input, InputAdornment, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Collapse from "./Collapse";
+import IconControl from "./IconControl";
 import List from "./List";
 import Remix from "./Remix";
 import SubTitle from "./SubTitle";
@@ -55,13 +56,10 @@ export default function Search(props) {
                 fontVariant: 'small-caps',
             },
             '&>button': {
-                width: '13px',
-                height: '13px',
+                // width: '13px',
+                // height: '13px',
                 marginLeft: '3px',
                 marginRight: '10px',
-            },
-            '& svg': {
-                fontSize: '12px'
             },
         },
         '& .Search_Result': {
@@ -80,9 +78,8 @@ export default function Search(props) {
                     <Box className='Search_InputContainer'>
                         <Input className="Search_Input" disableUnderline endAdornment={
                             <InputAdornment>
-                                <IconButton size="small">
-                                    <Remix.deleteBack fontSize="small" />
-                                </IconButton>
+                                <IconControl icon={<Remix.deleteBack />} on />
+
                             </InputAdornment>
                         } />
                     </Box>
@@ -91,9 +88,8 @@ export default function Search(props) {
                         <Typography component={'div'} color='primary'>
                             Entire Irminsul
                         </Typography>
-                        <IconButton color="primary" >
-                            <SwapHorizRounded fontSize="small" />
-                        </IconButton>
+                        <IconControl size={16} icon={<SwapHorizRounded />} />
+
                     </Box>
                     <List className='Search_Result' />
                 </Box>

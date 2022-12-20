@@ -46,7 +46,7 @@ export default function Explorer() {
             <SubTitle
                 z={15}
                 title={os.try(() => service.getApiRootName(api.root), '')}
-                icons={[{ icon: <Remix.exchange fontSize="small" color={browserOn ? 'secondary' : 'primary'} />, onClick: browserStateChange }]}
+                icons={[{ icon: <Remix.exchange />, onClick: browserStateChange, on: browserOn, rotate: true, tooltip: 'Change Root Directory' }]}
             />
             <Collapse
                 className='Explorer_RootBrowser'

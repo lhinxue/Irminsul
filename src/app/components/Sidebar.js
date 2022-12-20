@@ -6,6 +6,7 @@ import Remix from "../components/Remix";
 import Search from "../components/Search";
 import Setting from "../components/Setting";
 import Title from "../components/Title";
+import IconControl from "./IconControl";
 
 export default function Sidebar() {
 
@@ -67,17 +68,15 @@ export default function Sidebar() {
     return (
         <Box className='Sidebar' sx={style}>
             <Title z={20} title='IRMINSUL' icons={[
-                { icon: <Remix.search fontSize="small" />, onClick: searchStateChange, on: searchOn },
-                { icon: <Remix.setting fontSize="small" />, onClick: settingStateChange, on: settingOn },
-                { icon: <Remix.menuFold fontSize="small" />, onClick: sidebarStateChange }
+                { icon: <Remix.search fontSize="small" />, onClick: searchStateChange, on: searchOn,tooltip:'Search' },
+                { icon: <Remix.setting fontSize="small" />, onClick: settingStateChange, on: settingOn,tooltip:'Setting' },
+                { icon: <Remix.menuFold fontSize="small" />, onClick: sidebarStateChange,tooltip:'Hide Sidebar' }
             ]} />
             <Explorer />
             <Search on={searchOn} onClose={searchStateChange} z={searchZ} />
             <Setting on={settingOn} onClose={settingStateChange} z={settingZ} />
             <Box className='Sidebar_Off'>
-                <IconButton size="small" color="primary" onClick={sidebarStateChange}>
-                    <Remix.menuUnfold fontSize='small' />
-                </IconButton>
+                <IconControl icon={<Remix.menuUnfold />} onClick={sidebarStateChange} tooltip={'Show Sidebar'} />
             </Box>
         </Box >
     )

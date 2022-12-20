@@ -1,5 +1,6 @@
 import { InfoRounded } from "@mui/icons-material"
 import { Box, IconButton, Typography } from "@mui/material"
+import IconControl from "./IconControl"
 
 
 export default function Header(props) {
@@ -34,9 +35,14 @@ export default function Header(props) {
                 {title}
             </Typography>
             {icons.map(btn =>
-                <IconButton color={btn.on === true ? 'secondary' : btn.on === false ? 'primary' : 'primary'} onClick={btn.onClick} size='small'>
-                    {btn.icon}
-                </IconButton>
+                <IconControl
+                    on={btn.on}
+                    onClick={btn.onClick}
+                    icon={btn.icon}
+                    rotate={btn.rotate}
+                    tooltip={btn.tooltip}
+                    tooltipPosition={'bottom'}
+                />
             )}
         </Box>
     )
