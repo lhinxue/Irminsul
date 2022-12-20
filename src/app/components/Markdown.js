@@ -19,7 +19,6 @@ export default function Markdown({ content }) {
             }
         }
         reArranged.push(paragraph.substring(0, paragraph.length - 4))
-        // console.log(text.replace('\n', '<br>'))
         return reArranged.join('\n\n')
     }
 
