@@ -7,6 +7,22 @@ import Toc from "./Toc";
 
 export default function Markdown({ content }) {
 
+    const preProcess = (text) => {
+        let reArranged = []
+        let paragraph = ''
+        for (const line of text.split('\n')) {
+            if (line.trim() === '') {
+                reArranged.push(paragraph.substring(0, paragraph.length - 4))
+                paragraph = ''
+            } else {
+                paragraph = paragraph + line + '<br>'
+            }
+        }
+        reArranged.push(paragraph.substring(0, paragraph.length - 4))
+        // console.log(text.replace('\n', '<br>'))
+        return reArranged.join('\n\n')
+    }
+
     return (
         <Box sx={{
             width: 'auto',
@@ -15,10 +31,11 @@ export default function Markdown({ content }) {
             padding: '20px 50px',
             // border: '1px solid silver',
             minHeight: '100%',
-            backgroundColor: 'white'
+            backgroundColor: 'white',
+            boxShadow: '0px 0px 11px 0px rgb(70 70 70 / 10%)',
         }}>
             <ReactMarkdown
-                children={content}
+                children={preProcess(content)}
                 rehypePlugins={[rehypeRaw]}
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -28,11 +45,10 @@ export default function Markdown({ content }) {
                         return <code>{props.children}</code>
                     },
                     p(props) {
-                        console.log(props)
                         if (props.children[0] === '[toc]')
                             return <Toc md={content} level={1}></Toc>
                         return <p>{props.children}</p>
-                    }
+                    },
                 }}
             />
         </Box>

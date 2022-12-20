@@ -9,6 +9,7 @@ import Search from "../components/Search";
 import Setting from "../components/Setting";
 import Sidebar from "../components/Sidebar";
 import Title from "../components/Title";
+import Toolbox from "../components/Toolbox";
 
 export default function Home() {
 
@@ -25,6 +26,7 @@ export default function Home() {
         <Box sx={{ width: '100%', height: '100%', display: 'flex' }}>
             <Sidebar />
             <Editor />
+            <Toolbox />
         </Box>
     )
 }

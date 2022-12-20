@@ -390,11 +390,12 @@ export default function Editor() {
             }
         },
         '& .Editor_Editor': {
-            backgroundColor: '#f6f6f6',
+            backgroundColor: '#fafafa',
             height: 'calc(100% - 102px)',
             '& .DraftEditor-root': {
-                height: '100%',
-
+                minheight: '100%',
+                height: 'auto',
+                // backgroundColor: 'white',
             },
             '& .DraftEditor-root>div>div': {
                 height: '100%',
@@ -405,6 +406,7 @@ export default function Editor() {
                 maxWidth: '800px',
                 margin: 'auto',
                 height: '100%',
+                boxShadow: '0px 0px 11px 0px rgb(70 70 70 / 10%)',
             },
             '& .DraftEditor-editorContainer>div>div': {
                 counterReset: 'draftJsLine',
@@ -412,7 +414,8 @@ export default function Editor() {
                     paddingLeft: '50px',
                     borderBottom: '1px solid #f1f1f1',
                     fontFamily: 'monospace',
-                    position: 'relative'
+                    position: 'relative',
+                    // lineHeight:'16px'
                 },
                 '& >div:before': {
                     content: 'counter(draftJsLine)',
@@ -420,9 +423,12 @@ export default function Editor() {
                     position: 'absolute',
                     marginLeft: '-50px',
                     width: '40px',
-                    textAlign: 'center',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    justifyContent: 'center',
                     color: '#ccc',
-                    backgroundColor: '#f9f9f9',
+                    backgroundColor: '#fcfcfc',
                     borderRight: '1px solid #f1f1f1',
                     borderBottom: '1px solid #f1f1f1'
                 }
@@ -458,7 +464,7 @@ export default function Editor() {
                         {previewOn ? <Remix.markdown fontSize="small" /> : <Remix.code fontSize="small" />}
                     </IconButton>
                     <IconButton size="small" color="primary">
-                        <Remix.more fontSize="small" />
+                        <Remix.attachment fontSize="small" />
                     </IconButton>
                 </Box>
             </Box>
@@ -597,23 +603,8 @@ export default function Editor() {
                         :
                         <DraftJs
                             editorState={editorState} onChange={setEditorState}
+                            stripPastedStyles
                         />
-
-
-                    // <CodeMirror
-                    //     ref={md}
-                    //     value={ct}
-                    //     onChange={(value) => {
-                    //         setct(value)
-                    //     }}
-                    //     onUpdate={viewUpdate => {
-                    //         const stats = getStatistics(viewUpdate)
-                    //         setMdStats({
-                    //             from: stats.selectionAsSingle.from,
-                    //             to: stats.selectionAsSingle.to
-                    //         })
-                    //     }}
-                    // />
                 }
             </Box>
         </Box >
