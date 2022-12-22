@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { Irminsul } from "../../core/irminsul";
 import os from "../../core/os";
 import Collapse from "./Collapse";
+import ContextMenu from "./ContextMenu";
+import { DialogSystem } from "./Dialogs/DialogProvider";
 import List from "./List";
 import Remix from "./Remix";
 import SubTitle from "./SubTitle";
@@ -41,9 +43,19 @@ export default function Explorer() {
         service.initApiRoot()
     }, [])
 
+    const [menuOn, setMenuOn] = useState(false)
+    const [menuProps, setMenuProps] = useState({})
+
+    const onContextMenu = (e) => {
+        e.preventDefault()
+        setMenuProps({ top: e.clientY, left: e.clientX, id: e.target.id })
+        setMenuOn(true)
+    }
+    const { rename } = useContext(DialogSystem)
     return (
         <Box className='Explorer' sx={style}>
             <SubTitle
+                onContextMenu={onContextMenu}
                 z={15}
                 title={os.try(() => service.getApiRootName(api.root), '')}
                 icons={[{ icon: <Remix.exchange />, onClick: browserStateChange, on: browserOn, rotate: true, tooltip: 'Change Root Directory' }]}
@@ -65,6 +77,10 @@ export default function Explorer() {
                     onKeyChange={(e, v) => { service.updateApiRoot(e, v); browserStateChange() }}
                     source={os.try(() => Object.keys(irminsul), [])}
                     width={'100%'}
+                    menus={[
+                        { name: 'Rename' },
+                        { name: 'Delete' }
+                    ]}
                 />
             </Collapse>
             <Box className='Explorer_Container'>
@@ -96,6 +112,15 @@ export default function Explorer() {
                     width={300}
                 />
             </Box>
+            <ContextMenu
+                on={menuOn}
+                onClose={() => setMenuOn(false)}
+                current={menuProps}
+                menus={[
+                    { name: 'New Branch' },
+                    { name: 'Rename', onClick: () => rename.open('Root', service.getApiRootName(api.root) )}
+                ]}
+            />
         </Box>
     )
 }

@@ -5,15 +5,18 @@ import { borderBottom } from '@mui/system';
 import CodeMirror, { getStatistics } from '@uiw/react-codemirror';
 import { ContentBlock, ContentState, Editor as DraftJs, EditorState, genKey, Modifier, SelectionState } from 'draft-js';
 import Immutable from 'immutable'
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Irminsul } from '../../core/irminsul';
+import os from '../../core/os';
+import { DialogSystem } from './Dialogs/DialogProvider';
 import IconControl from './IconControl';
 import Markdown from "./Markdown";
 import Remix from "./Remix";
+import StatusBar from './StatusBar';
 export default function Editor() {
 
-    const { api } = useContext(Irminsul)
-
+    const { api, service } = useContext(Irminsul)
+    
 
     const [md, setMd] = useState('')
 
@@ -343,8 +346,19 @@ export default function Editor() {
     }
 
     const [editorState, setEditorState] = useState(
-        () => EditorState.createEmpty(),
+        () => EditorState.createEmpty()
     );
+
+    const updateEditorState = (es) => {
+        setEditorState(es)
+        service.setLeafContent(api.leaf, es.getCurrentContent().getPlainText())
+    }
+
+    useEffect(() => {
+        const newState = EditorState.createWithContent(ContentState.createFromText(service.getLeafContent(api.leaf)))
+        setEditorState(newState)
+        setMd(newState.getCurrentContent().getPlainText())
+    }, [api.leaf])
 
 
 
@@ -353,6 +367,7 @@ export default function Editor() {
         display: 'flex',
         flexDirection: 'column',
         flexGrow: 1,
+        position: 'relative',
         // width: 'calc(100% - 501px)',
         '& .Editor_Header': {
             display: 'flex',
@@ -402,7 +417,7 @@ export default function Editor() {
             },
             '& .DraftEditor-root>div>div': {
                 flexGrow: 1,
-
+                paddingBottom: '30px'
             },
             '& .DraftEditor-root>div': {
                 backgroundColor: 'white',
@@ -452,15 +467,24 @@ export default function Editor() {
                     <IconControl icon={<Remix.arrowRight />} />
                 </Box>
                 <Breadcrumbs className='Editor_Breadcrumbs' separator='·'>
-                    <Typography color='inherit'>
-                        root
-                    </Typography>
-                    <Typography color='inherit'>
-                        branch
-                    </Typography>
-                    <Typography color='text.primary'>
-                        leaf
-                    </Typography>
+                    {
+                        api.root ?
+                            <Typography color='inherit'>
+                                {service.getApiRootName(api.root)}
+                            </Typography> : ''
+                    }
+                    {
+                        api.branch ?
+                            <Typography color='inherit'>
+                                {service.getApiBranchName(api.branch)}
+                            </Typography> : ''
+                    }
+                    {
+                        api.leaf ?
+                            <Typography color='text.primary'>
+                                {service.getApiLeafName(api.leaf)}
+                            </Typography> : ''
+                    }
                 </Breadcrumbs>
                 <Box>
                     <IconControl icon={previewOn ? <Remix.article /> : <Remix.code />} onClick={onSwitchPreview} on />
@@ -494,9 +518,18 @@ export default function Editor() {
                 <Divider orientation='vertical' />
 
                 <IconControl icon={<Remix.table />} size={20} onClick={onButtonClick.table} />
+                <IconControl icon={<Remix.table />} size={20} onClick={() => {
+                    service.setLeafContent(api.leaf, '777')
+                    // setEditorState(EditorState.createWithContent(ContentState.createFromText('fuck')))
+
+                }
+                } />
                 {/* <IconButton size='small' color='primary'>
                     <Remix.tableAddColumnLeft fontSize='small' onClick={addColumnLeft} />
                 </IconButton>
+
+
+
                 <IconButton size='small' color='primary'>
                     <Remix.tableAddColumnRight fontSize='small' />
                 </IconButton>
@@ -595,11 +628,12 @@ export default function Editor() {
                     previewOn ? <Markdown content={md} />
                         :
                         <DraftJs
-                            editorState={editorState} onChange={setEditorState}
+                            editorState={editorState} onChange={updateEditorState}
                             stripPastedStyles
                         />
                 }
             </Box>
+            <StatusBar />
         </Box >
     )
 }

@@ -41,7 +41,7 @@ export default function Entry() {
                             <InputLabel htmlFor="input-with-icon-adornment1" sx={{ fontFamily: 'inherit' }}>
                                 API Key
                             </InputLabel>
-                            <Input
+                            <InputLabel
                                 id="input-with-icon-adornment1"
                                 type={staShowPassword ? 'text' : 'password'}
                                 value={strPassword}

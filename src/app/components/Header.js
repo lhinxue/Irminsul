@@ -10,6 +10,7 @@ export default function Header(props) {
     const icons = props.icons ?? [{ icon: <InfoRounded fontSize="small" />, onClick: () => console.warn('') }]
     const title = props.title ?? ''
     const z = props.z ?? 10
+    const onContextMenu = props.onContextMenu ?? (e => e.preventDefault())
 
     const style = {
         alignItems: 'center',
@@ -30,7 +31,7 @@ export default function Header(props) {
     }
 
     return (
-        <Box className="Header" sx={style}>
+        <Box className="Header" sx={style} onContextMenu={onContextMenu}>
             <Typography component='h1' color='primary'>
                 {title}
             </Typography>

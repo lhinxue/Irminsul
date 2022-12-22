@@ -6,6 +6,7 @@ export default function Title(props) {
     const icons = props.icons ?? []
     const title = props.title ?? 'Title'
     const z = props.z ?? 10
+    const onContextMenu=props.onContextMenu
 
     return (
         <Header
@@ -19,6 +20,7 @@ export default function Title(props) {
             height={'70px'}
             icons={icons}
             title={title.toUpperCase()}
+            onContextMenu={onContextMenu}
             z={z}
         />
     )

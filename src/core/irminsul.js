@@ -15,11 +15,11 @@ export default function LeyLines({ children }) {
                     _: {
                         'id111': {
                             name: 'Gmail',
-                            _: {}
+                            _: 'gmail'
                         },
                         'id112': {
                             name: 'Outlook',
-                            _: {}
+                            _: 'outlook'
                         }
                     }
                 },
@@ -157,6 +157,14 @@ export default function LeyLines({ children }) {
     const getApiBranchName = i => os.try(() => irminsul[api.root]._[i].name, '')
     const getApiLeafName = i => os.try(() => irminsul[api.root]._[api.branch]._[i].name, '')
 
+    const getLeafContent = i => os.try(() => irminsul[api.root]._[api.branch]._[i]._, '')
+
+    const setLeafContent = (i, c) => {
+        setIrminsul(ims => {
+            ims[api.root]._[api.branch]._[i]._ = c
+            return ims
+        })
+    }
 
     return (
         <Irminsul.Provider value={{
@@ -177,6 +185,8 @@ export default function LeyLines({ children }) {
                 updateApiBranch: updateApiBranch,
                 updateApiLeaf: updateApiLeaf,
                 updateApiRoot: updateApiRoot,
+                getLeafContent: getLeafContent,
+                setLeafContent: setLeafContent,
             }
         }}>
             {children}

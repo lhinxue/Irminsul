@@ -6,6 +6,7 @@ export default function ContextMenu(props) {
     const current = props.current
     const menus = props.menus
     const onClose = props.onClose
+    const z = props.z ?? 30
 
     return (
         <Menu
@@ -20,6 +21,7 @@ export default function ContextMenu(props) {
             elevation={0}
             color='primary'
             sx={{
+                zIndex: z,
 
                 '& .MuiMenu-paper': {
                     borderRadius: 0,
