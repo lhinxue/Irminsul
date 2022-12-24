@@ -59,7 +59,7 @@ export default function Dialogs() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={rename.off}>Cancel</Button>
-                    <Button onClick={rename.onSubmit}>Submit</Button>
+                    <Button onClick={()=>rename.onSubmit(rename.formData)}>Submit</Button>
                 </DialogActions>
             </Dialog>
         </>

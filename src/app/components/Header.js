@@ -11,7 +11,7 @@ export default function Header(props) {
     const title = props.title ?? ''
     const z = props.z ?? 10
     const onContextMenu = props.onContextMenu ?? (e => e.preventDefault())
-
+    const id = props.id ?? ''
     const style = {
         alignItems: 'center',
         backgroundColor: 'white',
@@ -31,7 +31,7 @@ export default function Header(props) {
     }
 
     return (
-        <Box className="Header" sx={style} onContextMenu={onContextMenu}>
+        <Box id={id} className="Header" sx={style} onContextMenu={onContextMenu}>
             <Typography component='h1' color='primary'>
                 {title}
             </Typography>

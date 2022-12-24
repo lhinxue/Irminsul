@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { v4 } from "uuid";
 import os from "./os";
 
 export const Irminsul = createContext()
@@ -166,6 +167,82 @@ export default function LeyLines({ children }) {
         })
     }
 
+    const renameRoot = (id, name) => {
+        setIrminsul(ims => {
+            ims[id].name = name
+            return ims
+        })
+    }
+
+    const ISMRename = (type, id, name) => {
+        switch (type) {
+            case 'Root':
+                setIrminsul(ims => {
+                    ims[id].name = name
+                    return ims
+                })
+                break
+            case 'Branch':
+                setIrminsul(ims => {
+                    ims[api.root]._[id].name = name
+                    return ims
+                })
+                break
+            case 'Leaf':
+                setIrminsul(ims => {
+                    ims[api.root]._[api.branch]._[id].name = name
+                    return ims
+                })
+                break
+        }
+    }
+
+    const IMSDelete = (type, id) => {
+        switch (type) {
+            case 'Root':
+                setIrminsul(ims => {
+                    delete ims[id]
+                    return ims
+                })
+                break
+            case 'Branch':
+                setIrminsul(ims => {
+                    delete ims[api.root]._[id]
+                    return ims
+                })
+                break
+            case 'Leaf':
+                setIrminsul(ims => {
+                    delete ims[api.root]._[api.branch]._[id]
+                    return ims
+                })
+                break
+        }
+    }
+
+    const IMSCreate = (type, name,id) => {
+        switch (type) {
+            case 'Root':
+                setIrminsul(ims => {
+                    delete ims[id]
+                    return ims
+                })
+                break
+            case 'Branch':
+                setIrminsul(ims => {
+                    delete ims[api.root]._[id]
+                    return ims
+                })
+                break
+            case 'Leaf':
+                setIrminsul(ims => {
+                    delete ims[api.root]._[api.branch]._[id]
+                    return ims
+                })
+                break
+        }
+    }
+
     return (
         <Irminsul.Provider value={{
             irminsul: irminsul,
@@ -187,6 +264,9 @@ export default function LeyLines({ children }) {
                 updateApiRoot: updateApiRoot,
                 getLeafContent: getLeafContent,
                 setLeafContent: setLeafContent,
+                renameRoot: renameRoot,
+                rename: ISMRename,
+                delete: IMSDelete
             }
         }}>
             {children}

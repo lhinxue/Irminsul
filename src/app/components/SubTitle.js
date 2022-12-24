@@ -6,10 +6,12 @@ export default function SubTitle(props) {
     const icons = props.icons ?? []
     const title = props.title ?? 'SubTitle'
     const z = props.z ?? 10
-    const onContextMenu=props.onContextMenu
+    const onContextMenu = props.onContextMenu
+    const id = props.id
 
     return (
         <Header
+            id={id}
             fontStyle={{
                 fontSize: '1.1rem',
                 fontVariant: 'small-caps',

@@ -7,7 +7,7 @@ export default function List(props) {
 
     const backgroundColor = props.backgroundColor ?? 'white'
     const className = props.className ? `List List_${props.className}` : 'List'
-    const current = props.current
+    const current = props.current ?? false
     const height = props.height ?? '100%'
     const label = props.className ?? 'List'
     const maxHeight = props.maxHeight ?? '100%'

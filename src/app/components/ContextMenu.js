@@ -55,7 +55,15 @@ export default function ContextMenu(props) {
         >
             {
                 menus.map(mn =>
-                    <MenuItem color='primary' onClick={() => mn.onClick(current.id)}>
+                    <MenuItem color='primary' onClick={() => {
+
+
+
+                        console.log(current.id)
+
+
+                        mn.onClick(current.id)
+                    }}>
 
                         {mn.name}
                     </MenuItem>

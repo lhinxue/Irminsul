@@ -13,10 +13,10 @@ export default function DialogProvider({ children }) {
             [strKey]: objValue
         }))
     }
-    const openRename = (type, name, onSubmit) => {
+    const openRename = (data, onSubmit) => {
         setRenameOn(true)
-        console.log(name)
-        setRenameFormData({ type: type, name: name })
+        console.log(data)
+        setRenameFormData(data)
         setRenameSubmit(onSubmit)
     }
 
