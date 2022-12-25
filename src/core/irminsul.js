@@ -118,18 +118,17 @@ export default function LeyLines({ children }) {
         leaf: undefined
     })
     const updateApi = (strKey, objValue) => {
-        console.log(objValue)
         setApi(pre => ({
             ...pre,
             [strKey]: objValue
         }))
     }
-    const updateApiRoot = (e, v) => {
+    const updateApiRoot = (v) => {
         updateApi('root', v)
         updateApi('branch', undefined)
         updateApi('leaf', undefined)
     }
-    const updateApiBranch = (e, v) => {
+    const updateApiBranch = (v) => {
         updateApi('branch', v)
         updateApi('leaf', undefined)
     }
@@ -140,13 +139,13 @@ export default function LeyLines({ children }) {
         updateApi('root', Object.keys(irminsul)[0])
     }
     const sortApiRoot = (a, b) => {
-        a = irminsul._[a].name
-        b = irminsul._[b].name
+        a = irminsul[a].name.toLowerCase()
+        b = irminsul[b].name.toLowerCase()
         return ((a < b) ? -1 : ((a > b) ? 1 : 0))
     }
     const sortApiBranch = (a, b) => {
-        a = irminsul._[api.root]._[a].name
-        b = irminsul._[api.root]._[b].name
+        a = irminsul[api.root]._[a].name.toLowerCase()
+        b = irminsul[api.root]._[b].name.toLowerCase()
         return ((a < b) ? -1 : ((a > b) ? 1 : 0))
     }
     const sortApiLeaf = (a, b) => {
@@ -162,8 +161,14 @@ export default function LeyLines({ children }) {
 
     const setLeafContent = (i, c) => {
         setIrminsul(ims => {
-            ims[api.root]._[api.branch]._[i]._ = c
+            try {
+                ims[api.root]._[api.branch]._[i]._ = c
+
+            } catch (error) {
+
+            }
             return ims
+
         })
     }
 
@@ -220,23 +225,23 @@ export default function LeyLines({ children }) {
         }
     }
 
-    const IMSCreate = (type, name,id) => {
+    const IMSCreate = (type, name, id) => {
         switch (type) {
             case 'Root':
                 setIrminsul(ims => {
-                    delete ims[id]
+                    ims[v4()] = { name: name, _: {} }
                     return ims
                 })
                 break
             case 'Branch':
                 setIrminsul(ims => {
-                    delete ims[api.root]._[id]
+                    ims[api.root]._[v4()] = { name: name, _: {} }
                     return ims
                 })
                 break
             case 'Leaf':
                 setIrminsul(ims => {
-                    delete ims[api.root]._[api.branch]._[id]
+                    ims[api.root]._[id]._[v4()] = { name: name, _: '' }
                     return ims
                 })
                 break
@@ -266,7 +271,8 @@ export default function LeyLines({ children }) {
                 setLeafContent: setLeafContent,
                 renameRoot: renameRoot,
                 rename: ISMRename,
-                delete: IMSDelete
+                delete: IMSDelete,
+                create: IMSCreate,
             }
         }}>
             {children}

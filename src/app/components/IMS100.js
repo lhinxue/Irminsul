@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function IMS100({
     form = [{ name: 'Name', id: 'Name', type: 'string' }],

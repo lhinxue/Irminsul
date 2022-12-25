@@ -5,7 +5,10 @@ import os from "../../core/os";
 import Collapse from "./Collapse";
 import ContextMenu from "./ContextMenu";
 import { DialogSystem } from "./Dialogs/DialogProvider";
+import BranchExplorer from "./Explorer/BranchExplorer";
+import RootExplorer from "./Explorer/RootExplorer";
 import IMS100 from "./IMS100";
+import ContentLeader from "./Leader/ContentLeader";
 import List from "./List";
 import Remix from "./Remix";
 import SubTitle from "./SubTitle";
@@ -23,6 +26,12 @@ export default function Explorer() {
     const [renameKey, setRenameKey] = useState('')
     const [renameOn, setRenameOn] = useState(false)
     const renameOnChange = () => setRenameOn(on => !on)
+
+    const [createTitle, setCreateTitle] = useState('')
+    const [createType, setCreateType] = useState('')
+    const [createKey, setCreateKey] = useState('')
+    const [createOn, setCreateOn] = useState(false)
+    const createOnChange = () => setCreateOn(on => !on)
 
 
 
@@ -64,7 +73,7 @@ export default function Explorer() {
     }
     return (
         <Box className='Explorer' sx={style}>
-            <SubTitle
+            <ContentLeader
                 onContextMenu={onContextMenu}
                 z={15}
                 id={api.root}
@@ -80,30 +89,12 @@ export default function Explorer() {
                 width={'100%'}
                 z={13}
             >
-                <List
-                    current={api.root ?? false}
-                    height={'fit-content'}
-                    maxHeight={'360px'}
-                    onGetName={service.getApiRootName}
-                    onKeyChange={(e, v) => { service.updateApiRoot(e, v); browserStateChange() }}
-                    source={os.try(() => Object.keys(irminsul), [])}
-                    width={'100%'}
-                    menus={[
-                        {
-                            name: 'Rename', onClick: (key) => {
-                                setRenameTitle('Rename Root')
-                                setRenameType('Root')
-                                setRenameKey(key)
-                                setRenameOn(true)
-
-                            }
-                        },
-                        { name: 'Delete' }
-                    ]}
+                <RootExplorer
+                    postChange={browserStateChange}
                 />
             </Collapse>
             <Box className='Explorer_Container'>
-                <List
+                <BranchExplorer
                     current={api.branch ?? false}
                     menus={[
                         { name: 'New Leaf' },
@@ -150,7 +141,14 @@ export default function Explorer() {
                 onClose={() => setMenuOn(false)}
                 current={menuProps}
                 menus={api.root ? [
-                    { name: 'New Root' },
+                    {
+                        name: 'New Root', onClick: () => {
+                            setCreateTitle('Create New Root')
+
+                            setCreateType('Root')
+                            setCreateOn(true)
+                        }
+                    },
                     { name: 'New Branch' },
                     {
                         name: 'Rename',
@@ -179,6 +177,15 @@ export default function Explorer() {
                 onSubmit={(formData) => {
                     service.rename(renameType, renameKey, formData.Name)
                     renameOnChange()
+                }}
+            />
+            <IMS100
+                title={createTitle}
+                on={createOn}
+                onClose={createOnChange}
+                onSubmit={(formData) => {
+                    service.create(createType, formData.Name, createKey)
+                    createOnChange()
                 }}
             />
         </Box>
