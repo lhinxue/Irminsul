@@ -1,7 +1,7 @@
 import { DeleteOutlined, DriveFileRenameOutline, ExpandMoreRounded } from '@mui/icons-material'
 import { Box, Button, ListItemIcon, Menu, MenuItem, Tab, Tabs, Typography } from '@mui/material'
 import { useContext, useState } from 'react'
-import { Irminsul } from '../../../core/irminsul'
+import { LeyLine } from '../../../core/irminsul'
 import ContextMenu from '../ContextMenu'
 import NameInquirer from '../Inquirer/NameInquirer'
 import Secretary from '../Secretary/__base'
@@ -13,7 +13,7 @@ export default function RootExplorer({
 
     const { api,
         irminsul,
-        service } = useContext(Irminsul)
+        service } = useContext(LeyLine)
 
     const [renameKey, setRenameKey] = useState('')
     const [renameOn, setRenameOn] = useState(false)

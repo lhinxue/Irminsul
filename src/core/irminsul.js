@@ -1,12 +1,34 @@
 import { createContext, useState } from "react";
 import { v4 } from "uuid";
 import os from "./os";
-
-export const Irminsul = createContext()
+import { createTheme, ThemeProvider } from '@mui/material';
+export const LeyLine = createContext()
 
 export default function LeyLines({ children }) {
 
     // IRMINSUL
+
+    const [primaryColor, setPrimaryColor] = useState('#7b1fa2')
+    const [secondaryColor, setSecondaryColor] = useState('#ba68c8')
+
+    const theme = createTheme({
+        palette: {
+            type: 'light',
+            primary: {
+                main: primaryColor,
+            },
+            secondary: {
+                main: secondaryColor,
+            },
+        },
+        typography: {
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
+        },
+    })
+
+    const [reRender, setReRender] = useState(false)
+    const forceReRender = () => setReRender(re => !re)
+
     const [irminsul, setIrminsul] = useState({
         'a4522850-ac16-4ccc-a0bf-bb48a471f622': {
             name: 'Example',
@@ -132,7 +154,7 @@ export default function LeyLines({ children }) {
         updateApi('branch', v)
         updateApi('leaf', undefined)
     }
-    const updateApiLeaf = (e, v) => {
+    const updateApiLeaf = (v) => {
         updateApi('leaf', v)
     }
     const initApiRoot = () => {
@@ -149,8 +171,8 @@ export default function LeyLines({ children }) {
         return ((a < b) ? -1 : ((a > b) ? 1 : 0))
     }
     const sortApiLeaf = (a, b) => {
-        a = irminsul._[api.root]._[api.branch]._[a].name
-        b = irminsul._[api.root]._[api.branch]._[b].name
+        a = irminsul[api.root]._[api.branch]._[a].name.toLowerCase()
+        b = irminsul[api.root]._[api.branch]._[b].name.toLowerCase()
         return ((a < b) ? -1 : ((a > b) ? 1 : 0))
     }
     const getApiRootName = i => os.try(() => irminsul[i].name, '')
@@ -246,10 +268,11 @@ export default function LeyLines({ children }) {
                 })
                 break
         }
+        forceReRender()
     }
 
     return (
-        <Irminsul.Provider value={{
+        <LeyLine.Provider value={{
             irminsul: irminsul,
             api: {
                 branch: api.branch,
@@ -273,9 +296,16 @@ export default function LeyLines({ children }) {
                 rename: ISMRename,
                 delete: IMSDelete,
                 create: IMSCreate,
+                reRender: reRender,
+                setReRender: setReRender,
+                forceReRender: forceReRender,
+            },
+            theme: {
+                primaryColor: primaryColor,
+                secondaryColor: secondaryColor,
             }
         }}>
             {children}
-        </Irminsul.Provider>
+        </LeyLine.Provider>
     )
 }

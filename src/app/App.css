@@ -2,19 +2,19 @@ html,
 body,
 #root,
 #content {
-    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    
+
 }
 
 #root {
     display: flex;
     flex-direction: column;
 }
-#content{
+
+#content {
     display: flex;
     flex-direction: row;
 

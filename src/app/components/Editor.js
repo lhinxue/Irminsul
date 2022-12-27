@@ -6,16 +6,15 @@ import CodeMirror, { getStatistics } from '@uiw/react-codemirror';
 import { ContentBlock, ContentState, Editor as DraftJs, EditorState, genKey, Modifier, SelectionState } from 'draft-js';
 import Immutable from 'immutable'
 import { useContext, useEffect, useRef, useState } from "react";
-import { Irminsul } from '../../core/irminsul';
+import { LeyLine } from '../../core/irminsul';
 import os from '../../core/os';
-import { DialogSystem } from './Dialogs/DialogProvider';
 import IconControl from './IconControl';
 import Markdown from "./Markdown";
 import Remix from "./Remix";
 import StatusBar from './StatusBar';
 export default function Editor() {
 
-    const { api, service } = useContext(Irminsul)
+    const { api, service } = useContext(LeyLine)
     
 
     const [md, setMd] = useState('')

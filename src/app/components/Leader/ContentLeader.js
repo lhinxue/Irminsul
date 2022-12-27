@@ -1,12 +1,12 @@
 import { useContext, useState } from "react"
-import { Irminsul } from "../../../core/irminsul"
+import { LeyLine } from "../../../core/irminsul"
 import NameInquirer from "../Inquirer/NameInquirer"
 import Secretary from "../Secretary/__base"
 import LeaderBase from "./__base"
 
 
 export default function ContentLeader(props) {
-    const { api, service } = useContext(Irminsul)
+    const { api, service } = useContext(LeyLine)
     const icons = props.icons ?? []
     const title = props.title ?? 'SubTitle'
     const z = props.z ?? 10
@@ -21,13 +21,13 @@ export default function ContentLeader(props) {
     }
 
 
-    const [renameKey, setRenameKey] = useState('')
-    const [renameOn, setRenameOn] = useState(false)
-    const renameChange = () => setRenameOn(on => !on)
-    const renameSubmit = (name) => {
-        service.rename('Root', renameKey, name)
-        renameChange()
-    }
+    // const [renameKey, setRenameKey] = useState('')
+    // const [renameOn, setRenameOn] = useState(false)
+    // const renameChange = () => setRenameOn(on => !on)
+    // const renameSubmit = (name) => {
+    //     service.rename('Root', renameKey, name)
+    //     renameChange()
+    // }
 
     const [createTitle, setCreateTitle] = useState('')
     const [createType, setCreateType] = useState('')
@@ -39,24 +39,52 @@ export default function ContentLeader(props) {
         createChange()
     }
 
+    const [inquirerTitle, setInquirerTitle] = useState('')
+    const [inquirerType, setInquirerType] = useState('')
+    const [renameKey, setRenameKey] = useState('')
+    const [renameOn, setRenameOn] = useState(false)
+    const renameChange = () => setRenameOn(on => !on)
+    const renameSubmit = (name) => {
+        switch (inquirerType) {
+            case 'newRoot':
+                service.create('Root', name)
+                break
+            case 'newBranch':
+                service.create('Branch', name)
+                break
+            case 'rename':
+                service.rename('Root', renameKey, name)
+                break
+            case 'delete':
+
+                break
+
+        }
+
+        renameChange()
+    }
     const onMenuClick = {
-        newRoot: () => {
-            setCreateTitle('Create New Root')
-            setCreateType('Root')
-            setCreateOn(true)
-        },
-        newBranch: () => {
-            setCreateTitle('Create New Branch')
-            setCreateType('Branch')
-            setCreateOn(true)
-        },
-        rename: () => {
-            setRenameKey(api.root)
+        newRoot: key => {
+            setInquirerTitle('Create New Root')
+            setInquirerType('newRoot')
+            setRenameKey(key)
             setRenameOn(true)
         },
-        delete: () => {
-            service.delete('Root', api.root)
-            service.updateApiRoot(undefined)
+        newBranch: key => {
+            setInquirerTitle('Create New Branch')
+            setInquirerType('newBranch')
+            setRenameKey(key)
+            setRenameOn(true)
+        },
+        rename: key => {
+            setInquirerTitle('Rename Root')
+            setInquirerType('rename')
+            setRenameKey(key)
+            setRenameOn(true)
+        },
+        delete: key => {
+            service.delete('Root', key)
+            if (key === api.root) service.updateApiRoot(undefined)
         }
     }
     return (
@@ -81,24 +109,19 @@ export default function ContentLeader(props) {
                 on={menuOn}
                 onClose={() => setMenuOn(false)}
                 current={menuProps}
-                menus={[
+                menus={api.root ? [
                     { name: 'New Root', onClick: onMenuClick.newRoot },
                     { name: 'New Branch', onClick: onMenuClick.newBranch },
                     { name: 'Rename', onClick: onMenuClick.rename },
                     { name: 'Delete', onClick: onMenuClick.delete },
-                ]}
+                ] : [{ name: 'New Root', onClick: onMenuClick.newBranch }]
+                }
             />
             <NameInquirer
-                title={'Rename Root'}
+                title={inquirerTitle}
                 on={renameOn}
                 onClose={renameChange}
                 onSubmit={renameSubmit}
-            />
-            <NameInquirer
-                title={createTitle}
-                on={createOn}
-                onClose={createChange}
-                onSubmit={createSubmit}
             />
         </>
 

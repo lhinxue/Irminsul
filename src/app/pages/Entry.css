@@ -62,31 +62,3 @@
 .page-entry-window>div>div>div:nth-child(2)>div {
     border-bottom: 1px solid;
 }
-
-
-.page-entry-window {
-    margin-bottom: 30px;
-    opacity: 1;
-    width: 360px;
-    height: 260px;
-    transition: opacity 2s ease 3s;
-}
-
-.page-entry-window.before {
-    opacity: 0;
-}
-
-.page-entry-window-help {
-    align-self: flex-end;
-    font-size: 12px;
-    opacity: .8;
-    margin-top: -33px;
-    text-decoration: underline;
-    text-decoration-color: white;
-    transition: all .3s ease-in-out;
-    cursor: pointer;
-}
-
-.page-entry-window-help:hover {
-    text-decoration-color: gray;
-}

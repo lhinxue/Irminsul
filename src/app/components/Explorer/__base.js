@@ -1,6 +1,7 @@
 import { DeleteOutlined, DriveFileRenameOutline, ExpandMoreRounded } from '@mui/icons-material'
 import { Box, Button, ListItemIcon, Menu, MenuItem, Tab, Tabs, Typography } from '@mui/material'
-import { Children, useState } from 'react'
+import { Children, useContext, useState } from 'react'
+import { LeyLine } from '../../../core/irminsul'
 // import ContextMenu from './ContextMenu'
 
 export default function ExplorerBase({
@@ -14,7 +15,9 @@ export default function ExplorerBase({
     rowHeight = 40,
     width = 200,
     z = 10,
+    onContextMenu = e => e.preventDefault()
 }) {
+    const { service } = useContext(LeyLine)
 
     // const backgroundColor = props.backgroundColor ?? 'white'
     // const className = props.className ? `List List_${props.className}` : 'List'
@@ -103,16 +106,17 @@ export default function ExplorerBase({
                 padding: '2px 5px 2px 20px',
                 '& .Label': {
                     fontWeight: 'normal',
-                    textTransform: 'none'
+                    textTransform: 'none',
+                    zIndex: '-1'
                 }
             }
         }
     }
 
     return (
-        <Box className={className} sx={sx}>
+        <Box className={className} sx={sx} state={service.reRender}>
             <Tabs
-                onContextMenu={e => e.preventDefault()}
+                onContextMenu={onContextMenu}
                 ScrollButtonComponent={ScrollButton}
                 className='TabGroup'
                 onClick={onClick}
@@ -123,20 +127,5 @@ export default function ExplorerBase({
                 {children}
             </Tabs>
         </Box>
-    )
-}
-
-export function ExplorerItem({
-    key, name
-}) {
-    return (
-        <Tab
-            className='Tab'
-            iconPosition='start'
-            id={key}
-            key={key}
-            label={<div className='Label'>{name}</div>}
-            value={key}
-        />
     )
 }
