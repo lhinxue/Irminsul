@@ -271,6 +271,26 @@ export default function LeyLines({ children }) {
         forceReRender()
     }
 
+    const IMSMove = (type, objectId, destinationId) => {
+        switch (type) {
+            case 'Branch':
+                setIrminsul(ims => {
+                    let toBeMoved = ims[api.root]._[objectId]
+                    delete ims[api.root]._[objectId]
+                    ims[destinationId]._[objectId] = toBeMoved
+                    return ims
+                })
+                break
+            case 'Leaf':
+                // setIrminsul(ims => {
+                //     ims[api.root]._[id]._[v4()] = { name: name, _: '' }
+                //     return ims
+                // })
+                break
+        }
+        forceReRender()
+    }
+
     return (
         <LeyLine.Provider value={{
             irminsul: irminsul,
@@ -296,6 +316,7 @@ export default function LeyLines({ children }) {
                 rename: ISMRename,
                 delete: IMSDelete,
                 create: IMSCreate,
+                move: IMSMove,
                 reRender: reRender,
                 setReRender: setReRender,
                 forceReRender: forceReRender,
