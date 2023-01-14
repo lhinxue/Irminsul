@@ -1,11 +1,11 @@
 import { useContext, useState } from "react"
 import { LeyLine } from "../../../core/irminsul"
-import NameInquirer from "../Inquirer/NameInquirer"
-import Secretary from "../Secretary/__base"
+import NameDialog from "../Dialog/NameDialog"
+import ContextMenu from "../Template/ContextMenu"
 import LeaderBase from "./__base"
 
 
-export default function ContentLeader(props) {
+export default function ContentHeader(props) {
     const { api, service } = useContext(LeyLine)
     const icons = props.icons ?? []
     const title = props.title ?? 'SubTitle'
@@ -105,7 +105,7 @@ export default function ContentLeader(props) {
             >
                 {api.root ? service.getApiRootName(api.root) : ''}
             </LeaderBase>
-            <Secretary
+            <ContextMenu
                 on={menuOn}
                 onClose={() => setMenuOn(false)}
                 current={menuProps}
@@ -117,7 +117,7 @@ export default function ContentLeader(props) {
                 ] : [{ name: 'New Root', onClick: onMenuClick.newBranch }]
                 }
             />
-            <NameInquirer
+            <NameDialog
                 title={inquirerTitle}
                 on={renameOn}
                 onClose={renameChange}

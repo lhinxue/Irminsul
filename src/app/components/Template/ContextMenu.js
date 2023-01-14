@@ -1,6 +1,6 @@
 import { Menu, MenuItem } from '@mui/material'
 
-export default function Secretary({
+export default function ContextMenu({
     on = false,
     current,
     menus = [],

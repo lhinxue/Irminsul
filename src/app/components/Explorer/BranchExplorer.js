@@ -1,12 +1,10 @@
-import { DeleteOutlined, DriveFileRenameOutline, ExpandMoreRounded } from '@mui/icons-material'
-import { Box, Button, ListItemIcon, Menu, MenuItem, Tab, Tabs, Typography } from '@mui/material'
-import { useContext, useEffect, useState } from 'react'
+import { Tab } from '@mui/material'
+import { useContext, useState } from 'react'
 import { LeyLine } from '../../../core/irminsul'
-import ContextMenu from '../ContextMenu'
-import NameInquirer from '../Inquirer/NameInquirer'
-import OptionInquirer from '../Inquirer/OptionInquirer'
-import Secretary from '../Secretary/__base'
-import ExplorerBase, { ExplorerItem } from './__base'
+import NameDialog from '../Dialog/NameDialog'
+import OptionDialog from '../Dialog/OptionDialog'
+import ContextMenu from '../Template/ContextMenu'
+import ExplorerBase from './__base'
 
 export default function BranchExplorer({
     postChange = () => undefined
@@ -116,6 +114,7 @@ export default function BranchExplorer({
     return (
         <>
             <ExplorerBase
+            
                 current={api.branch ?? false}
                 onClick={onClick}
                 onContextMenu={onTopContextMenu}
@@ -134,7 +133,7 @@ export default function BranchExplorer({
                     ) : ''
                 }
             </ExplorerBase>
-            <Secretary
+            <ContextMenu
                 on={menuOn}
                 onClose={() => setMenuOn(false)}
                 current={menuProps}
@@ -146,7 +145,7 @@ export default function BranchExplorer({
                     { name: 'Delete', onClick: onMenuClick.delete },
                 ]}
             />
-            <Secretary
+            <ContextMenu
                 on={topMenuOn}
                 onClose={() => setTopMenuOn(false)}
                 current={topMenuProps}
@@ -156,14 +155,14 @@ export default function BranchExplorer({
             />
             {
                 inquirerClass === 'Name' ?
-                    <NameInquirer
+                    <NameDialog
                         title={inquirerTitle}
                         on={renameOn}
                         onClose={renameChange}
                         onSubmit={renameSubmit}
                     /> :
                     inquirerClass === 'Option' ?
-                        <OptionInquirer
+                        <OptionDialog
                             on={inquirerOn}
                             onClose={inquirerSwitch}
                             onSubmit={renameSubmit}

@@ -1,7 +1,7 @@
-import Editor from "../components/Editor";
-import PageBase from "./__base";
-import Sidebar from "../components/Sidebar";
-import Toolbox from "../components/Toolbox";
+import Downloader from '../components/Control/Downloader';
+import Editor from '../components/Editor/Editor';
+import Sidebar from '../components/Sidebar/Sidebar';
+import PageBase from './__base';
 
 export default function Home() {
 
@@ -9,7 +9,7 @@ export default function Home() {
         <PageBase>
             <Sidebar />
             <Editor />
-            <Toolbox />
+            <Downloader />
         </PageBase>
     )
 }

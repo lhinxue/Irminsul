@@ -1,13 +1,13 @@
 import { Box } from "@mui/system";
 import { useContext, useEffect, useState } from "react";
-import { LeyLine } from "../../core/irminsul";
-import os from "../../core/os";
-import Collapse from "./Collapse";
-import BranchExplorer from "./Explorer/BranchExplorer";
-import LeafExplorer from "./Explorer/LeafExplorer";
-import RootExplorer from "./Explorer/RootExplorer";
-import ContentLeader from "./Leader/ContentLeader";
-import Remix from "./Remix";
+import { LeyLine } from "../../../core/irminsul";
+import os from "../../../core/os";
+import Collapse from "../Template/Collapse";
+import BranchExplorer from "./BranchExplorer";
+import LeafExplorer from "./LeafExplorer";
+import RootExplorer from "./RootExplorer";
+import ContentHeader from "../Header/ContentHeader";
+import Remix from "../Icon/Remix";
 
 export default function Explorer() {
 
@@ -22,7 +22,7 @@ export default function Explorer() {
     const style = {
         display: 'flex',
         flexDirection: 'column',
-        flexGrow: 1,
+        height: 'calc(100% - 70px)',
         position: 'relative',
         '& .Explorer_RootBrowser': {
             borderBottom: '1px solid silver',
@@ -33,7 +33,7 @@ export default function Explorer() {
         },
         '& .Explorer_Container': {
             display: 'flex',
-            height: '100%',
+            height: 'calc(100% - 50px)',
             position: 'relative',
             '& .Explorer:last-child': {
                 borderLeft: '1px solid silver'
@@ -48,7 +48,7 @@ export default function Explorer() {
 
     return (
         <Box sx={style}>
-            <ContentLeader
+            <ContentHeader
                 z={15}
                 id={api.root}
                 title={os.try(() => service.getApiRootName(api.root), '')}

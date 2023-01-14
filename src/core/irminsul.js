@@ -33,28 +33,16 @@ export default function LeyLines({ children }) {
         'a4522850-ac16-4ccc-a0bf-bb48a471f622': {
             name: 'Example',
             _: {
-                'id11': {
-                    name: 'Emaisl',
+                '9f2022aa-93d2-11ed-a1eb-0242ac120002': {
+                    name: 'Example',
                     _: {
-                        'id111': {
-                            name: 'Gmail',
-                            _: 'gmail'
-                        },
-                        'id112': {
-                            name: 'Outlook',
-                            _: 'outlook'
+                        'a306d40e-93d2-11ed-a1eb-0242ac120002': {
+                            name: 'Example',
+                            _: 'Example text.'
                         }
                     }
-                },
-                'id12': {
-                    name: 'Books',
-                    _: {}
                 }
             }
-        },
-        '6b185e41-d724-4844-a35b-e7e53d82339b': {
-            name: 'Empty',
-            _: {}
         }
     })
 
@@ -130,8 +118,8 @@ export default function LeyLines({ children }) {
         }
     }
 
-    // 
-    // User Configuration
+
+    // Api Configurations
     const [api, setApi] = useState({
         file: undefined,
         key: undefined,
@@ -145,18 +133,39 @@ export default function LeyLines({ children }) {
             [strKey]: objValue
         }))
     }
-    const updateApiRoot = (v) => {
+    const resetApi = () => {
+        setApi({
+            file: undefined,
+            key: undefined,
+            root: undefined,
+            branch: undefined,
+            leaf: undefined
+        })
+    }
+    const updateApiFile = v => {
+        updateApi('file', v)
+    }
+    const updateApiKey = v => {
+        updateApi('key', v)
+    }
+    const updateApiRoot = v => {
         updateApi('root', v)
         updateApi('branch', undefined)
         updateApi('leaf', undefined)
     }
-    const updateApiBranch = (v) => {
+    const updateApiBranch = v => {
         updateApi('branch', v)
         updateApi('leaf', undefined)
     }
-    const updateApiLeaf = (v) => {
+    const updateApiLeaf = v => {
         updateApi('leaf', v)
     }
+
+
+
+
+
+
     const initApiRoot = () => {
         updateApi('root', Object.keys(irminsul)[0])
     }
@@ -295,11 +304,22 @@ export default function LeyLines({ children }) {
         <LeyLine.Provider value={{
             irminsul: irminsul,
             api: {
+                file: api.file,
+                key: api.key,
+                root: api.root,
                 branch: api.branch,
                 leaf: api.leaf,
-                root: api.root,
+                set: {
+                    file: updateApiFile,
+                    key: updateApiKey,
+                    root: updateApiRoot,
+                    branch: updateApiBranch,
+                    leaf: updateApiLeaf,
+                },
+                reset: resetApi
             },
             service: {
+                setIrminsul: setIrminsul,
                 getApiBranchName: getApiBranchName,
                 getApiLeafName: getApiLeafName,
                 getApiRootName: getApiRootName,

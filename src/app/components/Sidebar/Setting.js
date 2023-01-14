@@ -1,9 +1,9 @@
 import { Box } from "@mui/system";
 import { useState } from "react";
-import Collapse from "./Collapse";
-import List from "./List";
-import Remix from "./Remix";
-import SubTitle from "./SubTitle";
+import SubHeader from "../Header/SubHeader";
+import Remix from "../Icon/Remix";
+import List from "../Template/List";
+import Collapse from "../Template/Collapse";
 
 export default function Setting(props) {
 
@@ -39,7 +39,7 @@ export default function Setting(props) {
     return (
         <Collapse on={on} toLeft top={70} width={500} z={z} >
             <Box sx={style}>
-                <SubTitle
+                <SubHeader
                     title={'Setting'}
                     icons={[{ icon: <Remix.arrowBack fontSize="small" color={'primary'} />, onClick: onClose }]}
                 />

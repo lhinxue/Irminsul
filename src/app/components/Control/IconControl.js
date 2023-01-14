@@ -1,16 +1,18 @@
 import { IconButton, Tooltip } from "@mui/material";
 
-export default function IconControl(props) {
-    const icon = props.icon
-    const onClick = props.onClick
-    const on = props.on
-    const rotate = props.rotate
-    const size = props.size ?? 30
-    const grey = props.grey
-    const tooltip = props.tooltip
-    const tooltipPosition = props.tooltipPosition ?? 'top'
+export default function IconControl({
+    gray,
+    icon,
+    on,
+    onClick,
+    rotate,
+    size = 30,
+    tooltip,
+    tooltipPosition = 'top'
+}) {
 
-    const style = {
+    // Styles
+    const sx = {
         width: `${size}px`,
         height: `${size}px`,
         minWidth: `${size}px`,
@@ -28,30 +30,19 @@ export default function IconControl(props) {
     }
 
     return (
-
         <>
             {
                 tooltip ?
                     <Tooltip title={tooltip} placement={tooltipPosition}>
-                        <IconButton
-                            color={grey ? 'default' : on === true ? 'secondary' : on === false ? 'primary' : 'primary'}
-                            onClick={onClick}
-                            sx={style}
-                        >
+                        <IconButton color={gray ? 'default' : on === true ? 'secondary' : on === false ? 'primary' : 'primary'} onClick={onClick} sx={sx} >
                             {icon}
                         </IconButton>
                     </Tooltip>
                     :
-                    <IconButton
-                        color={grey ? 'default' : on === true ? 'secondary' : on === false ? 'primary' : 'primary'}
-                        onClick={onClick}
-                        sx={style}
-                    >
+                    <IconButton color={gray ? 'default' : on === true ? 'secondary' : on === false ? 'primary' : 'primary'} onClick={onClick} sx={sx} >
                         {icon}
                     </IconButton>
             }
         </>
-
-
     )
 }

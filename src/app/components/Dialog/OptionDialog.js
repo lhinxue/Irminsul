@@ -2,7 +2,7 @@ import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/mater
 import { useState } from "react";
 import InquirerBase from "./__base";
 
-export default function OptionInquirer({
+export default function OptionDialog({
     on,
     onClose: p_onClose,
     onSubmit: p_onSubmit,

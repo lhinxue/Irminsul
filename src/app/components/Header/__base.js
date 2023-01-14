@@ -1,6 +1,6 @@
 import { InfoRounded } from "@mui/icons-material"
 import { Box, IconButton, Typography } from "@mui/material"
-import IconControl from "../IconControl"
+import IconControl from "../Control/IconControl"
 // import IconControl from "./IconControl"
 
 

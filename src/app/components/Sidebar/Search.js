@@ -1,11 +1,11 @@
 import { SwapHorizRounded } from "@mui/icons-material";
-import { IconButton, Input, InputAdornment, Typography } from "@mui/material";
+import { Input, InputAdornment, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import Collapse from "./Collapse";
-import IconControl from "./IconControl";
-import List from "./List";
-import Remix from "./Remix";
-import SubTitle from "./SubTitle";
+import IconControl from "../Control/IconControl";
+import SubHeader from "../Header/SubHeader";
+import Remix from "../Icon/Remix";
+import List from "../Template/List";
+import Collapse from "../Template/Collapse";
 
 export default function Search(props) {
 
@@ -70,7 +70,7 @@ export default function Search(props) {
     return (
         <Collapse on={on} toLeft top={70} width={500} z={z} >
             <Box sx={style}>
-                <SubTitle
+                <SubHeader
                     title={'Search'}
                     icons={[{ icon: <Remix.arrowBack fontSize="small" color={'primary'} />, onClick: onClose }]}
                 />

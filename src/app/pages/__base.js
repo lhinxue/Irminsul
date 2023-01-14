@@ -1,23 +1,26 @@
-import { Box } from "@mui/system";
-import { LeyLine } from "../../core/irminsul";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { Box } from "@mui/system";
 import { useContext } from "react";
+import { LeyLine } from "../../core/irminsul";
 
 export default function PageBase({
     children,
-    sx,
-    grey = false
+    gray = false,
+    sx = {}
 }) {
 
+    // LeyLine
     const { theme } = useContext(LeyLine)
+
+    // Theme
     const muiTheme = createTheme({
         palette: {
             type: 'light',
             primary: {
-                main: grey ? '#000000' : theme.primaryColor,
+                main: gray ? '#555555' : theme.primaryColor,
             },
             secondary: {
-                main: grey ? '#555555' : theme.secondaryColor,
+                main: gray ? '#aaaaaa' : theme.secondaryColor,
             },
         },
         typography: {
@@ -27,9 +30,7 @@ export default function PageBase({
 
     return (
         <ThemeProvider theme={muiTheme}>
-            <Box className='Page' sx={{ width: '100%', height: '100%', display: 'flex', ...sx }}>
-                {children}
-            </Box>
+            <Box className='Page' sx={{ width: '100%', height: '100%', display: 'flex', ...sx }}> {children} </Box>
         </ThemeProvider>
     )
 }

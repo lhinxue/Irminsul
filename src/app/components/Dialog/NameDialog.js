@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import InquirerBase from "./__base";
 
-export default function NameInquirer({
+export default function NameDialog({
     on,
     onClose: p_onClose,
     onSubmit: p_onSubmit,

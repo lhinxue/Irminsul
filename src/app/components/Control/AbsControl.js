@@ -1,6 +1,6 @@
 import { Button, Tooltip } from "@mui/material";
 
-export default function AbsButton(props) {
+export default function AbsControl(props) {
     const icon = props.icon
     const onClick = props.onClick
     const bottom = props.bottom

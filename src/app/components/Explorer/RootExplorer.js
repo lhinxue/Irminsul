@@ -2,9 +2,8 @@ import { DeleteOutlined, DriveFileRenameOutline, ExpandMoreRounded } from '@mui/
 import { Box, Button, ListItemIcon, Menu, MenuItem, Tab, Tabs, Typography } from '@mui/material'
 import { useContext, useState } from 'react'
 import { LeyLine } from '../../../core/irminsul'
-import ContextMenu from '../ContextMenu'
-import NameInquirer from '../Inquirer/NameInquirer'
-import Secretary from '../Secretary/__base'
+import NameDialog from '../Dialog/NameDialog'
+import ContextMenu from '../Template/ContextMenu'
 import ExplorerBase, { ExplorerItem } from './__base'
 
 export default function RootExplorer({
@@ -68,7 +67,7 @@ export default function RootExplorer({
                     />
                 )}
             </ExplorerBase>
-            <Secretary
+            <ContextMenu
                 on={menuOn}
                 onClose={() => setMenuOn(false)}
                 current={menuProps}
@@ -77,7 +76,7 @@ export default function RootExplorer({
                     { name: 'Delete', onClick: onMenuClick.delete },
                 ]}
             />
-            <NameInquirer
+            <NameDialog
                 title={'Rename Root'}
                 on={renameOn}
                 onClose={renameChange}

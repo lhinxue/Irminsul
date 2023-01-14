@@ -8,10 +8,11 @@ export default function Collapse(props) {
     const children = props.children
     const duration = props.duration ?? .3
     const height = props.height
-    const left = props.left ?? 0
+    const left = props.left
     const on = props.on
-    const right = props.right ?? 0
+    const right = props.right
     const toLeft = props.toLeft
+    const toRight = props.toRight
     const toTop = props.toTop
     const top = props.top ?? 0
     const width = props.width ?? 300
@@ -27,7 +28,7 @@ export default function Collapse(props) {
         overflow: 'hidden',
         position: 'absolute',
         top: top,
-        transform: on ? '' : toLeft ? 'translateX(-100%)' : toTop ? 'translateY(-100%)' : '',
+        transform: on ? '' : toLeft ? 'translateX(-100%)' : toTop ? 'translateY(-100%)' : toRight ? 'translateX(100%)': '',
         transition: `all .3s ease`,
         width: width,
         zIndex: z,

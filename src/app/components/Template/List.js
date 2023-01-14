@@ -1,5 +1,5 @@
-import { DeleteOutlined, DriveFileRenameOutline, ExpandMoreRounded } from '@mui/icons-material'
-import { Box, Button, ListItemIcon, Menu, MenuItem, Tab, Tabs, Typography } from '@mui/material'
+import { ExpandMoreRounded } from '@mui/icons-material'
+import { Box, Button, Tab, Tabs } from '@mui/material'
 import { useState } from 'react'
 import ContextMenu from './ContextMenu'
 
